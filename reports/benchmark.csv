@@ -1,0 +1,4 @@
+metric,value
+requests,10
+elapsed_ms,117
+throughput_req_per_sec,85.470

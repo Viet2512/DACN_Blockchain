@@ -1,18 +1,22 @@
-# Node modules
+# Dependencies
 node_modules/
-npm-debug.log
-yarn-error.log
 
-# Environment variables
+# Environment and local secrets
 .env
-.env.local
+.env.*
+!.env.example
 
-# Build outputs
-dist/
+# Build and test output
 build/
-*.log
+dist/
+coverage/
 
-# Hyperledger Fabric artifacts 
-crypto-config/
-channel-artifacts/*.block
-channel-artifacts/*.tx
+# Runtime data
+backend/uploads/*
+!backend/uploads/.gitkeep
+*.log
+.DS_Store
+
+# Local database/Fabric runtime files
+*.db
+*.sqlite

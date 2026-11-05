@@ -1,0 +1,59 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: tracechain-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: traceability
+      MYSQL_USER: tracechain
+      MYSQL_PASSWORD: tracechain_dev
+      MYSQL_ROOT_PASSWORD: root_dev
+    ports:
+      - "3307:3306"
+    volumes:
+      - tracechain_mysql_data:/var/lib/mysql
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -utracechain -ptracechain_dev"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  backend:
+    build: ./backend
+    container_name: tracechain-backend
+    restart: unless-stopped
+    environment:
+      PORT: 8080
+      MYSQL_ENABLED: "true"
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: traceability
+      MYSQL_USER: tracechain
+      MYSQL_PASSWORD: tracechain_dev
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: admin123
+      FABRIC_ENABLED: "false"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    container_name: tracechain-frontend
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      REACT_APP_API_URL: http://localhost:8080/api
+      WDS_SOCKET_PORT: 3001
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+
+volumes:
+  tracechain_mysql_data:
