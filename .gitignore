@@ -20,3 +20,4 @@ backend/uploads/*
 # Local database/Fabric runtime files
 *.db
 *.sqlite
+fabric-samples/
