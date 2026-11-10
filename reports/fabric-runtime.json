@@ -1,0 +1,76 @@
+{
+  "checkedAt": "2026-11-07T16:12:23.715Z",
+  "dependencies": {
+    "mysql": true,
+    "fabric": {
+      "ready": true,
+      "schemaVersion": 4,
+      "channel": "tracechannel-v2",
+      "chaincode": "traceability_v2"
+    }
+  },
+  "peers": [
+    {
+      "organization": 1,
+      "height": 314,
+      "currentBlockHash": "AW7d5JX8IjRpXSIp7BeACTqTSEjh4l39Qb/o6OO4uQU=",
+      "previousBlockHash": "H1tr1/UisVUaTvzojgRKBkJxQZadeLtpiqH+osjzoIo=",
+      "definition": {
+        "sequence": 6,
+        "version": "4.3",
+        "endorsement_plugin": "escc",
+        "validation_plugin": "vscc",
+        "validation_parameter": "EiAvQ2hhbm5lbC9BcHBsaWNhdGlvbi9FbmRvcnNlbWVudA==",
+        "collections": {},
+        "approvals": {
+          "Org1MSP": true,
+          "Org2MSP": true,
+          "Org3MSP": true
+        }
+      }
+    },
+    {
+      "organization": 2,
+      "height": 314,
+      "currentBlockHash": "AW7d5JX8IjRpXSIp7BeACTqTSEjh4l39Qb/o6OO4uQU=",
+      "previousBlockHash": "H1tr1/UisVUaTvzojgRKBkJxQZadeLtpiqH+osjzoIo=",
+      "definition": {
+        "sequence": 6,
+        "version": "4.3",
+        "endorsement_plugin": "escc",
+        "validation_plugin": "vscc",
+        "validation_parameter": "EiAvQ2hhbm5lbC9BcHBsaWNhdGlvbi9FbmRvcnNlbWVudA==",
+        "collections": {},
+        "approvals": {
+          "Org1MSP": true,
+          "Org2MSP": true,
+          "Org3MSP": true
+        }
+      }
+    },
+    {
+      "organization": 3,
+      "height": 314,
+      "currentBlockHash": "AW7d5JX8IjRpXSIp7BeACTqTSEjh4l39Qb/o6OO4uQU=",
+      "previousBlockHash": "H1tr1/UisVUaTvzojgRKBkJxQZadeLtpiqH+osjzoIo=",
+      "definition": {
+        "sequence": 6,
+        "version": "4.3",
+        "endorsement_plugin": "escc",
+        "validation_plugin": "vscc",
+        "validation_parameter": "EiAvQ2hhbm5lbC9BcHBsaWNhdGlvbi9FbmRvcnNlbWVudA==",
+        "collections": {},
+        "approvals": {
+          "Org1MSP": true,
+          "Org2MSP": true,
+          "Org3MSP": true
+        }
+      }
+    }
+  ],
+  "legacy": {
+    "height": 6,
+    "currentBlockHash": "NY+4BHIHOp+zCqjrqqFegHcpygv6swkp2RNOYzvtvBA=",
+    "previousBlockHash": "H/04Ul60EffvJV5h/3blOCk6TamQv9RUWISPcMZDOYs="
+  }
+}

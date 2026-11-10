@@ -1,0 +1,156 @@
+{
+  "checkedAt": "2026-11-10T03:41:46.005Z",
+  "source": "FABRIC",
+  "commits": [
+    {
+      "eventType": "CTE_CREATE",
+      "transactionId": "361850392dc67339580af4bc08472689f9efca34263682d7454c8ef611621ecc",
+      "status": "CREATED",
+      "apiCommitLatencyMs": 381
+    },
+    {
+      "eventType": "CTE_HARVEST",
+      "transactionId": "b70a3af76890f9b86fb1c1c4c768d7ae65648dbb393254b8ba0c04988b6af560",
+      "status": "HARVESTED",
+      "apiCommitLatencyMs": 2004
+    },
+    {
+      "eventType": "CTE_HANDOVER_PROCESSOR",
+      "transactionId": "1a7f221472faa51cf47606975a3c512811b2f1fe2404facabe4833759bbeed1c",
+      "status": "WAITING_PROCESSOR",
+      "apiCommitLatencyMs": 2117
+    },
+    {
+      "eventType": "CTE_RECEIVE_PROCESSOR",
+      "transactionId": "4c5e18cfd746ce71bfe4d4a8ab3192044d8aa4b41b9fae503d609c63126b4939",
+      "status": "RECEIVED_PROCESSOR",
+      "apiCommitLatencyMs": 2102
+    },
+    {
+      "eventType": "CTE_PROCESS",
+      "transactionId": "5bcab1fd079f26185bad81aa8fd833d86a6359a948af45ec76a40e502d94efaf",
+      "status": "PROCESSED",
+      "apiCommitLatencyMs": 2100
+    },
+    {
+      "eventType": "CTE_HANDOVER_SHIP",
+      "transactionId": "431bf89be6633070d23bf4260ef5c31786f6bc21a3a6cbd3d83c7dcd89b89985",
+      "status": "WAITING_SHIP",
+      "apiCommitLatencyMs": 2086
+    },
+    {
+      "eventType": "CTE_RECEIVE_SHIP",
+      "transactionId": "503a8cf830a1cfae8424781f69dc697cc0cd5cf43b43539b02e50c6525af89cb",
+      "status": "IN_TRANSIT",
+      "apiCommitLatencyMs": 2038
+    },
+    {
+      "eventType": "CTE_TRANSPORT",
+      "transactionId": "fd629be5f2505bfa94bae168652c63bed9d5f8c882b21649c139c790ac1d30f1",
+      "status": "IN_TRANSIT",
+      "apiCommitLatencyMs": 2087
+    },
+    {
+      "eventType": "CTE_HANDOVER_RETAIL",
+      "transactionId": "9d0f499de2884040cbe26f0bbf0151703084ac7a9571c58298a487599a3ce4a7",
+      "status": "WAITING_RETAIL",
+      "apiCommitLatencyMs": 2055
+    },
+    {
+      "eventType": "CTE_DISPATCH_RETAIL",
+      "transactionId": "3d19435b19238bb5ad82be351efa5bc90ee92c9e9579b07dfb35349c82463a16",
+      "status": "IN_RETAIL",
+      "apiCommitLatencyMs": 2115
+    },
+    {
+      "eventType": "CTE_DISPLAY_SALE",
+      "transactionId": "c2a1d2043988017e7fdea12e582c093802b01d826a680cefada958be6e75c2b8",
+      "status": "READY_FOR_SALE",
+      "apiCommitLatencyMs": 2085
+    }
+  ],
+  "rejections": [
+    {
+      "name": "system cannot produce",
+      "source": "API",
+      "status": 403,
+      "code": "HTTP_403"
+    },
+    {
+      "name": "business admin cannot produce",
+      "source": "API",
+      "status": 403,
+      "code": "HTTP_403"
+    },
+    {
+      "name": "duplicate lot",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409"
+    },
+    {
+      "name": "wrong role on ledger",
+      "source": "CHAINCODE",
+      "code": "RBAC_DENIED"
+    },
+    {
+      "name": "receive without handover on ledger",
+      "source": "CHAINCODE",
+      "code": "FSM_INVALID"
+    },
+    {
+      "name": "receive without handover",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409"
+    },
+    {
+      "name": "quality cannot be bypassed",
+      "source": "API",
+      "status": 400,
+      "code": "QUALITY"
+    },
+    {
+      "name": "other business in same MSP cannot receive",
+      "source": "CHAINCODE",
+      "code": "WRONG_RECEIVER"
+    },
+    {
+      "name": "system cannot confirm",
+      "source": "API",
+      "status": 403,
+      "code": "HTTP_403"
+    },
+    {
+      "name": "replayed transport event",
+      "source": "API",
+      "status": 409,
+      "code": "PREVIOUS_EVENT"
+    }
+  ],
+  "checks": {
+    "hierarchyAndActivation": true,
+    "perUserEnrollment": true,
+    "missingIdentityRejected": true,
+    "fullWorkflow": true,
+    "publicQr": true,
+    "ledgerHistory": true,
+    "allCommitsValid": true,
+    "sqlTamperingDetected": true,
+    "hashIntactBusinessInvalidDetected": true,
+    "reconnectPersistence": true,
+    "seedRetryPreservesAccountsAndDisabledSigners": true
+  },
+  "lotId": "QA-DELIVERY-B6AEC38A5D81CB7E",
+  "finalStatus": "READY_FOR_SALE",
+  "businessReplayAnomalies": [
+    {
+      "step": "Identity",
+      "code": "RBAC_DENIED"
+    },
+    {
+      "step": "State",
+      "code": "FSM_INVALID"
+    }
+  ]
+}

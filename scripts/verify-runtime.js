@@ -1,0 +1,32 @@
+// Read-only by default; --restart explicitly checks persistence without removing any volume.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const {createHash,randomBytes}=require('node:crypto'),{spawnSync}=require('node:child_process');
+const root=path.join(__dirname,'..'),network=path.join(root,'fabric-samples/test-network');
+require('../backend/node_modules/dotenv').config({path:path.join(root,'.env'),quiet:true});
+const restart=process.argv.includes('--restart');
+function run(command,args,cwd=root){const result=spawnSync(command,args,{cwd,encoding:'utf8',maxBuffer:10*1024*1024});assert.equal(result.status,0,`${command} ${args[0]} failed; command output withheld`);return result.stdout;}
+function peer(org,command){return run('bash',['-c',`export PATH="$PWD/../bin:$PATH" FABRIC_CFG_PATH="$PWD/../config" FABRIC_LOGGING_SPEC=error OVERRIDE_ORG="" VERBOSE=false; source scripts/envVar.sh; setGlobals ${org} >/dev/null; ${command}`],network);}
+async function database(){return require('../backend/node_modules/mysql2/promise').createConnection({host:process.env.MYSQL_HOST || '127.0.0.1',port:Number(process.env.MYSQL_PORT || 3307),database:process.env.MYSQL_DATABASE,user:process.env.MYSQL_USER,password:process.env.MYSQL_PASSWORD,timezone:'Z',dateStrings:['DATE']});}
+async function fingerprint(){const db=await database();try{const result={},[tables]=await db.query('SHOW TABLES');for(const row of tables){const table=Object.values(row)[0];assert.match(table,/^[a-z_]+$/);const [rows]=await db.query(`SELECT * FROM \`${table}\``);result[table]={rows:rows.length,sha256:createHash('sha256').update(JSON.stringify(rows.map(row=>JSON.stringify(row)).sort())).digest('hex')};}const [[qa]]=await db.query("SELECT COUNT(*) AS count FROM lots WHERE lot_id LIKE 'QA-DELIVERY-%' OR lot_id LIKE 'QA-BROWSER-%'");assert.equal(qa.count,0,'QA lots must not contaminate the application database');return result;}finally{await db.end();}}
+async function healthy(){for(let attempt=0;attempt<90;attempt++){try{const response=await fetch('http://localhost:8080/api/health/dependencies',{signal:AbortSignal.timeout(5000)});assert.equal(response.status,200);const body=await response.json();assert.equal(body.mysql,true);assert.equal(body.fabric.ready,true);return body;}catch(error){if(attempt===89)throw error;await new Promise(resolve=>setTimeout(resolve,1000));}}}
+async function main(){
+ const report={checkedAt:new Date().toISOString(),restartRequested:restart,docker:JSON.parse(run('docker',['version','--format','{{json .Server}}'])).Version};
+ run('docker',['compose','-f','docker-compose.yml','-f','docker-compose.fabric.yml','config','--quiet']);
+ report.dependencies=await healthy();report.fabricVersion=run('docker',['exec','peer0.org1.example.com','peer','version']).match(/Version:\s*(\S+)/)[1];
+ report.peers=[1,2,3].map(org=>({mspId:`Org${org}MSP`,info:JSON.parse(peer(org,'peer channel getinfo -c tracechannel-v2').split('Blockchain info: ').at(-1)),definition:JSON.parse(peer(org,'peer lifecycle chaincode querycommitted -C tracechannel-v2 -n traceability_v2 --output json'))}));
+ assert.equal(new Set(report.peers.map(item=>item.info.currentBlockHash)).size,1,'Peers have not synchronized');
+ assert.ok(report.peers.every(item=>['Org1MSP','Org2MSP','Org3MSP'].every(msp=>item.definition.approvals[msp]===true)));
+ const temporary=`../../backups/runtime-config-${randomBytes(6).toString('hex')}`;
+ try{peer(1,`peer channel fetch config ${temporary}.block -c tracechannel-v2 -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile "$ORDERER_CA"`);run(path.join(root,'fabric-samples/bin/configtxlator'),['proto_decode','--input',path.resolve(network,temporary+'.block'),'--type','common.Block','--output',path.resolve(network,temporary+'.json')]);const block=JSON.parse(fs.readFileSync(path.resolve(network,temporary+'.json'),'utf8'));const application=block.data.data[0].payload.data.config.channel_group.groups.Application;report.channelOrganizations=Object.keys(application.groups);report.endorsement=application.policies.Endorsement.policy;assert.equal(report.channelOrganizations.length,3);}
+ finally{for(const extension of ['.block','.json'])fs.rmSync(path.resolve(network,temporary+extension),{force:true});}
+ const before=await fingerprint();report.mysqlBefore=before;
+ process.env.FABRIC_ENABLED='true';process.env.FABRIC_NETWORK_ROOT=network;const fabric=require('../backend/fabric');
+ try{
+  const proof=JSON.parse(fs.readFileSync(path.join(root,'reports/delivery-e2e.json'),'utf8'));const history=await fabric.history(proof.lotId);assert.equal(history.length,11);
+  if(restart){await fabric.close();run('docker',['restart','tracechain-mysql']);run('docker',['restart','peer0.org3.example.com']);run('docker',['compose','-f','docker-compose.yml','-f','docker-compose.fabric.yml','restart','backend','frontend']);report.dependencies=await healthy();assert.deepEqual(await fingerprint(),before,'MySQL content changed after restart');assert.deepEqual(await fabric.history(proof.lotId),history,'Fabric history changed after restart');assert.equal((await fabric.validateHistory(proof.lotId)).valid,true);report.persistence={mysqlAllTablesUnchanged:true,ledgerHistoryUnchanged:true,volumesRemoved:false,lotId:proof.lotId,events:history.length};}
+  assert.equal((await fetch('http://localhost:3001')).status,200);assert.equal((await fetch('http://localhost:3001/api/users')).status,401);
+  const inspect=JSON.parse(run('docker',['inspect','tracechain-mysql','tracechain-backend','tracechain-frontend','peer0.org1.example.com','peer0.org2.example.com','peer0.org3.example.com','orderer.example.com']));report.containers=inspect.map(item=>({name:item.Name.slice(1),status:item.State.Status,health:item.State.Health?.Status || 'not configured',restartCount:item.RestartCount,volumes:item.Mounts.filter(mount=>mount.Type==='volume').map(mount=>mount.Name)}));assert.ok(report.containers.every(item=>item.status==='running'));report.apiProxyUnauthorizedStatus=401;report.applicationDatabaseHasQaLots=false;
+  fs.writeFileSync(path.join(root,restart?'reports/delivery-runtime.json':'reports/delivery-runtime-current.json'),JSON.stringify(report,null,2)+'\n');console.log({runtime:'PASS',organizations:report.channelOrganizations,version:report.peers[0].definition.version,persistence:report.persistence || 'NOT REQUESTED'});
+ }finally{await fabric.close();}
+}
+main().catch(error=>{console.error(error.message);process.exitCode=1;});

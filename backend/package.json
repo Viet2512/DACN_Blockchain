@@ -7,6 +7,10 @@
     "start": "node server.js",
     "seed:demo": "node seed-demo.js",
     "reset:demo": "node reset-demo.js",
+    "demo:check": "bash ../scripts/demo.sh check",
+    "demo:seed": "bash ../scripts/demo.sh seed",
+    "demo:verify": "bash ../scripts/demo.sh verify",
+    "demo:test": "bash ../scripts/demo.sh test",
     "test": "node --test"
   },
   "keywords": [],

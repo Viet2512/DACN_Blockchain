@@ -1,0 +1,7 @@
+{
+  "verifiedAt": "2026-11-08T17:52:11.528Z",
+  "migration": "007-account-hierarchy",
+  "originalTables": 22,
+  "originalRows": 400,
+  "allOriginalRowsPreserved": true
+}

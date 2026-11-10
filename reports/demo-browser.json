@@ -1,0 +1,678 @@
+{
+  "checkedAt": "2026-11-10T03:54:48.128Z",
+  "pages": [
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/organizations",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/users",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/roles",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/verification",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/blockchain",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/fabric-organizations",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/fabric-identities",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/audit-logs",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "route": "/admin/reports",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/staff",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/activity",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/organization",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat01",
+      "role": "FARMER",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat01",
+      "role": "FARMER",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat01",
+      "role": "FARMER",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat01",
+      "role": "FARMER",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat01",
+      "role": "FARMER",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat01",
+      "role": "FARMER",
+      "route": "/lots/new",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat02",
+      "role": "FARMER",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat02",
+      "role": "FARMER",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat02",
+      "role": "FARMER",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat02",
+      "role": "FARMER",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat02",
+      "role": "FARMER",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat02",
+      "role": "FARMER",
+      "route": "/lots/new",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/staff",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/activity",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/organization",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche01",
+      "role": "PROCESSOR",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche01",
+      "role": "PROCESSOR",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche01",
+      "role": "PROCESSOR",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche01",
+      "role": "PROCESSOR",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche01",
+      "role": "PROCESSOR",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche01",
+      "role": "PROCESSOR",
+      "route": "/work",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche02",
+      "role": "PROCESSOR",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche02",
+      "role": "PROCESSOR",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche02",
+      "role": "PROCESSOR",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche02",
+      "role": "PROCESSOR",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche02",
+      "role": "PROCESSOR",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_soche02",
+      "role": "PROCESSOR",
+      "route": "/work",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/staff",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/activity",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/organization",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen01",
+      "role": "TRANSPORTER",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen01",
+      "role": "TRANSPORTER",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen01",
+      "role": "TRANSPORTER",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen01",
+      "role": "TRANSPORTER",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen01",
+      "role": "TRANSPORTER",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen01",
+      "role": "TRANSPORTER",
+      "route": "/work",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen02",
+      "role": "TRANSPORTER",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen02",
+      "role": "TRANSPORTER",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen02",
+      "role": "TRANSPORTER",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen02",
+      "role": "TRANSPORTER",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen02",
+      "role": "TRANSPORTER",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen02",
+      "role": "TRANSPORTER",
+      "route": "/work",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/staff",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/activity",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "route": "/business/organization",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi01",
+      "role": "DISTRIBUTOR",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi01",
+      "role": "DISTRIBUTOR",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi01",
+      "role": "DISTRIBUTOR",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi01",
+      "role": "DISTRIBUTOR",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi01",
+      "role": "DISTRIBUTOR",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi01",
+      "role": "DISTRIBUTOR",
+      "route": "/work",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi02",
+      "role": "DISTRIBUTOR",
+      "route": "/lots",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi02",
+      "role": "DISTRIBUTOR",
+      "route": "/handovers",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi02",
+      "role": "DISTRIBUTOR",
+      "route": "/history",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi02",
+      "role": "DISTRIBUTOR",
+      "route": "/recalls",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi02",
+      "role": "DISTRIBUTOR",
+      "route": "/profile",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi02",
+      "role": "DISTRIBUTOR",
+      "route": "/work",
+      "desktop": "PASS",
+      "mobile": "PASS"
+    }
+  ],
+  "errors": [],
+  "checks": {
+    "nativeHandoverRequest": {
+      "status": "PASS",
+      "lotId": "TC-DEMO-V1-007",
+      "transactionId": "a0e808cab2359bafa9ed0beae5009009d36868374c3b2e8b49cdb672d79c4ec6"
+    },
+    "nativeHandoverConfirmation": {
+      "status": "PASS",
+      "lotId": "TC-DEMO-V1-007",
+      "transactionId": "617359b12c8b2470c9be349129332c011f4aabc6426dbf5e3018a8404cbcc0b2"
+    },
+    "publicTraceWithoutSession": "PASS",
+    "all13NativeLoginsRoutesAndResponsive": "PASS"
+  }
+}

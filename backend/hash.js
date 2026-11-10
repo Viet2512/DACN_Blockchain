@@ -9,6 +9,7 @@ function sortedValue(value) {
 }
 
 function eventHash(event) {
+  if (event.schemaVersion === 4) return require('../chaincode/src/workflow').hash({...event,integrityHash:''});
   return createHash('sha256').update(JSON.stringify(sortedValue({
     docType: 'traceEvent',
     eventId: event.eventId,

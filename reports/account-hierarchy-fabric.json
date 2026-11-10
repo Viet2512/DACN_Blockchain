@@ -1,0 +1,10 @@
+{
+  "verifiedAt": "2026-11-10T03:33:51.457Z",
+  "transactionId": "51762d4f0deb0fd75a20ce0fbfb7ef00339b155eb21d8d64ec4419df0fb97340",
+  "lotId": "ACCOUNT-B56CB85D0A9E8F18",
+  "source": "FABRIC",
+  "commitStatus": "COMMITTED_VALID",
+  "historyValid": true,
+  "disabledAccountCannotSign": true,
+  "disabledIdentityCannotSign": true
+}

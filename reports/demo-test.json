@@ -1,0 +1,1351 @@
+{
+  "dataset": "TC-DEMO-V1",
+  "checkedAt": "2026-11-10T03:57:51.117Z",
+  "created": {
+    "organizations": 0,
+    "accounts": 0,
+    "lots": 0,
+    "events": 0
+  },
+  "skipped": 0,
+  "reconciled": 0,
+  "errors": [],
+  "lots": [
+    {
+      "lotId": "TC-DEMO-V1-001",
+      "productCode": "NS-01",
+      "status": "READY_FOR_SALE",
+      "events": 11,
+      "transactionIds": [
+        "6c09a788b52d88272d2947336c06deb3200044e4a7fc7fcc94399f9bac82da96",
+        "8dd1d8e9e72ac0bc045cbc561c2faee13e30c77c52d87b2ef3cc041b5f7af72c",
+        "523fd3addbca4491d1ac58d5860ecc8bdcd4bf29e114fad0746a9ecc949175a4",
+        "8782a38cb5cfff793f3858a936a9fcf22873f5b4bda1adc23afa7de161c36b75",
+        "3b8ce87ad79bed6ae945d55e67336206c99548deb320764a336fcda6344542b1",
+        "87513b9814ffd23599cc56420effaaa0875ba7b1494910b677b354bb28cb8ea2",
+        "c793997f18d14031215f4ef05dd8e634f73aa8d91746ac5726adfe87cb5806e6",
+        "10ab867bf062735bbb2f58599c64d44b19b06a51130398d2b38903a4dbd28124",
+        "a76ec1c964fa79f88a321b0bd9ea8d142f3b8d5829a3dbb175068d16cac4f5de",
+        "1bd0fe0c292504ff4ec75cae04e787767b870175b8d765f4e18cce8d33c0928b",
+        "c88c61d33fb60cbf5eb852697c52c638ab3b73a403c747285583d1ab5f5212d2"
+      ],
+      "commits": [
+        {
+          "transactionId": "6c09a788b52d88272d2947336c06deb3200044e4a7fc7fcc94399f9bac82da96",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "8dd1d8e9e72ac0bc045cbc561c2faee13e30c77c52d87b2ef3cc041b5f7af72c",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "523fd3addbca4491d1ac58d5860ecc8bdcd4bf29e114fad0746a9ecc949175a4",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "8782a38cb5cfff793f3858a936a9fcf22873f5b4bda1adc23afa7de161c36b75",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "3b8ce87ad79bed6ae945d55e67336206c99548deb320764a336fcda6344542b1",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "87513b9814ffd23599cc56420effaaa0875ba7b1494910b677b354bb28cb8ea2",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "c793997f18d14031215f4ef05dd8e634f73aa8d91746ac5726adfe87cb5806e6",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "10ab867bf062735bbb2f58599c64d44b19b06a51130398d2b38903a4dbd28124",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "a76ec1c964fa79f88a321b0bd9ea8d142f3b8d5829a3dbb175068d16cac4f5de",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "1bd0fe0c292504ff4ec75cae04e787767b870175b8d765f4e18cce8d33c0928b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "c88c61d33fb60cbf5eb852697c52c638ab3b73a403c747285583d1ab5f5212d2",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 3,
+      "handoverConfirmations": 3,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-002",
+      "productCode": "NS-02",
+      "status": "READY_FOR_SALE",
+      "events": 11,
+      "transactionIds": [
+        "d12fe75fc4464abf12d3adbd2bf0756f3d6debbc3577aace9dfc068d7030ddc3",
+        "624965c64dc92e7ac6e1f53d0ea81904433b5eafd18d443a1afdda07d375d2d4",
+        "5920d9f612b58e1158f0b8d2022a35fbde94748ef33619f356e3f0f5351f82ae",
+        "bde650a518fcc29ace3da6e288282afdc9568fee7e919dc4f87e46d6e68f1397",
+        "706d3fbb18c08c35786f338e5d9011660d77387ba23d4ec369a9926bbf599826",
+        "9b3ddb68b250bba80dc1194503cf1ce60627726afafad31db4657c7aedb130d7",
+        "4e578ab3a768f915eb5c5c39e9844b5cf244bca77f28a382d83833879f16b738",
+        "f990b75591ce80514cd433c92820df8e2ffb383a3948860335f22f89d2d4f44b",
+        "e11cd6af7399f60041b59be5edcc8b379bf0ce1a8259ecfaf559a235ba3cc5b9",
+        "e10dc59e4b5963d7fd83c34baf84d2ca13f62f5d64f644afd371e334c2a438d2",
+        "f7c42a673daa0370d725d68ccab26b9e0df7a5651462686f634a5e0a499f2d73"
+      ],
+      "commits": [
+        {
+          "transactionId": "d12fe75fc4464abf12d3adbd2bf0756f3d6debbc3577aace9dfc068d7030ddc3",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "624965c64dc92e7ac6e1f53d0ea81904433b5eafd18d443a1afdda07d375d2d4",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "5920d9f612b58e1158f0b8d2022a35fbde94748ef33619f356e3f0f5351f82ae",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "bde650a518fcc29ace3da6e288282afdc9568fee7e919dc4f87e46d6e68f1397",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "706d3fbb18c08c35786f338e5d9011660d77387ba23d4ec369a9926bbf599826",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "9b3ddb68b250bba80dc1194503cf1ce60627726afafad31db4657c7aedb130d7",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "4e578ab3a768f915eb5c5c39e9844b5cf244bca77f28a382d83833879f16b738",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "f990b75591ce80514cd433c92820df8e2ffb383a3948860335f22f89d2d4f44b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "e11cd6af7399f60041b59be5edcc8b379bf0ce1a8259ecfaf559a235ba3cc5b9",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "e10dc59e4b5963d7fd83c34baf84d2ca13f62f5d64f644afd371e334c2a438d2",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "f7c42a673daa0370d725d68ccab26b9e0df7a5651462686f634a5e0a499f2d73",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 3,
+      "handoverConfirmations": 3,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-003",
+      "productCode": "NS-03",
+      "status": "READY_FOR_SALE",
+      "events": 11,
+      "transactionIds": [
+        "1dabc9ed47cc87839b35bc82a52e2495dc65008cc66be94c777ea69d5c64de7c",
+        "f2310f7ec11536cfa831d63591d8d568d54338243081ab602ff2782fe4b266f3",
+        "166f0c650115c05768c6b8dc104592e2e19a6c2030636a2f578fe166bf0a42f9",
+        "62c98c234acdb16c05a851f51eefbae84ff6c8aad0b42ef6140f3c19611eebe6",
+        "8ff31b4ea5485583f72859c9c2761d35c1c0efe885a796c3c05dc80a8a4a7008",
+        "b1bb9f0fd4e5a24839d148b61f4c6524ddf4194180d93ea84f727c1be680c93a",
+        "d4f1d3e5f747e6934842c7cecbc05d5d087e6572012c2e52ed03d4332c0a6545",
+        "e275124868b8c60fea80866f8995ab02a0c3751ebcbfb2853634f7b07e9a0abe",
+        "4b583e31f0318f92a9e9ed2088e812b81b5ad1b8d1d07df4b87d7c11ba4722d3",
+        "b403589b3f25350d216c53886809253caebc7bf18e86d3ed58bc8fc9256e23f2",
+        "70fa1a93e4fdaa7f3475359bcd5ae81606ecd18f6e0e1c4b6cf3933e17c11308"
+      ],
+      "commits": [
+        {
+          "transactionId": "1dabc9ed47cc87839b35bc82a52e2495dc65008cc66be94c777ea69d5c64de7c",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "f2310f7ec11536cfa831d63591d8d568d54338243081ab602ff2782fe4b266f3",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "166f0c650115c05768c6b8dc104592e2e19a6c2030636a2f578fe166bf0a42f9",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "62c98c234acdb16c05a851f51eefbae84ff6c8aad0b42ef6140f3c19611eebe6",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "8ff31b4ea5485583f72859c9c2761d35c1c0efe885a796c3c05dc80a8a4a7008",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "b1bb9f0fd4e5a24839d148b61f4c6524ddf4194180d93ea84f727c1be680c93a",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "d4f1d3e5f747e6934842c7cecbc05d5d087e6572012c2e52ed03d4332c0a6545",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "e275124868b8c60fea80866f8995ab02a0c3751ebcbfb2853634f7b07e9a0abe",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "4b583e31f0318f92a9e9ed2088e812b81b5ad1b8d1d07df4b87d7c11ba4722d3",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "b403589b3f25350d216c53886809253caebc7bf18e86d3ed58bc8fc9256e23f2",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "70fa1a93e4fdaa7f3475359bcd5ae81606ecd18f6e0e1c4b6cf3933e17c11308",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 3,
+      "handoverConfirmations": 3,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-004",
+      "productCode": "NS-04",
+      "status": "CREATED",
+      "events": 1,
+      "transactionIds": [
+        "7496e9270035b90bebae33c8acc36fa838c8cd61a6d97b651cd96b4f50f1bd79"
+      ],
+      "commits": [
+        {
+          "transactionId": "7496e9270035b90bebae33c8acc36fa838c8cd61a6d97b651cd96b4f50f1bd79",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 0,
+      "handoverConfirmations": 0,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-005",
+      "productCode": "NS-05",
+      "status": "CREATED",
+      "events": 1,
+      "transactionIds": [
+        "fa231f0dc3f3a7dcbeea3744a12bee8043bc9cbed0e695526c13c2ca2ba33523"
+      ],
+      "commits": [
+        {
+          "transactionId": "fa231f0dc3f3a7dcbeea3744a12bee8043bc9cbed0e695526c13c2ca2ba33523",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 0,
+      "handoverConfirmations": 0,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-006",
+      "productCode": "NS-06",
+      "status": "HARVESTED",
+      "events": 2,
+      "transactionIds": [
+        "854bf407f8283faaf13ec4132be2f14e4272258e7b919375f88de363456a84f5",
+        "2c97e8ffd707fdaf2bf7b92aaf3ab2ad83be623e1968c15c4bb7b3b4af1b55a4"
+      ],
+      "commits": [
+        {
+          "transactionId": "854bf407f8283faaf13ec4132be2f14e4272258e7b919375f88de363456a84f5",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "2c97e8ffd707fdaf2bf7b92aaf3ab2ad83be623e1968c15c4bb7b3b4af1b55a4",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 0,
+      "handoverConfirmations": 0,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-007",
+      "productCode": "NS-07",
+      "status": "RECEIVED_PROCESSOR",
+      "events": 4,
+      "transactionIds": [
+        "792458eccdc4cb55afb0dab84e314713e4d6be8b2c053f33b91ff2d15b5a9aaf",
+        "a50537cee527525831abc52d0361090d155e71cc31d2eafe18567c14e239d8ee",
+        "a0e808cab2359bafa9ed0beae5009009d36868374c3b2e8b49cdb672d79c4ec6",
+        "617359b12c8b2470c9be349129332c011f4aabc6426dbf5e3018a8404cbcc0b2"
+      ],
+      "commits": [
+        {
+          "transactionId": "792458eccdc4cb55afb0dab84e314713e4d6be8b2c053f33b91ff2d15b5a9aaf",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "a50537cee527525831abc52d0361090d155e71cc31d2eafe18567c14e239d8ee",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "a0e808cab2359bafa9ed0beae5009009d36868374c3b2e8b49cdb672d79c4ec6",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "617359b12c8b2470c9be349129332c011f4aabc6426dbf5e3018a8404cbcc0b2",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-008",
+      "productCode": "NS-08",
+      "status": "WAITING_PROCESSOR",
+      "events": 3,
+      "transactionIds": [
+        "f72817286134fe876da1e2c31a865c44c777d27a7cb4b2ec82d9e4c742d3cfaf",
+        "50c92df95c6a26c58ad1c3d2e949b1db6df224eaad65860fb983b2a072821427",
+        "866e1b244439a0d7045eb7b25b93c98944f4ba9c71fa5a052cccacf8cdd7e91b"
+      ],
+      "commits": [
+        {
+          "transactionId": "f72817286134fe876da1e2c31a865c44c777d27a7cb4b2ec82d9e4c742d3cfaf",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "50c92df95c6a26c58ad1c3d2e949b1db6df224eaad65860fb983b2a072821427",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "866e1b244439a0d7045eb7b25b93c98944f4ba9c71fa5a052cccacf8cdd7e91b",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 0,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-009",
+      "productCode": "NS-09",
+      "status": "WAITING_PROCESSOR",
+      "events": 3,
+      "transactionIds": [
+        "9bcdbc910dac8938bfed6960321935603eefefc6137b69d5b84004b8ff7bd219",
+        "40f083b3664c312b1ff065ed3e0c33d9da5a3cbd507027a740bffbedaedfecc6",
+        "5a1106dba0697a4d303398d75e065d1e70104539236b2cc710e7dd87344e8355"
+      ],
+      "commits": [
+        {
+          "transactionId": "9bcdbc910dac8938bfed6960321935603eefefc6137b69d5b84004b8ff7bd219",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "40f083b3664c312b1ff065ed3e0c33d9da5a3cbd507027a740bffbedaedfecc6",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "5a1106dba0697a4d303398d75e065d1e70104539236b2cc710e7dd87344e8355",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 0,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-010",
+      "productCode": "NS-10",
+      "status": "RECEIVED_PROCESSOR",
+      "events": 4,
+      "transactionIds": [
+        "8db3c42e089562bf93a4facbc0530edac67bef9fbf00b133eaf5191684e7a4a3",
+        "50179fbc9866e2b5fa06803a44ced76dc9026a3cf331bde176c8b9674f8b3be4",
+        "a0b964100087644fb0778b04cfbbed52c48cce249a6b9c127ad9519a63694875",
+        "96b1efe98b0ae629f6850a5be9244ea4a486453a9606e199014d0a3c749820e5"
+      ],
+      "commits": [
+        {
+          "transactionId": "8db3c42e089562bf93a4facbc0530edac67bef9fbf00b133eaf5191684e7a4a3",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "50179fbc9866e2b5fa06803a44ced76dc9026a3cf331bde176c8b9674f8b3be4",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "a0b964100087644fb0778b04cfbbed52c48cce249a6b9c127ad9519a63694875",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "96b1efe98b0ae629f6850a5be9244ea4a486453a9606e199014d0a3c749820e5",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-011",
+      "productCode": "NS-01",
+      "status": "RECEIVED_PROCESSOR",
+      "events": 4,
+      "transactionIds": [
+        "1c88d6836194e3be3e47580d0e07914d5d3d0335c12f3321f3fea9d4626de28e",
+        "1330931afb659e03911a4c81b17ec52c38c5c81d669b2d8d9302fbd94ac0c044",
+        "59e85794a110c91b041a6c2f8b35620c7a4b119f8c2ba8cd0196285b0caecccf",
+        "1c55fd6ed1d3006a50744cb5b5abb599b73f7d50f513c970f8754e3b9a4640de"
+      ],
+      "commits": [
+        {
+          "transactionId": "1c88d6836194e3be3e47580d0e07914d5d3d0335c12f3321f3fea9d4626de28e",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "1330931afb659e03911a4c81b17ec52c38c5c81d669b2d8d9302fbd94ac0c044",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "59e85794a110c91b041a6c2f8b35620c7a4b119f8c2ba8cd0196285b0caecccf",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "1c55fd6ed1d3006a50744cb5b5abb599b73f7d50f513c970f8754e3b9a4640de",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-012",
+      "productCode": "NS-02",
+      "status": "PROCESSED",
+      "events": 5,
+      "transactionIds": [
+        "5585f03cd63f4002a2d45cceb734b73d225f152a74db593be46a86c88eb65d43",
+        "16f4ac892871e54705a281f0e4b136c26dca6095bb5c0d53b0e1989954203a57",
+        "85fbaf0de8439eb891f7c3d34be603e47e3a69601624fc241b23c7a2bf55686a",
+        "a946c0597a56d9de75b306ddb5ac03f1ba6224499cb9e488428a6ad03caeb355",
+        "32b16c67539bf6eebd29c06e8d0dd560ed2efa2eb37ce635113c11552cb3cf69"
+      ],
+      "commits": [
+        {
+          "transactionId": "5585f03cd63f4002a2d45cceb734b73d225f152a74db593be46a86c88eb65d43",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "16f4ac892871e54705a281f0e4b136c26dca6095bb5c0d53b0e1989954203a57",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "85fbaf0de8439eb891f7c3d34be603e47e3a69601624fc241b23c7a2bf55686a",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "a946c0597a56d9de75b306ddb5ac03f1ba6224499cb9e488428a6ad03caeb355",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "32b16c67539bf6eebd29c06e8d0dd560ed2efa2eb37ce635113c11552cb3cf69",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-013",
+      "productCode": "NS-03",
+      "status": "PROCESSED",
+      "events": 5,
+      "transactionIds": [
+        "f9f423be08033236234db18b0281259c1a458cfefe0102a8b85d65a4e2dc8d17",
+        "caa2201314b873846811ab9fa1a0675d3355ed6d3da15881339bc04bea72f831",
+        "c9730be62a9cc0836e1b36c456b5eff8c688f8ad0e351f3204dbe1dc047065ab",
+        "69c0b0d1b7f44c0156bfbc79783a17ac12adefd600f8f490447c3122169abf7f",
+        "55c7e391392176df030e021b48182bfcbbdfce6407c445cc4515159b2eceb2d9"
+      ],
+      "commits": [
+        {
+          "transactionId": "f9f423be08033236234db18b0281259c1a458cfefe0102a8b85d65a4e2dc8d17",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "caa2201314b873846811ab9fa1a0675d3355ed6d3da15881339bc04bea72f831",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "c9730be62a9cc0836e1b36c456b5eff8c688f8ad0e351f3204dbe1dc047065ab",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "69c0b0d1b7f44c0156bfbc79783a17ac12adefd600f8f490447c3122169abf7f",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "55c7e391392176df030e021b48182bfcbbdfce6407c445cc4515159b2eceb2d9",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-014",
+      "productCode": "NS-04",
+      "status": "WAITING_SHIP",
+      "events": 6,
+      "transactionIds": [
+        "6493a2fc58d88bd09be1a682fd9440254f0885b33a9b3d4a3e16c524a6b71724",
+        "d65dee34fb1dd51a126774ce2a6d793318d5e4088d956aee17f0df5fe18c1549",
+        "29755af06038dfa1374f9a3e2018ea3569ce0d7e9147100ee3738a089f17fc7b",
+        "413bebca97aac8ef785c9c533956fc253ee714900a61f8f6b18e94f11f91a82b",
+        "85353a78d013a04ae936cb2cc32688d69d38245faa1469421597e412815f937b",
+        "78f2b92bcef44b94ceaf8d5d4c73b8f6e6fc9ff286afa99af744f268a961a20c"
+      ],
+      "commits": [
+        {
+          "transactionId": "6493a2fc58d88bd09be1a682fd9440254f0885b33a9b3d4a3e16c524a6b71724",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "d65dee34fb1dd51a126774ce2a6d793318d5e4088d956aee17f0df5fe18c1549",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "29755af06038dfa1374f9a3e2018ea3569ce0d7e9147100ee3738a089f17fc7b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "413bebca97aac8ef785c9c533956fc253ee714900a61f8f6b18e94f11f91a82b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "85353a78d013a04ae936cb2cc32688d69d38245faa1469421597e412815f937b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "78f2b92bcef44b94ceaf8d5d4c73b8f6e6fc9ff286afa99af744f268a961a20c",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 2,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-015",
+      "productCode": "NS-05",
+      "status": "WAITING_SHIP",
+      "events": 6,
+      "transactionIds": [
+        "bafebd3f3eb5fee556a9d1e7838a9c09427243b266d430805707abdc4bae5f55",
+        "7532c06429e5ecfa6300e7ea29a0d47fa68c0f5262e6f91ad5b3928db61a6c5a",
+        "176f70fb379c3d0fe26175110e90a343138003db6344f4a9cf0ff5c992f7a51c",
+        "54afcd6d9a038fa883206a38aba8db3528988e199c406ba921e8faceea991a7c",
+        "c12c417303d3e7d3e8c270951bc215449f8b4f94fa5f690965a2923e737b82d6",
+        "87d870f6c40ae8a5c286bf741e9ed314e9158205c83111cb61aedcdfe7948af4"
+      ],
+      "commits": [
+        {
+          "transactionId": "bafebd3f3eb5fee556a9d1e7838a9c09427243b266d430805707abdc4bae5f55",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "7532c06429e5ecfa6300e7ea29a0d47fa68c0f5262e6f91ad5b3928db61a6c5a",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "176f70fb379c3d0fe26175110e90a343138003db6344f4a9cf0ff5c992f7a51c",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "54afcd6d9a038fa883206a38aba8db3528988e199c406ba921e8faceea991a7c",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "c12c417303d3e7d3e8c270951bc215449f8b4f94fa5f690965a2923e737b82d6",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "87d870f6c40ae8a5c286bf741e9ed314e9158205c83111cb61aedcdfe7948af4",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 2,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-016",
+      "productCode": "NS-06",
+      "status": "IN_TRANSIT",
+      "events": 7,
+      "transactionIds": [
+        "a114a6754584eda26f79e3092f5b81066f10b16b1638c60aa366da7896a34e2e",
+        "5e055174fbdc2a5437eb4b1e8e1d6e9bef6e7e3eae96c93ec71cff9998a54195",
+        "46edc55abc8665b12fb760bc1131dd52db4f9f9fef9c869123fe67ba5082bed2",
+        "df84717b0e82a08f3a0340493fe196088254066ccf7d86381ba441ab19ff44e6",
+        "b8fde18ce0dc66f2ba01ad62a8cadbbc7bf47efce1336b7ef5c31206ef452562",
+        "dcb469df7f45618b43cc1d936c4272518b3a24c827eeeb273303cff8a339cb2d",
+        "30b525f8763de32f53b99deb398989df89f598706cee6e4f86ab4963aa1b77d9"
+      ],
+      "commits": [
+        {
+          "transactionId": "a114a6754584eda26f79e3092f5b81066f10b16b1638c60aa366da7896a34e2e",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "5e055174fbdc2a5437eb4b1e8e1d6e9bef6e7e3eae96c93ec71cff9998a54195",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "46edc55abc8665b12fb760bc1131dd52db4f9f9fef9c869123fe67ba5082bed2",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "df84717b0e82a08f3a0340493fe196088254066ccf7d86381ba441ab19ff44e6",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "b8fde18ce0dc66f2ba01ad62a8cadbbc7bf47efce1336b7ef5c31206ef452562",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "dcb469df7f45618b43cc1d936c4272518b3a24c827eeeb273303cff8a339cb2d",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "30b525f8763de32f53b99deb398989df89f598706cee6e4f86ab4963aa1b77d9",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 2,
+      "handoverConfirmations": 2,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-017",
+      "productCode": "NS-07",
+      "status": "IN_TRANSIT",
+      "events": 8,
+      "transactionIds": [
+        "0885ba161154654e31c55e1d43d92ba700cd6fd4d05e867f519a1c10520a0e2b",
+        "2b86c569fc735844170634aca44624369d1e7f599d1ebc20d1b51b9510f4155c",
+        "1400ded74490ab9a7d203a0d5848cd8d5041cb72e6954b36f90e2f1458b9d60f",
+        "ca11f8db3533aac8f97962b02d9000db0e7a53479d111c2817418045f8c14ad9",
+        "9eac8bb0f89ccedc6db6c5a1fca1d19feaae8c45cfd0cd342e29558da31dfd86",
+        "b758da538a06412df57f7e50d32d01ccea264556100e6487023caba572ff7f44",
+        "44e168e0d56d1f1f5173053007f62d30d3d614d5cf3af9a341f56820bda0a39d",
+        "67bf7dd2720fd48c134889cddc22b17155e7276895608c34c3b503cb0b1a7bf2"
+      ],
+      "commits": [
+        {
+          "transactionId": "0885ba161154654e31c55e1d43d92ba700cd6fd4d05e867f519a1c10520a0e2b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "2b86c569fc735844170634aca44624369d1e7f599d1ebc20d1b51b9510f4155c",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "1400ded74490ab9a7d203a0d5848cd8d5041cb72e6954b36f90e2f1458b9d60f",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "ca11f8db3533aac8f97962b02d9000db0e7a53479d111c2817418045f8c14ad9",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "9eac8bb0f89ccedc6db6c5a1fca1d19feaae8c45cfd0cd342e29558da31dfd86",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "b758da538a06412df57f7e50d32d01ccea264556100e6487023caba572ff7f44",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "44e168e0d56d1f1f5173053007f62d30d3d614d5cf3af9a341f56820bda0a39d",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "67bf7dd2720fd48c134889cddc22b17155e7276895608c34c3b503cb0b1a7bf2",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 2,
+      "handoverConfirmations": 2,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-018",
+      "productCode": "NS-08",
+      "status": "WAITING_RETAIL",
+      "events": 9,
+      "transactionIds": [
+        "c5131651c922fc971fe4c96ba3f5ffb45d816f54e127f2fc9a1364323dc866de",
+        "dbd6b08514eb0219688037660a05589fd505dfc975ab1b98048397f8e98b8041",
+        "a816f1b8be3a87c9253b01cd46f29b4e25d4d54652e86d4bcaf5edf7fe83453e",
+        "2b5a09d92d7f5219115125c018ed5867dc5704d86559ff5815e6481b94494d5b",
+        "d465887ab9f0fd9e0741d1dc8b06d94021c58f7770542db4aa4af9a406128549",
+        "8615a13652e9a20bfc4c62a2970420a01418a52c56e93df9868ebdc83096b41b",
+        "8b9797180e2dd3ec83571f2dcaf0b1c0f95276df166cf1f1ec9296b5bd240a92",
+        "4dcab0209a4c6ce34526e9064a6cc4c8d119b737745b79f28407d5b23f202617",
+        "97ae80969e36e47a926d523edfa5db1b1f318e269093743022c9287e9575296d"
+      ],
+      "commits": [
+        {
+          "transactionId": "c5131651c922fc971fe4c96ba3f5ffb45d816f54e127f2fc9a1364323dc866de",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "dbd6b08514eb0219688037660a05589fd505dfc975ab1b98048397f8e98b8041",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "a816f1b8be3a87c9253b01cd46f29b4e25d4d54652e86d4bcaf5edf7fe83453e",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "2b5a09d92d7f5219115125c018ed5867dc5704d86559ff5815e6481b94494d5b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "d465887ab9f0fd9e0741d1dc8b06d94021c58f7770542db4aa4af9a406128549",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "8615a13652e9a20bfc4c62a2970420a01418a52c56e93df9868ebdc83096b41b",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "8b9797180e2dd3ec83571f2dcaf0b1c0f95276df166cf1f1ec9296b5bd240a92",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "4dcab0209a4c6ce34526e9064a6cc4c8d119b737745b79f28407d5b23f202617",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "97ae80969e36e47a926d523edfa5db1b1f318e269093743022c9287e9575296d",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 3,
+      "handoverConfirmations": 2,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-019",
+      "productCode": "NS-09",
+      "status": "WAITING_RETAIL",
+      "events": 9,
+      "transactionIds": [
+        "3a6ad2f3201957f00f49dee219aeb63ec01ba59720a5de5d1673ca2b3d0a3709",
+        "2cdf32fce976789b6fa9af87223d6124da404d9aa9262af79e374218eed6a336",
+        "0c000ca6e90207cf85b793953a9824f765316416a2c99bdb7566338c33a3943d",
+        "7d6ff07cd3840233b02e3833ded7c04f43da32d66510ce683a896e1d1459a268",
+        "552bb67d0097e5320fd075e5a86b0df28fce51ee942cdf3badd4816f644dfbe4",
+        "0bc9d9a2364aec74365619b61055ce001457bec27b843e9a96e0fe11052b01e1",
+        "5680423953277ba29c87552e800de24b9a2733db77ca40ad7cd2b766d8e36bb9",
+        "c0a7420143cee2ffea43953a23a2dd4a6e5c146c700161c5b4863a32bfb8d347",
+        "4ebbc6a978f82f1d46567f7ff5e49964facd1a3deac06876b3fe221dde404f62"
+      ],
+      "commits": [
+        {
+          "transactionId": "3a6ad2f3201957f00f49dee219aeb63ec01ba59720a5de5d1673ca2b3d0a3709",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "2cdf32fce976789b6fa9af87223d6124da404d9aa9262af79e374218eed6a336",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "0c000ca6e90207cf85b793953a9824f765316416a2c99bdb7566338c33a3943d",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "7d6ff07cd3840233b02e3833ded7c04f43da32d66510ce683a896e1d1459a268",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "552bb67d0097e5320fd075e5a86b0df28fce51ee942cdf3badd4816f644dfbe4",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "0bc9d9a2364aec74365619b61055ce001457bec27b843e9a96e0fe11052b01e1",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "5680423953277ba29c87552e800de24b9a2733db77ca40ad7cd2b766d8e36bb9",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "c0a7420143cee2ffea43953a23a2dd4a6e5c146c700161c5b4863a32bfb8d347",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "4ebbc6a978f82f1d46567f7ff5e49964facd1a3deac06876b3fe221dde404f62",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 3,
+      "handoverConfirmations": 2,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-020",
+      "productCode": "NS-10",
+      "status": "IN_RETAIL",
+      "events": 10,
+      "transactionIds": [
+        "ed220f3b5ce9627252530f0bd426e3adfc7e966abfb9d4c948cd46c7d2fea627",
+        "7e4c8d9f6c269eec552512c62ec4c0a88b911653f49a89edf80f174ecd677b2a",
+        "bff843285a9becff4bc3bdfbd05287e9692bd47eb3e0c474df7d145d7a9f8ed2",
+        "9b6401fa17680ee46832c9c3e24159b5552fe3d853d39ec24d749992c22bce00",
+        "8903c1ad93627bd585f305ff8cae68bea511c48eef7d9331cf379e42278155be",
+        "9d8714f2dbdd6746bc845b2ce20c3ed2e9b5c77eefb94c57f2e78ee8b45af7a7",
+        "e66d1d25b1d650aee623a2577757f5cddf225f5dbaa71be35fbcd86b2dee8d83",
+        "fc7069a65a6704b105acd359c9cf1ca57e825c7118b16260b2e59c7c43a752bc",
+        "fa41f8218cbc8bc3353976d682d48b43fa8fdf0dfa8513e173e14e17f1b6d6a2",
+        "1030aaf186dbef9257c4cac2cb94e1b943fea997a2092cf067b0c332da14c797"
+      ],
+      "commits": [
+        {
+          "transactionId": "ed220f3b5ce9627252530f0bd426e3adfc7e966abfb9d4c948cd46c7d2fea627",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "7e4c8d9f6c269eec552512c62ec4c0a88b911653f49a89edf80f174ecd677b2a",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "bff843285a9becff4bc3bdfbd05287e9692bd47eb3e0c474df7d145d7a9f8ed2",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "9b6401fa17680ee46832c9c3e24159b5552fe3d853d39ec24d749992c22bce00",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "8903c1ad93627bd585f305ff8cae68bea511c48eef7d9331cf379e42278155be",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "9d8714f2dbdd6746bc845b2ce20c3ed2e9b5c77eefb94c57f2e78ee8b45af7a7",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "e66d1d25b1d650aee623a2577757f5cddf225f5dbaa71be35fbcd86b2dee8d83",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "fc7069a65a6704b105acd359c9cf1ca57e825c7118b16260b2e59c7c43a752bc",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "fa41f8218cbc8bc3353976d682d48b43fa8fdf0dfa8513e173e14e17f1b6d6a2",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "1030aaf186dbef9257c4cac2cb94e1b943fea997a2092cf067b0c332da14c797",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 3,
+      "handoverConfirmations": 3,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-021",
+      "productCode": "NS-01",
+      "status": "IN_RETAIL",
+      "events": 10,
+      "transactionIds": [
+        "1449c444f8e1fcad8c2346e05cc01e12b36e813f5b207d74031ace18f8611ca4",
+        "f0594db1fd6e97641a61754edfcf4752c889390805752170d24ef6f03f07d705",
+        "5cd8ba20e40bd054e1bc46154a6733cac383b6ffd500994d5301034396b64445",
+        "1771b4e842fcf226bb536cacd18d1c536c10e904b38cd759d156248e9b1ab8c6",
+        "b4cc2770bd65f54fe779963eb43521fa3c98b56d09f6f39970cd2adcc8e48a75",
+        "80a7efcbe9084a0b5d6329105c691138133358d06f18f157cdfc73ce6657ad41",
+        "cf8726730d6660017d699be9b564a29bab4dea3c42e8b390fe032bb6670088c7",
+        "b97c62a3054fb2c76107c9cd3fa12f03f2c1e56f34b1811c2dca87ec2c6595d8",
+        "6f3ab8e23c09af215572bef11f015eec3c431b4d57990416d66a38480fab4706",
+        "b64230858a58ed3eaa64fde6f27620049060d8297667af8f4d2371c5f5c2e490"
+      ],
+      "commits": [
+        {
+          "transactionId": "1449c444f8e1fcad8c2346e05cc01e12b36e813f5b207d74031ace18f8611ca4",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "f0594db1fd6e97641a61754edfcf4752c889390805752170d24ef6f03f07d705",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "5cd8ba20e40bd054e1bc46154a6733cac383b6ffd500994d5301034396b64445",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "1771b4e842fcf226bb536cacd18d1c536c10e904b38cd759d156248e9b1ab8c6",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "b4cc2770bd65f54fe779963eb43521fa3c98b56d09f6f39970cd2adcc8e48a75",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "80a7efcbe9084a0b5d6329105c691138133358d06f18f157cdfc73ce6657ad41",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "cf8726730d6660017d699be9b564a29bab4dea3c42e8b390fe032bb6670088c7",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "b97c62a3054fb2c76107c9cd3fa12f03f2c1e56f34b1811c2dca87ec2c6595d8",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "6f3ab8e23c09af215572bef11f015eec3c431b4d57990416d66a38480fab4706",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "b64230858a58ed3eaa64fde6f27620049060d8297667af8f4d2371c5f5c2e490",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 3,
+      "handoverConfirmations": 3,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-022",
+      "productCode": "NS-02",
+      "status": "RECALLED",
+      "events": 3,
+      "transactionIds": [
+        "a781994990ee123e982b1a4a0bfc5152e4798b9cd632359855d9b88c4cd9e9c7",
+        "7c0335de0adf2cd20ba2161a29492ca4ef00691cacff0e3fdf8efd9c65b7ad8a",
+        "54634d3a5339ed8e7eb2e32aaa71810080879199730f0bfc080d90b6ba385568"
+      ],
+      "commits": [
+        {
+          "transactionId": "a781994990ee123e982b1a4a0bfc5152e4798b9cd632359855d9b88c4cd9e9c7",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "7c0335de0adf2cd20ba2161a29492ca4ef00691cacff0e3fdf8efd9c65b7ad8a",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "54634d3a5339ed8e7eb2e32aaa71810080879199730f0bfc080d90b6ba385568",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 0,
+      "handoverConfirmations": 0,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-023",
+      "productCode": "NS-03",
+      "status": "WAITING_PROCESSOR",
+      "events": 3,
+      "transactionIds": [
+        "181f9fa0e04b1ac93bd8f38a120c8bb38ac8aecc592090e186455954a2b8b4e9",
+        "21e77c5ab6c272ff6533d362c4c08940bd1cd55590a1a310e85dd0dc179b5f40",
+        "e50519a4ba66cb5d4e550aea6401c00d45ee5e5570d006bc7a216e35a06b45cb"
+      ],
+      "commits": [
+        {
+          "transactionId": "181f9fa0e04b1ac93bd8f38a120c8bb38ac8aecc592090e186455954a2b8b4e9",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "21e77c5ab6c272ff6533d362c4c08940bd1cd55590a1a310e85dd0dc179b5f40",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "e50519a4ba66cb5d4e550aea6401c00d45ee5e5570d006bc7a216e35a06b45cb",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 1,
+      "handoverConfirmations": 0,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    },
+    {
+      "lotId": "TC-DEMO-V1-024",
+      "productCode": "NS-04",
+      "status": "WAITING_SHIP",
+      "events": 6,
+      "transactionIds": [
+        "f9a5cb39e67bb2dd2c699f7913b6a0829c349ee9b160c9cd739044b56b0993e3",
+        "1b39136a8079e5b9291676dcec1d2dfafdb0a9cbd8d383c46f403312e590966a",
+        "2d39ab61bb26940cd5e5dbaaaa58050ab918ae236aabae826c3d16360687b439",
+        "ae1fd396b7d8423d9fa724a1dd48446be7e46bb13b706567a2bd727c152104b7",
+        "780efca8132c5bf33107bde7d4bb3d5b8a4c140bb9c96cd5cffdfc3cf9a147bf",
+        "9ffb85679c50ec650fec4330b2bce243605d9e31eb405f9045c6653403f8d5a1"
+      ],
+      "commits": [
+        {
+          "transactionId": "f9a5cb39e67bb2dd2c699f7913b6a0829c349ee9b160c9cd739044b56b0993e3",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "1b39136a8079e5b9291676dcec1d2dfafdb0a9cbd8d383c46f403312e590966a",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "2d39ab61bb26940cd5e5dbaaaa58050ab918ae236aabae826c3d16360687b439",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "ae1fd396b7d8423d9fa724a1dd48446be7e46bb13b706567a2bd727c152104b7",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "780efca8132c5bf33107bde7d4bb3d5b8a4c140bb9c96cd5cffdfc3cf9a147bf",
+          "validationCode": 0,
+          "successful": true
+        },
+        {
+          "transactionId": "9ffb85679c50ec650fec4330b2bce243605d9e31eb405f9045c6653403f8d5a1",
+          "validationCode": 0,
+          "successful": true
+        }
+      ],
+      "handoverRequests": 2,
+      "handoverConfirmations": 1,
+      "iesh": "PASS",
+      "mysql": "PASS",
+      "ledger": "COMMITTED_VALID"
+    }
+  ],
+  "checks": {
+    "loginRbacReadOnlyReconciliation": "PASS",
+    "negativeApiAndRealChaincodeNoLedgerChange": "PASS"
+  },
+  "accounts": [
+    {
+      "username": "tc_system",
+      "role": "SUPER_ADMIN",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_admin_sanxuat",
+      "role": "BUSINESS_ADMIN",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat01",
+      "role": "FARMER",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_sanxuat02",
+      "role": "FARMER",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_admin_soche",
+      "role": "BUSINESS_ADMIN",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_soche01",
+      "role": "PROCESSOR",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_soche02",
+      "role": "PROCESSOR",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_admin_vanchuyen",
+      "role": "BUSINESS_ADMIN",
+      "visibleLots": 12,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen01",
+      "role": "TRANSPORTER",
+      "visibleLots": 12,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_vanchuyen02",
+      "role": "TRANSPORTER",
+      "visibleLots": 12,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_admin_phanphoi",
+      "role": "BUSINESS_ADMIN",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi01",
+      "role": "DISTRIBUTOR",
+      "visibleLots": 24,
+      "login": "PASS"
+    },
+    {
+      "username": "tc_nv_phanphoi02",
+      "role": "DISTRIBUTOR",
+      "visibleLots": 24,
+      "login": "PASS"
+    }
+  ],
+  "productCount": 10,
+  "eventCount": 142,
+  "validFabricTransactions": 142,
+  "rejections": [
+    {
+      "name": "anonymous",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "name": "wrong role",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "name": "no handover",
+      "status": 409,
+      "result": "PASS"
+    },
+    {
+      "name": "skip stage",
+      "status": 409,
+      "result": "PASS"
+    },
+    {
+      "name": "stale event",
+      "status": 409,
+      "result": "PASS"
+    },
+    {
+      "name": "cross tenant",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "name": "invalid metadata",
+      "status": 400,
+      "result": "PASS"
+    }
+  ]
+}

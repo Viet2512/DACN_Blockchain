@@ -1,0 +1,142 @@
+{
+  "checkedAt": "2026-11-10T04:23:02.985Z",
+  "windows": {
+    "interface": "Wi-Fi",
+    "ipv4": "172.16.30.128",
+    "gateway": "172.16.30.1",
+    "profile": "Public",
+    "administrator": false,
+    "networkingMode": "WSL2 mirrored",
+    "localhostHttp": "Windows .NET client TIMEOUT; localhost resolves ::1 first; IPv4 loopback HTTP 200",
+    "ipv4LoopbackHttp": 200,
+    "lanHttp": "TIMEOUT",
+    "hyperVDefaultInboundAction": "Block",
+    "firewallRulesApplied": false
+  },
+  "application": {
+    "frontend": "http://localhost:3001",
+    "lanFrontend": "http://172.16.30.128:3001",
+    "qrUrl": "http://172.16.30.128:3001/trace/TC-DEMO-V1-001",
+    "apiBase": "/api",
+    "backendBinding": "127.0.0.1:8080",
+    "mysqlBinding": "127.0.0.1:3307",
+    "qrDecodedFromPng": true,
+    "hostHeadersTrusted": false,
+    "qrCacheControl": "no-store"
+  },
+  "verification": {
+    "backendPass": 28,
+    "backendSkipped": 32,
+    "chaincodePass": 10,
+    "frontendPass": 62,
+    "frontendBuild": "PASS",
+    "powershellReadOnlySelfCheck": "PASS",
+    "wslChromiumLocalhostAndLan": "PASS",
+    "physicalPhone": "NOT VERIFIED",
+    "windowsLanAccess": "BLOCKED: timeout; Private/Admin firewall step pending",
+    "mysqlTables": 24,
+    "mysqlUnchanged": true,
+    "fabricLots": 24,
+    "fabricEvents": 142,
+    "ledgerUnchanged": true,
+    "noBusinessWrites": true
+  },
+  "mysqlBeforeFingerprints": {
+    "account_invitations": {
+      "rows": 2,
+      "sha256": "e70b0b80b1b15618178397e52c9f9685b30bd732146400266ea42ba7ffa16a65"
+    },
+    "actor_roles": {
+      "rows": 15,
+      "sha256": "a85cfe9d5d80a47263f03e6a2faf1cde240acebd54f063108560b1f2268224c1"
+    },
+    "actors": {
+      "rows": 15,
+      "sha256": "b309601386ae0d036a9cc821be457746ffcc338fef33f52c1b6ce1d2a8d40be8"
+    },
+    "application_user_profiles": {
+      "rows": 22,
+      "sha256": "6cfa529e7db34c708ccc655522cc9919b2023b8d1500e4e4de94d419fbd1931c"
+    },
+    "audit_log": {
+      "rows": 266,
+      "sha256": "bbad9c4a46616884df99440f25ae5bbd2b2e31518b837f2c988b9c76822597f0"
+    },
+    "business_organizations": {
+      "rows": 10,
+      "sha256": "38f3d04dd82254d845dcc0638c4f60d9b58b8f5a96e227337a2396c99170bf93"
+    },
+    "event_documents": {
+      "rows": 6,
+      "sha256": "11262a2f4e72900638c8d74b20b83eb0affc7bef924ea7d1d562a44b6c33496b"
+    },
+    "fabric_identities": {
+      "rows": 15,
+      "sha256": "eef265076a1900a50adadb795a2aa99be1dce129d1ae74c78ded45f85ab1bd34"
+    },
+    "fabric_identity_requests": {
+      "rows": 9,
+      "sha256": "0c9a618fa11936e851f1b62c4f0090e0cc92393e561d92d39f6900ab0a593980"
+    },
+    "fabric_organizations": {
+      "rows": 3,
+      "sha256": "8ee61f58ce519f7829e0c029238516da436e0ba3a6bfa88c60fc9b580de2a68a"
+    },
+    "fabric_projections": {
+      "rows": 28,
+      "sha256": "b131bedd12d0c990c6534689df9fa3f5d9646cdb1a325e928439d16f223dd614"
+    },
+    "identity_audit_logs": {
+      "rows": 341,
+      "sha256": "141f202c8d882d876cf1f49f7b12eb48154d09319065b7b26a0097da8b62130f"
+    },
+    "local_projections": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "lot_business_scopes": {
+      "rows": 35,
+      "sha256": "ee01ec3dfd56e54a1735ac414a26fe78f4dc8b26a6cc86bc23e51715f54746e2"
+    },
+    "lot_records": {
+      "rows": 57,
+      "sha256": "7bdb7e1e598ca212d524005dae06d14cb1dacbd6d127e1e23a46acd93090dcb9"
+    },
+    "lots": {
+      "rows": 35,
+      "sha256": "70f7209aeb0596f3749cb0b286630b2ea2ec364c12ba13fc8fab5339e7597f1b"
+    },
+    "organizations": {
+      "rows": 3,
+      "sha256": "adbaafebbf5931174e95888058a4dd8d7ba4b5a78d9d986cd82b6cc4dcd3e8fe"
+    },
+    "permissions": {
+      "rows": 25,
+      "sha256": "852af249b9c358b5ba5ba145a07f8f48fba3baf860643278ce8ed31e50ae3604"
+    },
+    "request_failures": {
+      "rows": 19,
+      "sha256": "617358c65f1f0aabb0e7bfd7f44dbad5dcd38c3e1a5354734fa361e5bdebc5d7"
+    },
+    "role_permissions": {
+      "rows": 62,
+      "sha256": "bf2fdb4cec3003807cebf3a641355b72c6e4fb5a190dff1c3a32b18167db65a1"
+    },
+    "roles": {
+      "rows": 6,
+      "sha256": "7618b8ba10679871073c1ce41361675fc7823a17fba43c1f8b6c372bbf52b176"
+    },
+    "trace_events": {
+      "rows": 199,
+      "sha256": "370d2956f29c38ceb36751cea83da8735928d5c33f3583a332155d5c59a10534"
+    },
+    "user_accounts": {
+      "rows": 22,
+      "sha256": "386d16c994f14cec945c0856b2dcc36815124dcad812d880fade649636a835ac"
+    },
+    "user_actor_mappings": {
+      "rows": 15,
+      "sha256": "c18dde39c416ba614cd2174899df93e0b0606fd62b50ae150bce7ce99e3515fb"
+    }
+  }
+}

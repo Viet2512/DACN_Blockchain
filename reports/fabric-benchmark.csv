@@ -1,0 +1,14 @@
+metric,value
+benchmarkWriteOverheadPercent,-0.24056336640846387
+historyValidationOverheadPercent,-11.449670880694141
+throughputCommittedTps,0.3735597520412572
+measurementElapsedMs,88339.281252
+validLots,3
+validTransactionSubmissions,33
+committedTransactions,33
+transactionSuccessRate,1
+gatewayCommitLatencyMs.count,33
+gatewayCommitLatencyMs.mean,2045.5920434545458
+gatewayCommitLatencyMs.p50,2043.0814409999875
+gatewayCommitLatencyMs.p95,2061.8925790000067
+gatewayCommitLatencyMs.p99,2075.2470729999914

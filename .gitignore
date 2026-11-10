@@ -6,6 +6,9 @@ node_modules/
 .env.*
 !.env.example
 
+# Local agent instructions
+AGENTS.md
+
 # Build and test output
 build/
 dist/
@@ -21,3 +24,6 @@ backend/uploads/*
 *.db
 *.sqlite
 fabric-samples/
+
+# Database backups contain private application data
+backups/

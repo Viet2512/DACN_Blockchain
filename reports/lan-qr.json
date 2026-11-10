@@ -1,0 +1,45 @@
+{
+  "checkedAt": "2026-11-10T04:20:09.832Z",
+  "origin": "http://172.16.30.128:3001",
+  "checks": [
+    {
+      "address": "http://localhost:3001",
+      "width": 390,
+      "publicTrace": "PASS",
+      "timelineEvents": 11
+    },
+    {
+      "address": "http://localhost:3001",
+      "width": 1440,
+      "publicTrace": "PASS",
+      "timelineEvents": 11
+    },
+    {
+      "address": "http://localhost:3001",
+      "pngDecodedUrl": "http://172.16.30.128:3001/trace/TC-DEMO-V1-001",
+      "sameOriginApi": "PASS",
+      "anonymousAdminDenied": 401
+    },
+    {
+      "address": "http://172.16.30.128:3001",
+      "width": 390,
+      "publicTrace": "PASS",
+      "timelineEvents": 11
+    },
+    {
+      "address": "http://172.16.30.128:3001",
+      "width": 1440,
+      "publicTrace": "PASS",
+      "timelineEvents": 11
+    },
+    {
+      "address": "http://172.16.30.128:3001",
+      "pngDecodedUrl": "http://172.16.30.128:3001/trace/TC-DEMO-V1-001",
+      "sameOriginApi": "PASS",
+      "anonymousAdminDenied": 401
+    }
+  ],
+  "errors": [],
+  "physicalPhone": "NOT VERIFIED",
+  "windowsFirewall": "NOT APPLIED: requires Administrator and trusted Private network"
+}

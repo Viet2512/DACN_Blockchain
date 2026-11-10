@@ -1,8 +1,9 @@
 FROM node:22-bookworm-slim
 WORKDIR /app
 COPY package*.json ./
-RUN npm install --no-audit --no-fund
+RUN npm ci --no-audit --no-fund
 COPY . .
-ENV PORT=3000
+ENV VITE_API_URL=/api
+RUN npm run build
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["npm", "exec", "--", "vite", "preview", "--host", "0.0.0.0", "--port", "3000"]

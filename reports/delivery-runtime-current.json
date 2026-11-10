@@ -1,0 +1,258 @@
+{
+  "checkedAt": "2026-11-10T03:59:03.533Z",
+  "restartRequested": false,
+  "docker": "29.8.2",
+  "dependencies": {
+    "mysql": true,
+    "fabric": {
+      "ready": true,
+      "schemaVersion": 4,
+      "channel": "tracechannel-v2",
+      "chaincode": "traceability_v2"
+    }
+  },
+  "fabricVersion": "v3.1.5",
+  "peers": [
+    {
+      "mspId": "Org1MSP",
+      "info": {
+        "height": 613,
+        "currentBlockHash": "HdNnqSubQabtwxhe8ZMVrQ+eTadAxMZe5Zuq25pP9GA=",
+        "previousBlockHash": "0bkpp2Y0bhR4cEAcCRxCNUzHll19Y6XFt15SLVekEmY="
+      },
+      "definition": {
+        "sequence": 6,
+        "version": "4.3",
+        "endorsement_plugin": "escc",
+        "validation_plugin": "vscc",
+        "validation_parameter": "EiAvQ2hhbm5lbC9BcHBsaWNhdGlvbi9FbmRvcnNlbWVudA==",
+        "collections": {},
+        "approvals": {
+          "Org1MSP": true,
+          "Org2MSP": true,
+          "Org3MSP": true
+        }
+      }
+    },
+    {
+      "mspId": "Org2MSP",
+      "info": {
+        "height": 613,
+        "currentBlockHash": "HdNnqSubQabtwxhe8ZMVrQ+eTadAxMZe5Zuq25pP9GA=",
+        "previousBlockHash": "0bkpp2Y0bhR4cEAcCRxCNUzHll19Y6XFt15SLVekEmY="
+      },
+      "definition": {
+        "sequence": 6,
+        "version": "4.3",
+        "endorsement_plugin": "escc",
+        "validation_plugin": "vscc",
+        "validation_parameter": "EiAvQ2hhbm5lbC9BcHBsaWNhdGlvbi9FbmRvcnNlbWVudA==",
+        "collections": {},
+        "approvals": {
+          "Org1MSP": true,
+          "Org2MSP": true,
+          "Org3MSP": true
+        }
+      }
+    },
+    {
+      "mspId": "Org3MSP",
+      "info": {
+        "height": 613,
+        "currentBlockHash": "HdNnqSubQabtwxhe8ZMVrQ+eTadAxMZe5Zuq25pP9GA=",
+        "previousBlockHash": "0bkpp2Y0bhR4cEAcCRxCNUzHll19Y6XFt15SLVekEmY="
+      },
+      "definition": {
+        "sequence": 6,
+        "version": "4.3",
+        "endorsement_plugin": "escc",
+        "validation_plugin": "vscc",
+        "validation_parameter": "EiAvQ2hhbm5lbC9BcHBsaWNhdGlvbi9FbmRvcnNlbWVudA==",
+        "collections": {},
+        "approvals": {
+          "Org1MSP": true,
+          "Org2MSP": true,
+          "Org3MSP": true
+        }
+      }
+    }
+  ],
+  "channelOrganizations": [
+    "Org1MSP",
+    "Org2MSP",
+    "Org3MSP"
+  ],
+  "endorsement": {
+    "type": 3,
+    "value": {
+      "rule": "MAJORITY",
+      "sub_policy": "Endorsement"
+    }
+  },
+  "mysqlBefore": {
+    "account_invitations": {
+      "rows": 2,
+      "sha256": "e70b0b80b1b15618178397e52c9f9685b30bd732146400266ea42ba7ffa16a65"
+    },
+    "actor_roles": {
+      "rows": 15,
+      "sha256": "a85cfe9d5d80a47263f03e6a2faf1cde240acebd54f063108560b1f2268224c1"
+    },
+    "actors": {
+      "rows": 15,
+      "sha256": "b309601386ae0d036a9cc821be457746ffcc338fef33f52c1b6ce1d2a8d40be8"
+    },
+    "application_user_profiles": {
+      "rows": 22,
+      "sha256": "6cfa529e7db34c708ccc655522cc9919b2023b8d1500e4e4de94d419fbd1931c"
+    },
+    "audit_log": {
+      "rows": 266,
+      "sha256": "bbad9c4a46616884df99440f25ae5bbd2b2e31518b837f2c988b9c76822597f0"
+    },
+    "business_organizations": {
+      "rows": 10,
+      "sha256": "38f3d04dd82254d845dcc0638c4f60d9b58b8f5a96e227337a2396c99170bf93"
+    },
+    "event_documents": {
+      "rows": 6,
+      "sha256": "11262a2f4e72900638c8d74b20b83eb0affc7bef924ea7d1d562a44b6c33496b"
+    },
+    "fabric_identities": {
+      "rows": 15,
+      "sha256": "eef265076a1900a50adadb795a2aa99be1dce129d1ae74c78ded45f85ab1bd34"
+    },
+    "fabric_identity_requests": {
+      "rows": 9,
+      "sha256": "0c9a618fa11936e851f1b62c4f0090e0cc92393e561d92d39f6900ab0a593980"
+    },
+    "fabric_organizations": {
+      "rows": 3,
+      "sha256": "8ee61f58ce519f7829e0c029238516da436e0ba3a6bfa88c60fc9b580de2a68a"
+    },
+    "fabric_projections": {
+      "rows": 28,
+      "sha256": "b131bedd12d0c990c6534689df9fa3f5d9646cdb1a325e928439d16f223dd614"
+    },
+    "identity_audit_logs": {
+      "rows": 341,
+      "sha256": "141f202c8d882d876cf1f49f7b12eb48154d09319065b7b26a0097da8b62130f"
+    },
+    "local_projections": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "lot_business_scopes": {
+      "rows": 35,
+      "sha256": "ee01ec3dfd56e54a1735ac414a26fe78f4dc8b26a6cc86bc23e51715f54746e2"
+    },
+    "lot_records": {
+      "rows": 57,
+      "sha256": "7bdb7e1e598ca212d524005dae06d14cb1dacbd6d127e1e23a46acd93090dcb9"
+    },
+    "lots": {
+      "rows": 35,
+      "sha256": "70f7209aeb0596f3749cb0b286630b2ea2ec364c12ba13fc8fab5339e7597f1b"
+    },
+    "organizations": {
+      "rows": 3,
+      "sha256": "adbaafebbf5931174e95888058a4dd8d7ba4b5a78d9d986cd82b6cc4dcd3e8fe"
+    },
+    "permissions": {
+      "rows": 25,
+      "sha256": "852af249b9c358b5ba5ba145a07f8f48fba3baf860643278ce8ed31e50ae3604"
+    },
+    "request_failures": {
+      "rows": 19,
+      "sha256": "617358c65f1f0aabb0e7bfd7f44dbad5dcd38c3e1a5354734fa361e5bdebc5d7"
+    },
+    "role_permissions": {
+      "rows": 62,
+      "sha256": "bf2fdb4cec3003807cebf3a641355b72c6e4fb5a190dff1c3a32b18167db65a1"
+    },
+    "roles": {
+      "rows": 6,
+      "sha256": "7618b8ba10679871073c1ce41361675fc7823a17fba43c1f8b6c372bbf52b176"
+    },
+    "trace_events": {
+      "rows": 199,
+      "sha256": "370d2956f29c38ceb36751cea83da8735928d5c33f3583a332155d5c59a10534"
+    },
+    "user_accounts": {
+      "rows": 22,
+      "sha256": "a64d2a11c0713cd9aa530da57c95d7a987d786ed887acbc412b3839f6b80e430"
+    },
+    "user_actor_mappings": {
+      "rows": 15,
+      "sha256": "c18dde39c416ba614cd2174899df93e0b0606fd62b50ae150bce7ce99e3515fb"
+    }
+  },
+  "containers": [
+    {
+      "name": "tracechain-mysql",
+      "status": "running",
+      "health": "healthy",
+      "restartCount": 0,
+      "volumes": [
+        "doanblockchain_tracechain_mysql_data"
+      ]
+    },
+    {
+      "name": "tracechain-backend",
+      "status": "running",
+      "health": "healthy",
+      "restartCount": 0,
+      "volumes": []
+    },
+    {
+      "name": "tracechain-frontend",
+      "status": "running",
+      "health": "healthy",
+      "restartCount": 0,
+      "volumes": []
+    },
+    {
+      "name": "peer0.org1.example.com",
+      "status": "running",
+      "health": "not configured",
+      "restartCount": 0,
+      "volumes": [
+        "fd6a53d6d668d62764ed055c9966f2f93ffda034a1d2b7d0cd1e9d0042bfc740",
+        "compose_peer0.org1.example.com"
+      ]
+    },
+    {
+      "name": "peer0.org2.example.com",
+      "status": "running",
+      "health": "not configured",
+      "restartCount": 0,
+      "volumes": [
+        "2e307b9a5de68851afd6c7eed8a283e4a8ed2888fd2a8f5e47040dee35bc3314",
+        "compose_peer0.org2.example.com"
+      ]
+    },
+    {
+      "name": "peer0.org3.example.com",
+      "status": "running",
+      "health": "not configured",
+      "restartCount": 0,
+      "volumes": [
+        "1115abc114999676d97fced5edc6ee8d73acfeb7a330bba168c31c19c3b5463c",
+        "compose_peer0.org3.example.com"
+      ]
+    },
+    {
+      "name": "orderer.example.com",
+      "status": "running",
+      "health": "not configured",
+      "restartCount": 0,
+      "volumes": [
+        "03400d2cf2d6f6c6d31d53c6bf3df46d7512be84cffac0d286b6e3068d742360",
+        "4d8cb188dc9a76104fadbd40db26f994cc46e4919a2d1a89198e8959b2afc73c",
+        "compose_orderer.example.com"
+      ]
+    }
+  ],
+  "apiProxyUnauthorizedStatus": 401,
+  "applicationDatabaseHasQaLots": false
+}

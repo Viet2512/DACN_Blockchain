@@ -1,3 +1,11 @@
+> **Demo đầy đủ 10/11/2026:** Xem [DEMO_GUIDE](DEMO_GUIDE.md) để dùng dataset 24 lô Fabric, 13 tài khoản mới và các lệnh demo:check/seed/verify/test. [Audit thực thi](docs/SYSTEM_AUDIT.md) ghi kết quả và giới hạn kiểm chứng. Dữ liệu cũ được giữ nguyên.
+
+> **Bản bàn giao 09/11/2026:** Dùng [hướng dẫn nghiệm thu và demo hiện hành](docs/FINAL_DELIVERY.md). Các ghi chú phiên bản cũ bên dưới được giữ để tham khảo.
+
+> **07/11/2026 — Workflow v4, chaincode 4.2:** Xem [hướng dẫn hiện hành](docs/WORKFLOW_V4.md). Các mô tả phiên bản cũ bên dưới là tài liệu lịch sử; dùng hướng dẫn v4 cho bàn giao và deployment.
+
+> **06/11/2026:** Backend đã kết nối Fabric v2 thật (Org1/Org2/Org3, signer riêng); lô cũ vẫn LOCAL. Chạy lại bằng `bash scripts/start-fabric.sh` rồi `docker compose up -d` trên môi trường đã cấu hình. Xem [hướng dẫn hiện tại](docs/FABRIC_STARTUP.md) và [kết quả sửa lỗi/test](docs/REMEDIATION_RESULTS.md).
+
 # TraceChain - IESH supply-chain demo
 
 Ứng dụng truy xuất nguồn gốc nông sản theo lô, xây dựng cho đồ án Đại học Sài
@@ -15,11 +23,12 @@ chứng minh dữ liệu đầu vào là đúng.
 - Docker Compose v2 (`docker compose version`)
 - Ít nhất 4 GB RAM trống
 
-Khi dùng Docker Compose, không cần cài Node.js hoặc MySQL trên máy host.
+Khi chỉ chạy ứng dụng bằng Docker Compose, không cần MySQL/Node.js trên host.
+Cấp chứng thư, migration và kiểm thử từ WSL vẫn cần Node/npm cùng Fabric binaries hiện có.
 
 ### Chạy thủ công (không dùng Docker cho ứng dụng)
 
-- Node.js 20 trở lên và npm
+- Node.js 22.12 trở lên và npm
 - MySQL 8 trở lên (hoặc chỉ chạy MySQL bằng Docker)
 - Git
 
@@ -47,7 +56,10 @@ Thay `<URL_REPOSITORY_GITHUB>` bằng URL repository thực tế. Không cần c
 Từ thư mục gốc dự án:
 
 ```bash
+[ -f .env ] || cp .env.example .env
+# Điền thông tin kết nối/mật khẩu; với database cũ phải giữ credential hiện có.
 ./scripts/up.sh
+# Chỉ seed khi chủ động cần dữ liệu demo và đã đặt DEMO_PASSWORD.
 ./scripts/seed.sh
 ```
 
@@ -77,14 +89,16 @@ nối từ máy host mới dùng cổng `3307`.
 
 | Vai trò | Username | Password |
 |---|---|---|
-| Admin | `admin` | `admin123` |
-| Farmer | `demo-farmer` | `demo123` |
-| Processor | `demo-processor` | `demo123` |
-| Transporter | `demo-transporter` | `demo123` |
-| Distributor | `demo-distributor` | `demo123` |
+| Admin | Theo `ADMIN_USERNAME` | Theo `ADMIN_PASSWORD` |
+| Farmer | `demo-farmer` | Theo `DEMO_PASSWORD` khi seed |
+| Processor | `demo-processor` | Theo `DEMO_PASSWORD` khi seed |
+| Transporter | `demo-transporter` | Theo `DEMO_PASSWORD` khi seed |
+| Distributor | `demo-distributor` | Theo `DEMO_PASSWORD` khi seed |
 
-`./scripts/seed.sh` tạo dữ liệu mẫu và có thể chạy lại mà không tạo trùng các
-lô demo. Dữ liệu mặc định chạy ở local mode (`FABRIC_ENABLED=false`), nên không
+Bộ mẫu mới còn có `demo-farmer-2` và `demo-transporter-2` để kiểm tra nhiều người dùng/doanh nghiệp. Xem [kịch bản test Frontend](docs/DEMO_TEST_GUIDE.md).
+
+`./scripts/seed.sh` chỉ dùng khi chủ động muốn tạo dữ liệu mẫu. Script có thể cập
+nhật tài khoản/tác nhân demo đã tồn tại; không chạy trên dữ liệu thật cần bảo toàn. Dữ liệu mặc định chạy ở local mode (`FABRIC_ENABLED=false`), nên không
 cần khởi động Fabric để xem giao diện và thực hiện kịch bản demo.
 
 ## 4. Chạy thủ công frontend/backend
@@ -104,7 +118,7 @@ quyền truy cập database đó.
 
 ```bash
 cd backend
-cp .env.example .env
+[ -f .env ] || cp .env.example .env
 npm install
 npm start
 ```
@@ -118,11 +132,11 @@ MYSQL_ENABLED=true
 MYSQL_HOST=127.0.0.1
 MYSQL_PORT=3307
 MYSQL_DATABASE=traceability
-MYSQL_USER=tracechain
-MYSQL_PASSWORD=tracechain_dev
+MYSQL_USER=<tai-khoan-MySQL-hien-co>
+MYSQL_PASSWORD=<mat-khau-MySQL-hien-co>
 FABRIC_ENABLED=false
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=admin123
+ADMIN_USERNAME=<tai-khoan-admin-khoi-tao>
+ADMIN_PASSWORD=<mat-khau-admin-khoi-tao>
 ```
 
 Nếu MySQL chạy trực tiếp trên máy, đổi `MYSQL_PORT` thành `3306`. Không đưa
@@ -152,7 +166,7 @@ Frontend mặc định chạy tại [http://localhost:3000](http://localhost:300
 chạy thủ công. Nếu cần đổi địa chỉ API, tạo `frontend/.env`:
 
 ```env
-REACT_APP_API_URL=http://localhost:8080/api
+VITE_API_URL=http://localhost:8080/api
 ```
 
 ## 5. Kịch bản demo 10 phút
@@ -250,7 +264,7 @@ Hoặc chạy riêng:
 ```bash
 cd backend && npm test
 cd chaincode && npm test
-cd frontend && CI=true npm test -- --watchAll=false
+cd frontend && npm test
 ```
 
 Benchmark endpoint truy xuất công khai:
@@ -266,23 +280,13 @@ Xem log hoặc dừng hệ thống Docker:
 ```bash
 docker compose logs -f backend
 docker compose ps
-docker compose down
+bash scripts/stop.sh
 ```
 
-`docker compose down` không xóa volume MySQL. Muốn xóa cả dữ liệu database
-demo, dùng lệnh này một cách thận trọng:
-
-```bash
-docker compose down -v
-```
-
-Nếu cần làm sạch các bản ghi test rồi nạp lại dữ liệu demo:
-
-```bash
-cd backend
-npm run reset:demo
-npm run seed:demo
-```
+Script chỉ dừng ứng dụng, MySQL và các container Fabric hiện hữu; giữ nguyên
+volume, ledger và chứng thư. Khởi động lại bằng `bash scripts/up.sh`.
+Không reset hoặc seed lại database đang có để cập nhật ứng dụng. Test dữ liệu
+riêng bằng `node scripts/test-mysql.js --delivery --fabric`.
 
 ## 9. Xử lý lỗi thường gặp
 
@@ -312,3 +316,31 @@ npm run seed:demo
 ## License
 
 Dự án phục vụ mục đích học tập và trình diễn.
+
+## Frontend TypeScript/Vite
+
+Frontend đã được nâng cấp tại cùng thư mục, có dashboard theo vai trò, quản lý
+lô/FSM, bàn giao, QR công khai và quản trị. Xem [hướng dẫn Frontend](frontend/README.md),
+[kế hoạch](docs/FRONTEND_IMPLEMENTATION_PLAN.md), [API](docs/API_INTEGRATION.md),
+[mức hoàn thiện](docs/FEATURE_COMPLETION.md) và [kiểm thử](docs/FRONTEND_TESTING.md).
+`REACT_APP_API_URL` vẫn được hỗ trợ cho Compose hiện có. `/uploads/*` không còn
+công khai; dùng endpoint tải chứng từ có xác thực. Không thay đổi database/volume.
+
+## Kiểm tra MySQL và bảo toàn dữ liệu
+
+Backend dùng MySQL 8.x với mysql2/promise, InnoDB và utf8mb4. Không cần migration
+PostgreSQL. Khởi động Backend không tự ALTER/backfill hay tính lại hash lịch sử.
+Cấu hình mật khẩu đặt trong .env bị Git bỏ qua, không nhúng vào Docker image.
+
+```bash
+./scripts/backup-mysql.sh
+# Kiểm thử ghi chỉ trong database tạm riêng, tự dọn sau khi xong:
+node scripts/test-mysql.js
+```
+
+Xem [báo cáo MySQL, backup và rollback](docs/MYSQL_VERIFICATION.md). Với database
+đang có, không chạy lại schema/seed/reset để cập nhật ứng dụng.
+
+### Tài khoản phân cấp
+
+Xem [triển khai, kiểm thử và hướng dẫn System Admin → Business Admin → Staff](docs/ACCOUNT_HIERARCHY.md). Môi trường hiện có cần chạy migration 007 trước khi triển khai backend mới. Lời mời thủ công chỉ bật với NODE_ENV=development/test; production không trả token.

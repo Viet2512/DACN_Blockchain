@@ -4,38 +4,48 @@ services:
     container_name: tracechain-mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: traceability
-      MYSQL_USER: tracechain
-      MYSQL_PASSWORD: tracechain_dev
-      MYSQL_ROOT_PASSWORD: root_dev
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?Set MYSQL_DATABASE in .env}
+      MYSQL_USER: ${MYSQL_USER:?Set MYSQL_USER in .env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
     ports:
-      - "3307:3306"
+      - "127.0.0.1:3307:3306"
     volumes:
       - tracechain_mysql_data:/var/lib/mysql
       - ./backend/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "mysqladmin ping -h localhost -utracechain -ptracechain_dev"]
+      test: ["CMD-SHELL", 'MYSQL_PWD="$${MYSQL_PASSWORD}" mysqladmin ping -h localhost -u"$${MYSQL_USER}" --silent']
       interval: 5s
       timeout: 5s
       retries: 20
 
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: tracechain-backend
     restart: unless-stopped
     environment:
+      NODE_ENV: ${NODE_ENV:-production}
       PORT: 8080
       MYSQL_ENABLED: "true"
       MYSQL_HOST: mysql
       MYSQL_PORT: 3306
-      MYSQL_DATABASE: traceability
-      MYSQL_USER: tracechain
-      MYSQL_PASSWORD: tracechain_dev
-      ADMIN_USERNAME: admin
-      ADMIN_PASSWORD: admin123
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?Set MYSQL_DATABASE in .env}
+      MYSQL_USER: ${MYSQL_USER:?Set MYSQL_USER in .env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:-}
       FABRIC_ENABLED: "false"
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:3001}
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:8080/api/health/dependencies').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 20s
+      retries: 5
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     volumes:
       - ./backend/uploads:/app/uploads
     depends_on:
@@ -48,12 +58,17 @@ services:
     restart: unless-stopped
     environment:
       PORT: 3000
-      REACT_APP_API_URL: http://localhost:8080/api
-      WDS_SOCKET_PORT: 3001
+      API_PROXY_TARGET: http://backend:8080
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
     ports:
       - "3001:3000"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
 
 volumes:
   tracechain_mysql_data:

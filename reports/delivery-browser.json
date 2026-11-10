@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-11-08T18:21:39.631Z",
+  "browser": "integrated Chromium",
+  "qaFrontend": "http://127.0.0.1:4175",
+  "database": "isolated disposable QA database",
+  "lotId": "QA-BROWSER-MW85JHMS",
+  "rolesLoggedInAndOut": [
+    "FARMER",
+    "PROCESSOR",
+    "TRANSPORTER",
+    "DISTRIBUTOR"
+  ],
+  "createdAndSubmittedThroughUI": true,
+  "source": "FABRIC",
+  "finalStatus": "READY_FOR_SALE",
+  "publicTraceWithoutSession": true,
+  "ieshValid": true,
+  "events": [
+    {
+      "eventType": "CTE_CREATE",
+      "transactionId": "c37a06b0edb891f41f551d8edfd10a83ab2618a1f61e510f2af7fc4713de9cd8"
+    },
+    {
+      "eventType": "CTE_HARVEST",
+      "transactionId": "3ebe3fc6fd30978205848725f007db62c19dbf2144912dc272e1802ae365e24e"
+    },
+    {
+      "eventType": "CTE_HANDOVER_PROCESSOR",
+      "transactionId": "72affacdc36384ec7f3d974bbc60641bf6adf521641f9d7a422ccc34b9f0177e"
+    },
+    {
+      "eventType": "CTE_RECEIVE_PROCESSOR",
+      "transactionId": "057248ffb3afe337818921b6dd0304fecd4049a60333f19d38c4c24cfdd0694f"
+    },
+    {
+      "eventType": "CTE_PROCESS",
+      "transactionId": "cf27f838a2acae836ce9f43944d1521f62abe70c10014c2f025c2839b82cf914"
+    },
+    {
+      "eventType": "CTE_HANDOVER_SHIP",
+      "transactionId": "2d28388f2e98f9beee8f7fd50ccdbe78e05aa40822d470bb9d33b601e66e5017"
+    },
+    {
+      "eventType": "CTE_RECEIVE_SHIP",
+      "transactionId": "279c70990670e8b336f7bcc64b1711e58ae908b9ebf4e50836962298d429a2ef"
+    },
+    {
+      "eventType": "CTE_TRANSPORT",
+      "transactionId": "8530646100f93c086c5dbfa6a290572b058206b684e47b0f3095937322c7dfed"
+    },
+    {
+      "eventType": "CTE_HANDOVER_RETAIL",
+      "transactionId": "72204be35f61049dfeb1320a25de884a0f4711e8729d49d61ec03932112b880e"
+    },
+    {
+      "eventType": "CTE_DISPATCH_RETAIL",
+      "transactionId": "acd8b66c24c874ab68127f7bb40808a0b2a8edccd2b907e631172972805a78fd"
+    },
+    {
+      "eventType": "CTE_DISPLAY_SALE",
+      "transactionId": "5a0304ada02bd73af928719e210b00613fcdced29b2439a619611c6579b80f46"
+    }
+  ],
+  "nativePatternVerified": true,
+  "mobileMenuVerified": true,
+  "mobileViewportWidth": 390,
+  "businessAdminNavigationVerified": "NOT VERIFIED in browser; covered by component tests",
+  "mobileMenuClose": "NOT VERIFIED: automated center click was covered by the open sidebar"
+}

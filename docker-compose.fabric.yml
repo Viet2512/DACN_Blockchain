@@ -1,0 +1,59 @@
+# Apply with: docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --build backend frontend
+# Existing channels remain; traceability_v2 version 3 uses per-user SQL identity mappings.
+services:
+  backend:
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      FABRIC_ENABLED: "true"
+      FABRIC_NETWORK_ROOT: /fabric
+      FABRIC_PEER_ENDPOINT: peer0.org1.example.com:7051
+      FABRIC_PEER_HOST_ALIAS: peer0.org1.example.com
+      FABRIC_CHANNEL: tracechannel-v2
+      FABRIC_CHAINCODE: traceability_v2
+    volumes:
+      - ./backups/fabric-runtime:/fabric:ro
+      - ./reports:/reports:ro
+    networks:
+      - default
+      - fabric
+  fabric-operator:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    command: ["node", "fabric-operator-worker.js"]
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      MYSQL_ENABLED: "true"
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: ${MYSQL_DATABASE:?Set MYSQL_DATABASE in .env}
+      MYSQL_USER: ${MYSQL_USER:?Set MYSQL_USER in .env}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:?Set MYSQL_PASSWORD in .env}
+      FABRIC_CA_OPERATOR_ENABLED: "true"
+      FABRIC_CA_OPERATOR_ROOT: /fabric-operator
+      FABRIC_RUNTIME_ROOT: /fabric
+      FABRIC_CA_CLIENT: /usr/local/bin/fabric-ca-client
+    volumes:
+      - ./backups/fabric-runtime:/fabric
+      - ./fabric-samples/bin/fabric-ca-client:/usr/local/bin/fabric-ca-client:ro
+      - ./fabric-samples/test-network/organizations/peerOrganizations/org1.example.com:/fabric-operator/organizations/peerOrganizations/org1.example.com
+      - ./fabric-samples/test-network/organizations/peerOrganizations/org2.example.com:/fabric-operator/organizations/peerOrganizations/org2.example.com
+      - ./fabric-samples/test-network/organizations/peerOrganizations/org3.example.com:/fabric-operator/organizations/peerOrganizations/org3.example.com
+      - ./fabric-samples/test-network/organizations/fabric-ca/org1/ca-cert.pem:/fabric-operator/organizations/fabric-ca/org1/ca-cert.pem:ro
+      - ./fabric-samples/test-network/organizations/fabric-ca/org2/ca-cert.pem:/fabric-operator/organizations/fabric-ca/org2/ca-cert.pem:ro
+      - ./fabric-samples/test-network/addOrg3/fabric-ca/org3/tls-cert.pem:/fabric-operator/addOrg3/fabric-ca/org3/tls-cert.pem:ro
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - default
+      - fabric
+      - ca-operator
+networks:
+  fabric:
+    external: true
+    name: fabric_test
+  ca-operator:
+    external: true
+    name: tracechain_ca_operator

@@ -1,0 +1,55 @@
+{
+  "checkedAt": "2026-11-07T16:10:41.196Z",
+  "backup": "mysql-20261107T152823Z-60l4St.sql",
+  "results": [
+    {
+      "table": "organizations",
+      "rows": 3,
+      "sha256": "4453cb0c1458621c7720272eed43582ab0efafa42be3c29f8b171e875eb7ac33",
+      "unchanged": true
+    },
+    {
+      "table": "actors",
+      "rows": 6,
+      "sha256": "c56553431fe01317aec762fc389326a2006e109756b05398de339317093ae9c1",
+      "unchanged": true
+    },
+    {
+      "table": "actor_roles",
+      "rows": 6,
+      "sha256": "fb2529d0e31f23f6ef5a772e45214f8ee6291634d3a31e26118a2453088d2e78",
+      "unchanged": true
+    },
+    {
+      "table": "user_accounts",
+      "rows": 7,
+      "sha256": "693d4cde5433fc3cda98e0b50bd807094f0c9bd266009c02d11f57d0b5ff039e",
+      "unchanged": true
+    },
+    {
+      "table": "lots",
+      "rows": 7,
+      "sha256": "dc980b45b68f20cda58a219618b7992250873e4ec7376312c3eaac3529942fe6",
+      "unchanged": true
+    },
+    {
+      "table": "trace_events",
+      "rows": 29,
+      "sha256": "ed6f0f2d39cff1109d181c41dc44ab0db548a65713e78fdd77b9a9be5ef1b4ec",
+      "unchanged": true
+    },
+    {
+      "table": "event_documents",
+      "rows": 5,
+      "sha256": "2ef65e6434c26481ed89d69963aba7a5d4df782b8c48928cb414b6803dc655d7",
+      "unchanged": true
+    },
+    {
+      "table": "audit_log",
+      "rows": 45,
+      "sha256": "2a78d210334c6f092522adf9c3e31cf9ed834ebdbfb6108e6c43094b2e332791",
+      "unchanged": true
+    }
+  ],
+  "documentsChecked": 5
+}

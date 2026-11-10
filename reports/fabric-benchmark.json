@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-11-07T16:05:23.578Z",
+  "environment": {
+    "node": "v24.21.0",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-1240P",
+    "cpuCount": 16,
+    "memoryBytes": 8164114432,
+    "chaincodeVersion": "4.3",
+    "organizations": 3
+  },
+  "scope": "Isolated QA database; real Fabric commits. Three sequential lots, not a saturation/load-capacity claim.",
+  "gatewayCommitLatencyMs": {
+    "count": 33,
+    "mean": 2045.5920434545458,
+    "p50": 2043.0814409999875,
+    "p95": 2061.8925790000067,
+    "p99": 2075.2470729999914
+  },
+  "historyQueryLatencyMs": {
+    "count": 3,
+    "mean": 7.709000666667028,
+    "p50": 7.503618999995524,
+    "p95": 8.239470000000438,
+    "p99": 8.239470000000438
+  },
+  "historyHashBaselineMs": {
+    "count": 3,
+    "mean": 10.083628999998231,
+    "p50": 10.126943999996001,
+    "p95": 11.169221999996807,
+    "p99": 11.169221999996807
+  },
+  "historyIeshMs": {
+    "count": 3,
+    "mean": 8.929086666668203,
+    "p50": 8.528861999991932,
+    "p95": 9.750846000009915,
+    "p99": 9.750846000009915
+  },
+  "benchmarkWriteHashBaselineMs": {
+    "count": 3,
+    "mean": 2052.426382999998,
+    "p50": 2050.585128000006,
+    "p95": 2057.0080289999896,
+    "p99": 2057.0080289999896
+  },
+  "benchmarkWriteIeshMs": {
+    "count": 3,
+    "mean": 2047.4889969999979,
+    "p50": 2047.9417689999973,
+    "p95": 2049.684592999998,
+    "p99": 2049.684592999998
+  },
+  "benchmarkWriteOverheadPercent": -0.24056336640846387,
+  "historyValidationOverheadPercent": -11.449670880694141,
+  "throughputCommittedTps": 0.3735597520412572,
+  "measurementElapsedMs": 88339.281252,
+  "validLots": 3,
+  "validTransactionSubmissions": 33,
+  "committedTransactions": 33,
+  "transactionSuccessRate": 1,
+  "chaincodeViolationDetection": {
+    "detected": 18,
+    "total": 18,
+    "rate": 1
+  },
+  "ieshViolationDetection": {
+    "detected": 9,
+    "total": 9,
+    "rate": 1
+  },
+  "unauthorizedRejection": {
+    "rejected": 3,
+    "total": 3,
+    "rate": 1
+  },
+  "resources": [
+    {
+      "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.43MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.66MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "57.51MiB / 2GiB"
+    },
+    {
+      "container": "tracechain-backend",
+      "cpu": "0.01%",
+      "memory": "53.5MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-frontend",
+      "cpu": "0.00%",
+      "memory": "87.08MiB / 7.603GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.00%",
+      "memory": "51.73MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.00%",
+      "memory": "102.6MiB / 2GiB"
+    },
+    {
+      "container": "tracechain-mysql",
+      "cpu": "4.18%",
+      "memory": "486MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org3.example.com",
+      "cpu": "2.30%",
+      "memory": "122.5MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org2.example.com",
+      "cpu": "2.21%",
+      "memory": "115MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org1.example.com",
+      "cpu": "2.12%",
+      "memory": "151.1MiB / 7.603GiB"
+    },
+    {
+      "container": "orderer.example.com",
+      "cpu": "0.09%",
+      "memory": "46.36MiB / 7.603GiB"
+    },
+    {
+      "container": "ca_orderer",
+      "cpu": "0.00%",
+      "memory": "19.89MiB / 7.603GiB"
+    },
+    {
+      "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.62MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.73MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.37%",
+      "memory": "57.62MiB / 2GiB"
+    },
+    {
+      "container": "tracechain-backend",
+      "cpu": "11.76%",
+      "memory": "54.07MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-frontend",
+      "cpu": "0.00%",
+      "memory": "86.99MiB / 7.603GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.00%",
+      "memory": "51.53MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.00%",
+      "memory": "102.5MiB / 2GiB"
+    },
+    {
+      "container": "tracechain-mysql",
+      "cpu": "1.07%",
+      "memory": "484.4MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org3.example.com",
+      "cpu": "1.72%",
+      "memory": "107.7MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org2.example.com",
+      "cpu": "1.67%",
+      "memory": "115.3MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org1.example.com",
+      "cpu": "1.94%",
+      "memory": "148.4MiB / 7.603GiB"
+    },
+    {
+      "container": "orderer.example.com",
+      "cpu": "0.07%",
+      "memory": "46.89MiB / 7.603GiB"
+    },
+    {
+      "container": "ca_orderer",
+      "cpu": "0.00%",
+      "memory": "19.7MiB / 7.603GiB"
+    },
+    {
+      "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.69MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.96MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "57.54MiB / 2GiB"
+    },
+    {
+      "container": "tracechain-backend",
+      "cpu": "0.00%",
+      "memory": "52.83MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-frontend",
+      "cpu": "0.00%",
+      "memory": "87.28MiB / 7.603GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.00%",
+      "memory": "51.54MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.00%",
+      "memory": "102.5MiB / 2GiB"
+    },
+    {
+      "container": "tracechain-mysql",
+      "cpu": "0.64%",
+      "memory": "484.2MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org3.example.com",
+      "cpu": "2.12%",
+      "memory": "109MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org2.example.com",
+      "cpu": "3.21%",
+      "memory": "116.2MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org1.example.com",
+      "cpu": "2.55%",
+      "memory": "150.3MiB / 7.603GiB"
+    },
+    {
+      "container": "orderer.example.com",
+      "cpu": "0.06%",
+      "memory": "49.42MiB / 7.603GiB"
+    },
+    {
+      "container": "ca_orderer",
+      "cpu": "0.00%",
+      "memory": "19.7MiB / 7.603GiB"
+    }
+  ],
+  "example": {
+    "lotId": "QA-USER-1794067494027-74BEA5",
+    "lastTransactionId": "b13e194a5f7dedc5a71ecd365c31aa84ad308856968f0223bd8571e4d117fab4",
+    "eventCount": 11
+  },
+  "limitations": [
+    "TPS includes negative tests, queries and resource sampling between sequential flows.",
+    "Write overhead compares full-history IESH versus hash checks with identical research-key writes; it is not an ablation of production CTE validation.",
+    "Small sample; no statistical significance or production capacity claim.",
+    "Other Docker workloads were running on the same host; this was not a dedicated performance environment."
+  ]
+}
