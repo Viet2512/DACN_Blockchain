@@ -1,5 +1,7 @@
 # TraceChain — hướng dẫn bảo vệ đồ án
 
+> **Bản dùng cho bảo vệ, cập nhật 14/11/2026:** xem [bảng nghiệm thu và việc còn chặn](docs/ACCEPTANCE_20261114.md), [snapshot lô hiện tại](reports/completion-20261114/demo-verify.json) và [bằng chứng 11 CTE qua UI QA](reports/completion-20261114/browser-ui.json). Các snapshot 07–10/11 được giữ nguyên, không thay thế kết quả lượt này.
+
 Dataset **TC-DEMO-V1** tách khỏi dữ liệu cũ. Dữ liệu mẫu mô phỏng nghiệp vụ; giao dịch Fabric là thật. Không reset database, ledger hoặc volume.
 
 ## 1. Khởi chạy trên Windows/WSL
@@ -14,7 +16,7 @@ curl -fsS http://localhost:3001/api/health/dependencies
 
 Frontend http://localhost:3001; backend http://localhost:8080; MySQL host 127.0.0.1:3307. Không dùng cổng 3000 của dự án khác.
 
-Health phải có mysql=true, fabric.ready=true, schemaVersion=4. Startup sử dụng cả [Compose ứng dụng](docker-compose.yml) và [override Fabric](docker-compose.fabric.yml). Ba MSP: Org1MSP/Org2MSP/Org3MSP; channel tracechannel-v2; chaincode traceability_v2.
+Health phải có mysql=true, fabric.ready=true, schemaVersion=4. Startup sử dụng cả [Compose ứng dụng](docker-compose.yml) và [override Fabric](docker-compose.fabric.yml). Ba MSP: Org1MSP/Org2MSP/Org3MSP; channel tracechannel-v2; chaincode traceability_v2 version 4.3, sequence 6. Khởi động không seed hoặc deploy lại mạng.
 
 Máy mới: xem [khởi tạo](docs/WORKFLOW_V4.md#máy-mới-hoàn-toàn). Cài trắng trên máy khác **NOT VERIFIED**; không chạy init lên mạng đang có.
 
@@ -32,10 +34,10 @@ DEMO_DATA_ENABLED=true bash scripts/demo.sh seed
 
 Giữ mật khẩu này trong cấu hình riêng để chạy lại. Trên môi trường đã seed, dùng đúng mật khẩu cũ; đổi biến môi trường không đổi mật khẩu tài khoản. Runner dừng khi credential không khớp, không reset tài khoản.
 
-Trên môi trường đã cấu hình:
+Trên máy demo đã có dữ liệu, chỉ kiểm tra; không seed lại:
 
 ```bash
-DEMO_DATA_ENABLED=true bash scripts/demo.sh seed
+bash scripts/demo.sh check
 bash scripts/demo.sh verify
 bash scripts/demo.sh test
 ```
@@ -70,13 +72,14 @@ Danh mục gồm 10 nông sản Việt Nam, mã NS-01…NS-10, đơn vị kg. Sc
 
 Mã đầy đủ dạng **TC-DEMO-V1-001**. Đây là trạng thái seed ban đầu; thao tác tiếp hợp lệ được giữ nguyên, xem report verify mới nhất.
 
-Snapshot nghiệm thu 10/11/2026: 24 lô, **142 sự kiện/transaction VALID**, 39 yêu cầu/31 xác nhận bàn giao. Lô 007 hiện đã được sơ chế tiếp nhận trong browser E2E; các lô 006, 008–009 và 023 vẫn sẵn để tiếp tục demo.
+Snapshot gốc 10/11 và lượt đối chiếu 14/11/2026: 24 lô, **142 sự kiện/transaction VALID**, 39 yêu cầu/31 xác nhận bàn giao. Lô 007 đã được sơ chế tiếp nhận, khác trạng thái seed ban đầu. Bảng dưới dùng trạng thái đã đối chiếu ngày 14/11; kiểm lại trước mỗi lượt bấm vì giao dịch demo mới sẽ giữ vĩnh viễn trên ledger.
 
 | Số cuối | Trạng thái / thao tác tiếp |
 | --- | --- |
 | 001–003 | READY_FOR_SALE; đủ 11 CTE, QR/hành trình hoàn tất |
 | 004–005 | CREATED; nhà sản xuất thu hoạch |
-| 006–007 | HARVESTED; gửi sơ chế; 007 dành riêng browser E2E |
+| 006 | HARVESTED; có thể gửi sơ chế |
+| 007 | RECEIVED_PROCESSOR; đã được browser E2E tiếp nhận, không dùng lại như lô chờ giao |
 | 008–009, 023 | WAITING_PROCESSOR; sơ chế nhận |
 | 010–011 | RECEIVED_PROCESSOR; sơ chế ghi công đoạn/chất lượng |
 | 012–013 | PROCESSED; gửi vận chuyển |
@@ -90,14 +93,25 @@ Hai staff cùng doanh nghiệp có chung phạm vi doanh nghiệp. Sơ chế/ph�
 
 ## 5. Kịch bản 10–15 phút
 
-1. tc_system: xem doanh nghiệp, tài khoản, ma trận quyền, giao dịch có validation code thật.
-2. tc_admin_sanxuat: xem nhân viên/hoạt động đúng doanh nghiệp, không có quyền ghi CTE.
-3. tc_nv_sanxuat01: mở 006, gửi sơ chế; holder chưa đổi khi chờ nhận.
-4. tc_nv_soche01: nhận đúng lô, kiểm tra holder đổi; dùng 010 để sơ chế, nhập lượng >0, kg và Đạt.
-5. tc_nv_vanchuyen01: nhận 014, ghi vận chuyển hoặc gửi tới đơn vị phân phối được chỉ định.
-6. tc_nv_phanphoi01: nhận 018 (số lượng/đơn vị), hoặc đưa 020 lên kệ (Đạt).
-7. Không đăng nhập: http://localhost:3001/trace/TC-DEMO-V1-001, xem 11 sự kiện và IESH. Mở 022 để xem thu hồi.
-8. Chạy demo:test: sai quyền/tenant, chưa bàn giao, bỏ bước, stale previousEventId, số lượng âm đều phải bị từ chối; ledger không đổi.
+Chuẩn bị bốn phiên browser theo bốn staff 01 để chuyển vai trò nhanh, lấy mật khẩu từ cấu hình riêng. Dùng mã mới có tiền tố `QA-DEFENSE-` và hậu tố riêng cho lượt diễn tập; không tái tạo mã đã commit. Giữ nguyên 001/002 và các lô dự phòng bên dưới.
+
+| Phút | Tài khoản / thao tác native | Kết quả cần chỉ cho hội đồng |
+|---|---|---|
+| 0–2 | `tc_system`: doanh nghiệp/quyền/giao dịch; `tc_admin_sanxuat`: nhân viên của mình | Quản trị không có quyền ghi CTE; nhiều doanh nghiệp có thể cùng MSP |
+| 2–4 | `tc_nv_sanxuat01`: Lô hàng → Khởi tạo lô, chọn sơ chế Mekong/phân phối Sài Gòn; thu hoạch 100 kg; giao sơ chế | Ba CTE, WAITING_PROCESSOR; holder còn doanh nghiệp sản xuất |
+| 4–6 | `tc_nv_soche01`: mở cùng mã → xác nhận nhận → sơ chế 95 kg, chất lượng Đạt → yêu cầu giao Công ty Vận Tải Đồng Bằng, vùng TG-001 | Nhận mới đổi holder; WAITING_SHIP vẫn giữ bên sơ chế |
+| 6–8 | `tc_nv_vanchuyen01`: nhận → Ghi nhận sự kiện/ghi vận chuyển, ví dụ 8,2°C và 72% (mô phỏng) → giao phân phối | IN_TRANSIT có checkpoint; WAITING_RETAIL giữ holder vận chuyển |
+| 8–10 | `tc_nv_phanphoi01`: nhận 95 kg → đưa lên kệ, chất lượng Đạt | READY_FOR_SALE; 11 CTE trên cùng lô |
+| 10–12 | Bấm Kiểm tra tính hợp lệ, mở lịch sử/TxID; logout rồi mở public trace | IESH hợp lệ, dữ liệu public không cần session; commit khác projection SQL |
+| 12–15 | Mở QR lô 001, mở lô thu hồi 022; chỉ ca từ chối từ báo cáo QA | QR/public có 11 sự kiện; thu hồi có cảnh báo; không cố ghi sai lên lô demo |
+
+Tên sản phẩm/nguồn gốc/địa điểm dùng dữ liệu mô phỏng được ghi nhãn rõ; ngày hồ sơ chọn ngày có thật. Các bước gửi phải có địa điểm và checkbox xác nhận. Không chọn quality Đạt khi hàng thật chưa được kiểm tra.
+
+**Hai lô dự phòng đã kiểm ngày 14/11:** `TC-DEMO-V1-001` và `TC-DEMO-V1-002`, đều READY_FOR_SALE với 11 sự kiện và commit VALID; chỉ mở để trình bày khi thiếu thời gian. Lô 006 (HARVESTED) và 008 (WAITING_PROCESSOR) là dự phòng cho một cặp request/confirm, nhưng phải tải lại trạng thái trước khi bấm. `TC-DEMO-V1-022` dùng cho cảnh báo thu hồi.
+
+**Khi lỗi:** dependency health lỗi → xem logs và resume theo script; không seed/reset. Ghi timeout/503 → đọc lịch sử/TxID trước, chỉ reconcile projection khi cần, không bấm gửi lại mù. LAN lỗi → mở http://127.0.0.1:3001/trace/TC-DEMO-V1-001 trên máy chiếu. Không biến video/ảnh/báo cáo đã lưu thành tuyên bố giao dịch live vừa thành công.
+
+Diễn tập tự động 11 lần ghi mới dùng database QA riêng và được lưu ở report browser-ui ngày 14/11. Một ca sai tenant/nhận trước bàn giao dùng suite delivery hiện có; không thử bằng cách sửa role hoặc trạng thái lô mẫu.
 
 Không có reject/cancel/timeout bàn giao, nên không tạo trạng thái giả. Số đo trong seed là ví dụ trình diễn, không phải cảm biến vật lý.
 
@@ -156,7 +170,13 @@ QR camera/in giấy, truy cập từ mạng ngoài, máy sạch và tải lớn:
 
 ## 8. QR điện thoại qua Wi-Fi/LAN
 
-### Cấu hình đang dùng
+### Cập nhật hiện hành 14–15/11/2026
+
+Máy đã nối hotspot riêng, IP **10.239.60.19**, profile **Private**. PUBLIC_BASE_URL là `http://10.239.60.19:3001`; rule Windows/Hyper-V chỉ allow frontend 3001/LocalSubnet và giữ block các cổng nội bộ. Lô riêng `TC-REHEARSAL-20261117-001` đã hoàn tất 11 CTE bằng UI, đối soát Fabric/API/MySQL và QSCC đều đạt. QR được giải mã đúng URL lô này; mobile browser dùng API cùng origin. **Người dùng đã xác nhận QR hoạt động trên điện thoại ngày 15/11.** Windows tự gọi IP LAN vẫn timeout trong phép thử trước; không đánh đồng hai kết quả. Xem [bàn giao và kịch bản 3–5 phút](docs/REHEARSAL_20261117.md), [bằng chứng lô](reports/rehearsal-20261117.json), [UI/QR](reports/rehearsal-browser-20261117.json).
+
+Không áp dụng firewall trên mạng Public. Với mạng demo riêng đáng tin cậy, người dùng chọn Private và chạy script LAN ở PowerShell Administrator; giữ TCP 3001/LocalSubnet, không mở API/MySQL/Fabric. Từ WSL lấy đường dẫn Windows hiện tại bằng `wslpath -w "$PWD/scripts/lan.ps1"`, rồi dùng đường dẫn đó trong PowerShell Admin. Đường dẫn này không phụ thuộc tên distro cũ. Camera/điện thoại chỉ PASS sau khi có thiết bị thực sự mở được trang.
+
+### Snapshot LAN lịch sử 10/11/2026 — IP bên dưới không còn là cấu hình hiện tại
 
 IP lấy trực tiếp từ Windows Get-NetIPConfiguration, adapter Wi-Fi có gateway thật: **172.16.30.128**, gateway 172.16.30.1. WSL2 đang dùng mirrored networking nên nhìn thấy cùng IP; đây không phải IP Docker bridge. IP có thể thay đổi khi đổi Wi-Fi/DHCP.
 
@@ -180,7 +200,8 @@ Backend lấy PUBLIC_BASE_URL từ file môi trường gốc riêng; giá trị 
 Nếu là Wi-Fi dùng chung (trường học/quán/công ty), giữ Public; ưu tiên mạng demo riêng đáng tin cậy. Không tự chuyển mạng dùng chung thành Private chỉ để mở cổng. Nếu là Wi-Fi riêng đáng tin cậy, chọn Private trong Windows Settings → Network & Internet → Wi-Fi → mạng hiện tại, rồi mở **PowerShell as Administrator** và chạy:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File "\\wsl.localhost\Ubuntu\home\viet\DoAnBlockchain\scripts\lan.ps1" -Firewall
+# Thay bằng đường dẫn Windows do wslpath ở distro hiện tại trả về:
+& '<duong-dan-Windows-toi-scripts/lan.ps1>' -Firewall
 ```
 
 Script không tự đổi network trust, không tắt Firewall, không đặt inbound mặc định thành Allow. Nó chỉ cho TCP 3001 từ LocalSubnet trên profile Private (Windows và Hyper-V/WSL), đồng thời tạo rule chặn cổng nội bộ TraceChain từ LAN trên Private. Không sửa cấu hình Fabric/channel/ledger; rule Firewall cần được chạy và kiểm tra ở quyền Administrator, hiện chưa được áp dụng bởi agent.

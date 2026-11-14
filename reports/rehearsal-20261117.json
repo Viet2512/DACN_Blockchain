@@ -1,0 +1,276 @@
+{
+  "lotId": "TC-REHEARSAL-20261117-001",
+  "checks": {
+    "liveModelB": "PASS",
+    "realCaOperatorIssuance": "PASS",
+    "twoBusinessesShareOrg1MSP": "PASS",
+    "existingBusinessDataPreserved": "PASS",
+    "fabricApiMysqlSameLot": "PASS",
+    "all11CommitsValid": "PASS",
+    "publicTrace": "PASS",
+    "repeatPrepareNoDuplicates": "PASS"
+  },
+  "rejections": [
+    {
+      "name": "staff cannot invite administrators",
+      "source": "LIVE_API",
+      "status": 403,
+      "code": "HTTP_403",
+      "reason": "Permission required: USER_CREATE"
+    },
+    {
+      "name": "administrator cannot invite outside their business",
+      "source": "LIVE_API",
+      "status": 403,
+      "code": "HTTP_403",
+      "reason": "Không được cấp tài khoản cho doanh nghiệp khác"
+    },
+    {
+      "name": "administrator cannot issue another business certificate",
+      "source": "LIVE_API",
+      "status": 404,
+      "code": "REQUEST_FAILED",
+      "reason": "User not found"
+    },
+    {
+      "name": "missing certificate cannot create",
+      "source": "LIVE_API",
+      "status": 403,
+      "code": "FABRIC_IDENTITY_REQUIRED",
+      "reason": "Tài khoản chưa có chứng thư Fabric đang hoạt động để ký giao dịch. Liên hệ người vận hành để cấp chứng thư."
+    },
+    {
+      "name": "same MSP is not the same business",
+      "source": "LIVE_API",
+      "status": 403,
+      "code": "REGION_DENIED",
+      "reason": "Tác nhân không thuộc phạm vi lô hoặc bên nhận được chỉ định"
+    }
+  ],
+  "baseCommit": "b78756899da2ec122cee0b0f0ca8d5f572d1ce1f",
+  "checkedAt": "2026-11-14T16:57:18.677Z",
+  "accounts": {
+    "tc_rehearsal_farm_a": {
+      "username": "tc_rehearsal_farm_a",
+      "userId": "25e1226f-631c-4914-adbd-3ec935ee21cc",
+      "organizationId": "4d116be4-aa00-4d64-94cc-5a23dadc3b32",
+      "role": "FARMER",
+      "mspId": "Org1MSP",
+      "identity": "ACTIVE"
+    },
+    "tc_rehearsal_farm_b": {
+      "username": "tc_rehearsal_farm_b",
+      "userId": "73cdeee6-97bc-49e5-8482-4c6ad8071707",
+      "organizationId": "a5225ccd-4c85-4279-9085-6a72db01723c",
+      "role": "FARMER",
+      "mspId": "Org1MSP",
+      "identity": "ACTIVE"
+    }
+  },
+  "input": {
+    "lotId": "TC-REHEARSAL-20261117-001",
+    "productName": "Xoài diễn tập bảo vệ TraceChain",
+    "origin": "Vùng trồng Cái Bè, Tiền Giang",
+    "harvestDate": "2026-11-14",
+    "location": "Nông hộ diễn tập A",
+    "regionCode": "TG-001",
+    "processorOrganizationId": "ed9d3a2a-ea54-4af6-94a4-e1839b9774a8",
+    "distributorOrganizationId": "92870bc7-1f61-49f8-88ec-2222af5db187"
+  },
+  "preservation": {
+    "user_accounts": {
+      "originalRows": 22,
+      "sha256": "2e3024f93fa4f1070a63117d3ce5e510b9494019ea3ad1229631ebc8d38d7300",
+      "unchanged": true
+    },
+    "lots": {
+      "originalRows": 35,
+      "sha256": "eb16acdc0edf09603855fb7e5c1343802776b7d211fe5641070c8e2f597682a0",
+      "unchanged": true
+    },
+    "trace_events": {
+      "originalRows": 199,
+      "sha256": "370d2956f29c38ceb36751cea83da8735928d5c33f3583a332155d5c59a10534",
+      "unchanged": true
+    },
+    "event_documents": {
+      "originalRows": 6,
+      "sha256": "11262a2f4e72900638c8d74b20b83eb0affc7bef924ea7d1d562a44b6c33496b",
+      "unchanged": true
+    },
+    "lot_business_scopes": {
+      "originalRows": 35,
+      "sha256": "ee01ec3dfd56e54a1735ac414a26fe78f4dc8b26a6cc86bc23e51715f54746e2",
+      "unchanged": true
+    },
+    "fabric_projections": {
+      "originalRows": 28,
+      "sha256": "b131bedd12d0c990c6534689df9fa3f5d9646cdb1a325e928439d16f223dd614",
+      "unchanged": true
+    },
+    "lot_records": {
+      "originalRows": 57,
+      "sha256": "7bdb7e1e598ca212d524005dae06d14cb1dacbd6d127e1e23a46acd93090dcb9",
+      "unchanged": true
+    }
+  },
+  "commits": [
+    {
+      "eventType": "CTE_CREATE",
+      "txId": "f89c151c93e84fa741db67875aac00e75fd3bcfd84ebbb88485189cdb602a448",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_HARVEST",
+      "txId": "cb8ce5ac42b8ecfabb8a3653cf4cbfec688ec5375be187648f744ff7a70c87fb",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_HANDOVER_PROCESSOR",
+      "txId": "3929e48e579bdb639cc5b35f73804b08c0a82089c416666fc6329d9164f5010a",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_RECEIVE_PROCESSOR",
+      "txId": "5208d64117b2bd020671f67e1eaa521d4e2e1cf0465b705b8b44f62afd4a97b1",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_PROCESS",
+      "txId": "4ff2730e8c3d9dedbb3b68014cf3c488a26f06fc2290f4712a2f32e73618ae8c",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_HANDOVER_SHIP",
+      "txId": "d1424b3dd7029fb0b278ec2ba1bbb9e21d40a0a83cb5c88041533dd9c929ea62",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_RECEIVE_SHIP",
+      "txId": "4a959a87c9a8771087f056f7e63f4d599a483f4558fd8e95f75a95f8522054c0",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_TRANSPORT",
+      "txId": "b1e41c967d58de72821635f4f6704d05c60b20b80857672e4fe6d2d541e3f341",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_HANDOVER_RETAIL",
+      "txId": "68c678a561e5095df8137637c0f952dd05029fbf150b989356a3f9302439a9d5",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_DISPATCH_RETAIL",
+      "txId": "45135e4f76643ac805a13ba2ff25ec6c2a72cbb3142bd4ec355a21a296ae67a4",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    },
+    {
+      "eventType": "CTE_DISPLAY_SALE",
+      "txId": "faee56463a43f384c153f60a266bf672d4363a8ac4c8c21592fcdb63b8480eb0",
+      "validationCode": 0,
+      "commit": "COMMITTED_VALID"
+    }
+  ],
+  "finalStatus": "READY_FOR_SALE",
+  "qrUrl": "http://10.239.60.19:3001/trace/TC-REHEARSAL-20261117-001",
+  "dependencies": {
+    "mysql": true,
+    "fabric": {
+      "ready": true,
+      "schemaVersion": 4,
+      "channel": "tracechannel-v2",
+      "chaincode": "traceability_v2"
+    }
+  },
+  "runs": [
+    {
+      "phase": "prepare",
+      "checkedAt": "2026-11-14T16:51:28.948Z",
+      "before": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      },
+      "after": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      }
+    },
+    {
+      "phase": "verify",
+      "checkedAt": "2026-11-14T16:51:31.054Z",
+      "before": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      },
+      "after": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      }
+    },
+    {
+      "phase": "prepare",
+      "checkedAt": "2026-11-14T16:57:17.276Z",
+      "before": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      },
+      "after": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      }
+    },
+    {
+      "phase": "verify",
+      "checkedAt": "2026-11-14T16:57:19.310Z",
+      "before": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      },
+      "after": {
+        "businesses": 12,
+        "accounts": 27,
+        "lots": 36,
+        "events": 210,
+        "identities": 17
+      }
+    }
+  ],
+  "mysql": {
+    "eventRows": 11,
+    "projectionHead": "faee56463a43f384c153f60a266bf672d4363a8ac4c8c21592fcdb63b8480eb0",
+    "projectionStatus": "READY_FOR_SALE"
+  },
+  "historySha256": "a24853aca2024c3b66dc5af816a756266e4da4d6b7c4924ed455795444cfccf3"
+}

@@ -1,7 +1,7 @@
 {
-  "verifiedAt": "2026-11-10T03:33:51.457Z",
-  "transactionId": "51762d4f0deb0fd75a20ce0fbfb7ef00339b155eb21d8d64ec4419df0fb97340",
-  "lotId": "ACCOUNT-B56CB85D0A9E8F18",
+  "verifiedAt": "2026-11-14T16:31:34.021Z",
+  "transactionId": "695afa24aa4c29b590b140c5e2017acd45d951468bbf60dfb694b39d99bf28cd",
+  "lotId": "ACCOUNT-908A13926992D115",
   "source": "FABRIC",
   "commitStatus": "COMMITTED_VALID",
   "historyValid": true,

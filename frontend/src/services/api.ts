@@ -71,6 +71,8 @@ api.interceptors.response.use(
     if (error.config?.url === "/auth/login" && status === 401)
       message =
         "Tên đăng nhập hoặc mật khẩu không đúng, hoặc tài khoản đã bị khóa.";
+    if (error.config?.url === "/auth/change-password" && status === 403 && details.error === "Current password is incorrect")
+      message = "Mật khẩu hiện tại không đúng. Nhập lại mật khẩu hiện tại để đổi mật khẩu.";
     if (uncertain)
       message =
         "Chưa xác định kết quả ghi. Có thể Backend đã ghi nhận. Tải lại và đối chiếu lịch sử trước khi gửi tiếp.";

@@ -14,7 +14,7 @@ export const adminSections = [
   {label:"Kiểm chứng blockchain",links:[
     ["/admin/verification","Kiểm chứng IESH","TRACE_VALIDATE"],
     ["/admin/blockchain","Giao dịch & hạ tầng","BLOCKCHAIN_MONITOR"],
-    ["/admin/fabric-organizations","Tổ chức Fabric","BLOCKCHAIN_MONITOR"],
+    ["/admin/fabric-organizations","Tổ chức Fabric","ORGANIZATION_READ"],
     ["/admin/fabric-identities","Danh tính Fabric","BLOCKCHAIN_MONITOR"],
   ]},
   {label:"Cài đặt",links:[
@@ -23,10 +23,13 @@ export const adminSections = [
   ]},
 ];
 export function navigationFor(user: User) {
-  if (user.role === "BUSINESS_ADMIN") return [
-    {to:homeFor(user),label:"Tổng quan"}, {to:"/business/staff",label:"Nhân viên"},
-    {to:"/lots",label:"Lô hàng"}, {to:"/business/activity",label:"Hoạt động doanh nghiệp",paths:["/business/activity","/business/organization"]}, {to:"/profile",label:"Tài khoản"},
-  ];
+  if (user.role === "BUSINESS_ADMIN") {
+    const activity=hasPermission(user,"USER_READ");
+    return [
+      {to:homeFor(user),label:"Tổng quan",permission:"LOT_READ"}, {to:"/business/staff",label:"Nhân viên",permission:"USER_READ"},
+      {to:"/lots",label:"Lô hàng",permission:"LOT_READ"}, {to:activity?"/business/activity":"/business/organization",label:activity?"Hoạt động doanh nghiệp":"Thông tin doanh nghiệp",permission:activity?"USER_READ":"ORGANIZATION_READ",paths:["/business/activity","/business/organization"]}, {to:"/profile",label:"Tài khoản"},
+    ].filter(link=>!link.permission || hasPermission(user,link.permission));
+  }
   const admin = isAdmin(user);
   if (admin) return [
     {to:homeFor(user),label:"Tổng quan",paths:[homeFor(user)]},

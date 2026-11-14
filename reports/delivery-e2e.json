@@ -1,72 +1,72 @@
 {
-  "checkedAt": "2026-11-10T03:41:46.005Z",
+  "checkedAt": "2026-11-14T16:43:53.787Z",
   "source": "FABRIC",
   "commits": [
     {
       "eventType": "CTE_CREATE",
-      "transactionId": "361850392dc67339580af4bc08472689f9efca34263682d7454c8ef611621ecc",
+      "transactionId": "6ac221f88f55bd2e1fab153953cde7971f3f903cf58c29e3dac251a2ae623d5f",
       "status": "CREATED",
-      "apiCommitLatencyMs": 381
+      "apiCommitLatencyMs": 2608
     },
     {
       "eventType": "CTE_HARVEST",
-      "transactionId": "b70a3af76890f9b86fb1c1c4c768d7ae65648dbb393254b8ba0c04988b6af560",
+      "transactionId": "b3e17c5cb6581c5f045932e9c9a7bdd0b4c36e3cc726795840ab8f44e8d9e902",
       "status": "HARVESTED",
-      "apiCommitLatencyMs": 2004
+      "apiCommitLatencyMs": 2141
     },
     {
       "eventType": "CTE_HANDOVER_PROCESSOR",
-      "transactionId": "1a7f221472faa51cf47606975a3c512811b2f1fe2404facabe4833759bbeed1c",
+      "transactionId": "a30d86da4860a51a6c39ae8041360b410bc3f8d8dc749fbf6b36452f0bbe8b04",
       "status": "WAITING_PROCESSOR",
-      "apiCommitLatencyMs": 2117
+      "apiCommitLatencyMs": 2126
     },
     {
       "eventType": "CTE_RECEIVE_PROCESSOR",
-      "transactionId": "4c5e18cfd746ce71bfe4d4a8ab3192044d8aa4b41b9fae503d609c63126b4939",
+      "transactionId": "92da3c8a4d9b03138524412ca70d6184294a8d3320cccad3dfbf025bb22aa60e",
       "status": "RECEIVED_PROCESSOR",
-      "apiCommitLatencyMs": 2102
+      "apiCommitLatencyMs": 2188
     },
     {
       "eventType": "CTE_PROCESS",
-      "transactionId": "5bcab1fd079f26185bad81aa8fd833d86a6359a948af45ec76a40e502d94efaf",
+      "transactionId": "cf30b11df06d54254f5eb95e7d315c751fd58c3736cf45d9bf93725a736222e8",
       "status": "PROCESSED",
-      "apiCommitLatencyMs": 2100
+      "apiCommitLatencyMs": 2152
     },
     {
       "eventType": "CTE_HANDOVER_SHIP",
-      "transactionId": "431bf89be6633070d23bf4260ef5c31786f6bc21a3a6cbd3d83c7dcd89b89985",
+      "transactionId": "ee0556f4dc9dc53c842b0669bba4100f6d935e91b2bc6c31066ddcf025fc82cd",
       "status": "WAITING_SHIP",
-      "apiCommitLatencyMs": 2086
+      "apiCommitLatencyMs": 2104
     },
     {
       "eventType": "CTE_RECEIVE_SHIP",
-      "transactionId": "503a8cf830a1cfae8424781f69dc697cc0cd5cf43b43539b02e50c6525af89cb",
+      "transactionId": "7075a50e35a2dbfa7d6ccb4722b16c3fb1f006798aa9e498cead912ceca5aef0",
       "status": "IN_TRANSIT",
-      "apiCommitLatencyMs": 2038
+      "apiCommitLatencyMs": 2128
     },
     {
       "eventType": "CTE_TRANSPORT",
-      "transactionId": "fd629be5f2505bfa94bae168652c63bed9d5f8c882b21649c139c790ac1d30f1",
+      "transactionId": "6f36ada84912e60138b50e7a3985795a68868aaa762046a4d61a60216cd6be36",
       "status": "IN_TRANSIT",
-      "apiCommitLatencyMs": 2087
+      "apiCommitLatencyMs": 2143
     },
     {
       "eventType": "CTE_HANDOVER_RETAIL",
-      "transactionId": "9d0f499de2884040cbe26f0bbf0151703084ac7a9571c58298a487599a3ce4a7",
+      "transactionId": "caa077b713c05e0a60c2c3a7e1bbc01ab3ff7c9b70b60e5084b0769a501b7836",
       "status": "WAITING_RETAIL",
-      "apiCommitLatencyMs": 2055
+      "apiCommitLatencyMs": 2424
     },
     {
       "eventType": "CTE_DISPATCH_RETAIL",
-      "transactionId": "3d19435b19238bb5ad82be351efa5bc90ee92c9e9579b07dfb35349c82463a16",
+      "transactionId": "c53ac28d9c36e643392874132f220246f953848c1e9fc33a309be5e1649bfdd3",
       "status": "IN_RETAIL",
-      "apiCommitLatencyMs": 2115
+      "apiCommitLatencyMs": 2442
     },
     {
       "eventType": "CTE_DISPLAY_SALE",
-      "transactionId": "c2a1d2043988017e7fdea12e582c093802b01d826a680cefada958be6e75c2b8",
+      "transactionId": "72171f9c02c708440a43d03f50ae3a88b309df3d76d0fb8a13c837ce014be792",
       "status": "READY_FOR_SALE",
-      "apiCommitLatencyMs": 2085
+      "apiCommitLatencyMs": 2330
     }
   ],
   "rejections": [
@@ -74,58 +74,183 @@
       "name": "system cannot produce",
       "source": "API",
       "status": 403,
-      "code": "HTTP_403"
+      "code": "HTTP_403",
+      "reason": "Permission required: LOT_CREATE",
+      "historyAndProjectionUnchanged": false
     },
     {
       "name": "business admin cannot produce",
       "source": "API",
       "status": 403,
-      "code": "HTTP_403"
+      "code": "HTTP_403",
+      "reason": "Permission required: LOT_CREATE",
+      "historyAndProjectionUnchanged": false
     },
     {
       "name": "duplicate lot",
       "source": "API",
       "status": 409,
-      "code": "HTTP_409"
+      "code": "HTTP_409",
+      "reason": "Lot already exists",
+      "historyAndProjectionUnchanged": true
     },
     {
       "name": "wrong role on ledger",
       "source": "CHAINCODE",
-      "code": "RBAC_DENIED"
+      "code": "RBAC_DENIED",
+      "historyAndProjectionUnchanged": true
     },
     {
       "name": "receive without handover on ledger",
       "source": "CHAINCODE",
-      "code": "FSM_INVALID"
+      "code": "FSM_INVALID",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "missing location on ledger",
+      "source": "CHAINCODE",
+      "code": "KDE_REQUIRED",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "missing quantity on ledger",
+      "source": "CHAINCODE",
+      "code": "QUANTITY",
+      "historyAndProjectionUnchanged": true
     },
     {
       "name": "receive without handover",
       "source": "API",
       "status": 409,
-      "code": "HTTP_409"
+      "code": "HTTP_409",
+      "reason": "Event does not match current lot state",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_HANDOVER_PROCESSOR",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409",
+      "reason": "Event does not match current lot state",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_HANDOVER_PROCESSOR on ledger",
+      "source": "CHAINCODE",
+      "code": "FSM_INVALID",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_RECEIVE_PROCESSOR",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409",
+      "reason": "Event does not match current lot state",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_RECEIVE_PROCESSOR on ledger",
+      "source": "CHAINCODE",
+      "code": "FSM_INVALID",
+      "historyAndProjectionUnchanged": true
     },
     {
       "name": "quality cannot be bypassed",
       "source": "API",
       "status": 400,
-      "code": "QUALITY"
+      "code": "QUALITY",
+      "reason": "A passing quality inspection is required",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "quality failure on ledger",
+      "source": "CHAINCODE",
+      "code": "QUALITY",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_HANDOVER_SHIP",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409",
+      "reason": "Event does not match current lot state",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_HANDOVER_SHIP on ledger",
+      "source": "CHAINCODE",
+      "code": "FSM_INVALID",
+      "historyAndProjectionUnchanged": true
     },
     {
       "name": "other business in same MSP cannot receive",
       "source": "CHAINCODE",
-      "code": "WRONG_RECEIVER"
+      "code": "WRONG_RECEIVER",
+      "historyAndProjectionUnchanged": true
     },
     {
       "name": "system cannot confirm",
       "source": "API",
       "status": 403,
-      "code": "HTTP_403"
+      "code": "HTTP_403",
+      "reason": "Event permission denied",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_RECEIVE_SHIP",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409",
+      "reason": "Event does not match current lot state",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_RECEIVE_SHIP on ledger",
+      "source": "CHAINCODE",
+      "code": "FSM_INVALID",
+      "historyAndProjectionUnchanged": true
     },
     {
       "name": "replayed transport event",
       "source": "API",
       "status": 409,
-      "code": "PREVIOUS_EVENT"
+      "code": "PREVIOUS_EVENT",
+      "reason": "previousEventId does not match ledger head",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "stale head on ledger",
+      "source": "CHAINCODE",
+      "code": "PREVIOUS_EVENT",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_HANDOVER_RETAIL",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409",
+      "reason": "Event does not match current lot state",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_HANDOVER_RETAIL on ledger",
+      "source": "CHAINCODE",
+      "code": "FSM_INVALID",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_DISPATCH_RETAIL",
+      "source": "API",
+      "status": 409,
+      "code": "HTTP_409",
+      "reason": "Event does not match current lot state",
+      "historyAndProjectionUnchanged": true
+    },
+    {
+      "name": "duplicate CTE_DISPATCH_RETAIL on ledger",
+      "source": "CHAINCODE",
+      "code": "FSM_INVALID",
+      "historyAndProjectionUnchanged": true
     }
   ],
   "checks": {
@@ -141,7 +266,7 @@
     "reconnectPersistence": true,
     "seedRetryPreservesAccountsAndDisabledSigners": true
   },
-  "lotId": "QA-DELIVERY-B6AEC38A5D81CB7E",
+  "lotId": "QA-DELIVERY-22E4732547D0DA3B",
   "finalStatus": "READY_FOR_SALE",
   "businessReplayAnomalies": [
     {

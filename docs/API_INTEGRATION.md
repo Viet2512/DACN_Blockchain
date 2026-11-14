@@ -1,11 +1,13 @@
-# Tích hợp API — cập nhật sau sửa lỗi 06/11/2026
+# Tích hợp API — mô hình B / workflow v4
 
-Frontend dùng Axios, VITE_API_URL (fallback REACT_APP_API_URL), mặc định http://localhost:8080/api. Token trong sessionStorage; `/auth/me` quyết định danh tính/quyền. Không lưu dữ liệu nghiệp vụ/private key trong browser. GET/mutation không tự retry; timeout/5xx khi ghi là chưa rõ kết quả và phải đối chiếu lịch sử.
+Frontend dùng Axios, VITE_API_URL (fallback REACT_APP_API_URL), mặc định `/api` cùng origin qua Vite proxy. Điện thoại không gọi localhost của chính nó. Token trong sessionStorage; `/auth/me` quyết định danh tính/quyền. Không lưu private key trong browser. Mutation không tự retry; timeout/5xx khi ghi là chưa rõ kết quả và phải đối chiếu lịch sử.
 
 ## Phiên và quản trị
 
 - POST `/auth/login`: username/password → token/user; giới hạn 10 login sai/15 phút theo IP/username mỗi process.
 - GET `/auth/me`, POST `/auth/logout` (204).
+- Mô hình B: System Admin tạo doanh nghiệp và mời BUSINESS_ADMIN bằng POST `/users/invitations`; quản trị doanh nghiệp chỉ mời nhân viên đúng vai trò/đúng doanh nghiệp. POST `/auth/accept-invitation` kích hoạt lời mời một lần. Token chỉ được trả trong dev/test, không ghi token/mật khẩu vào bằng chứng.
+- Cấp chứng thư: POST `/users/:username/fabric-identity/request`, sau đó `/issue` trả 202; CA operator cấp bất đồng bộ. Chỉ trạng thái ACTIVE mới được ký. Quản trị doanh nghiệp không được cấp cho doanh nghiệp khác; không coi PENDING mặc định là đã gửi yêu cầu.
 - POST `/auth/change-password`: currentPassword/newPassword (ít nhất 8 ký tự) → 204, thu hồi mọi phiên.
 - Phiên RAM TTL 8 giờ, mất khi restart. Mỗi request kiểm account ACTIVE, actor/org ACTIVE, quan hệ tổ chức và actor_roles. Khóa/reset/update user thu hồi phiên cũ.
 - GET/POST `/users`, PATCH `/users/:username`, PATCH `/users/:username/status`, POST `/users/:username/reset-password`: Admin. Form nhận username/password, fullName/email/phone, role, business organizationId và regionCode; không nhập actorId hay X.509 ID. User ID do Backend cấp; sửa user không tự mở khóa. Role/doanh nghiệp/vùng thay đổi sẽ vô hiệu hóa mapping certificate cũ.
@@ -21,7 +23,7 @@ GET `/lots` trả Lot[] (contract cũ giữ nguyên), GET `/lots/:id` trả Lot 
 POST `/lots` dành FARMER cùng vùng:
 
 ```json
-{"lotId":"LOT-2026-001","productName":"Xoài","origin":"Tiền Giang","harvestDate":"2026-11-06","location":"Vùng trồng","regionCode":"TG-001"}
+{"lotId":"LOT-2026-001","productName":"Xoài","origin":"Tiền Giang","harvestDate":"2026-11-06","location":"Vùng trồng","regionCode":"TG-001","processorOrganizationId":"id-doanh-nghiep-so-che","distributorOrganizationId":"id-doanh-nghiep-phan-phoi"}
 ```
 
 POST `/lots/:id/events`:
@@ -32,14 +34,14 @@ POST `/lots/:id/events`:
 
 ActorId/role/MSP/vùng từ phiên; timestamp server/ledger, không dùng timestamp client. Sai role 403; sai FSM/previousEvent/đã recall 409. LotID giới hạn 120, tên/nguồn/địa điểm 255; ngày kiểm hợp lệ lịch. MySQL collation không phân biệt hoa thường; API dùng LotID canonical khi gọi ledger.
 
-- POST `/lots/:id/handover/request`: PROCESSOR; location,previousEventId,toOrg,toRegion,data. Hợp đồng hiện tại chỉ nhận Org2MSP và vùng cụ thể; lựa chọn theo **MSP + vùng**, chưa phân công độc quyền cá nhân.
-- POST `/lots/:id/handover/confirm`: TRANSPORTER đúng MSP/vùng nhận; location,previousEventId,data.
+- POST `/lots/:id/handover/request`: FARMER giao sơ chế, PROCESSOR giao vận chuyển, TRANSPORTER giao phân phối. Nhận location,previousEventId,toOrganizationId,toRegion,data; Backend tra MSP của doanh nghiệp nhận, không tin MSP client gửi. Sơ chế/phân phối phải khớp đơn vị đã phân công khi tạo lô.
+- POST `/lots/:id/handover/confirm`: PROCESSOR/TRANSPORTER/DISTRIBUTOR tương ứng ba chặng; đúng doanh nghiệp, MSP và vùng được chỉ định. Request giữ nguyên bên giữ lô; confirm hợp lệ mới chuyển. Hai doanh nghiệp cùng MSP vẫn không được xác nhận thay nhau. Lặp request/confirm bị từ chối, không thêm CTE.
 - POST `/lots/:id/recall`: actor nghiệp vụ cùng phạm vi; location,previousEventId,data. RECALLED khóa mọi CTE kể cả recall lặp.
 - GET `/lots/:id/history`: theo chuỗi previousEventId.
-- GET `/lots/:id/validate`: local HASH_AND_PREVIOUS_EVENT hoặc Fabric IESH_RECORDED_METADATA và đối chiếu SQL với ledger. Xem valid/anomalies; HTTP 200 không đồng nghĩa hợp lệ.
+- GET `/lots/:id/validate`: lô v4 dùng scope `IESH_V4`, đối chiếu SQL với ledger. Các lô legacy giữ phạm vi kiểm tra cũ. Xem valid/anomalies; HTTP 200 không đồng nghĩa hợp lệ.
 - POST `/fabric/lots/:id/reconcile`: đọc ledger để đồng bộ SQL sau commit lỗi lưu; không submit transaction mới; không ghi đè lô LOCAL hoặc hash cũ. UI có thao tác phục hồi/đối chiếu.
 
-Phạm vi đọc: Admin hoặc cùng vùng; Transporter thấy lô WAITING_SHIP đúng MSP/vùng được chỉ định. Detail/history/documents/validate/ghi dùng cùng middleware. Admin không ký nghiệp vụ. Chỉ cập nhật RAM sau SQL commit; saveLot dùng transaction, khóa hàng và lastEventId để chặn lost update.
+Phạm vi đọc: System Admin hoặc doanh nghiệp liên quan đến lô (chủ, bên được phân công, bên giữ, bên chờ nhận hoặc đã tham gia). Cùng vùng/MSP không tự tạo quyền. Detail/history/documents/validate/ghi dùng cùng middleware. Admin không ký nghiệp vụ. Chỉ cập nhật RAM sau SQL commit; saveLot dùng transaction, khóa hàng và lastEventId để chặn lost update.
 
 ## Hồ sơ off-chain mới
 
@@ -78,7 +80,9 @@ GET `/lots/:id/qr`: PNG trỏ PUBLIC_BASE_URL/trace/:id. Đổi PUBLIC_BASE_URL 
 
 GET `/health`: cấu hình enabled/disabled. GET `/health/dependencies`: query MySQL và metadata chaincode thật, trả 503 khi kết nối/ABI sai.
 
-Gateway chọn signer theo manifest server (actor + role + MSP + vùng). submitTransaction đợi commit status; CommitError trả 409 với transactionId/validationCode. Trường hợp chưa rõ commit không retry mù quáng. Readiness không thay thế kiểm thử transaction nghiệp vụ.
+Gateway lấy mapping Fabric Identity từ MySQL theo user/doanh nghiệp/role/MSP/vùng, đọc chứng thư và khóa từ runtime được bảo vệ, đối chiếu fingerprint, thời hạn và certificate attributes. Private key không nằm trong MySQL hoặc browser. submitTransaction đợi commit status; CommitError trả 409 với transactionId/validationCode. Trường hợp chưa rõ commit không retry mù quáng. Readiness không thay thế kiểm thử transaction nghiệp vụ.
+
+Chaincode không ghi MySQL. Sau khi Fabric commit hợp lệ, Backend mới lưu bản chiếu/hồ sơ off-chain bằng transaction MySQL. Không có transaction nguyên tử bao trùm Fabric và SQL: nếu commit xong mà lưu SQL lỗi, dùng receipt và reconcile, không gửi lại CTE. Ledger chứa sự kiện, metadata nghiệp vụ và hash; file chứng từ nằm off-chain.
 
 Lô mới dùng tracechannel-v2/traceability_v2; lô legacy giữ LOCAL. fabric_projections là cache giữ đầy đủ trường ledger; các cột SQL vẫn được đối chiếu với ledger khi validate. Channel cũ không bị nâng cấp/ghi đè. Xem [khởi động Fabric](./FABRIC_STARTUP.md).
 

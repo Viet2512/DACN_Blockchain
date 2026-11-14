@@ -50,7 +50,7 @@ flowchart LR
   API --> GW[Fabric Gateway + signer cá nhân]
   GW --> CH[tracechannel-v2: Org1, Org2, Org3]
   CH --> CC[traceability_v2: IESH + ledger]
-  CC -->|Commit hợp lệ rồi mới lưu projection| SQL
+  GW -->|Receipt commit hợp lệ| API
   PUBLIC[Người tiêu dùng: QR / trace] --> API
 ```
 

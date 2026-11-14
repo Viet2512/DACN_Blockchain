@@ -1,60 +1,60 @@
 {
-  "generatedAt": "2026-11-07T16:05:23.578Z",
+  "generatedAt": "2026-11-14T17:51:55.390Z",
   "environment": {
     "node": "v24.21.0",
     "cpu": "12th Gen Intel(R) Core(TM) i5-1240P",
     "cpuCount": 16,
-    "memoryBytes": 8164114432,
+    "memoryBytes": 8164089856,
     "chaincodeVersion": "4.3",
     "organizations": 3
   },
   "scope": "Isolated QA database; real Fabric commits. Three sequential lots, not a saturation/load-capacity claim.",
   "gatewayCommitLatencyMs": {
     "count": 33,
-    "mean": 2045.5920434545458,
-    "p50": 2043.0814409999875,
-    "p95": 2061.8925790000067,
-    "p99": 2075.2470729999914
+    "mean": 2051.705231757576,
+    "p50": 2048.430365,
+    "p95": 2067.5230030000093,
+    "p99": 2086.2564610000118
   },
   "historyQueryLatencyMs": {
     "count": 3,
-    "mean": 7.709000666667028,
-    "p50": 7.503618999995524,
-    "p95": 8.239470000000438,
-    "p99": 8.239470000000438
+    "mean": 13.272770000000795,
+    "p50": 8.32033400000364,
+    "p95": 24.827476999998908,
+    "p99": 24.827476999998908
   },
   "historyHashBaselineMs": {
     "count": 3,
-    "mean": 10.083628999998231,
-    "p50": 10.126943999996001,
-    "p95": 11.169221999996807,
-    "p99": 11.169221999996807
+    "mean": 18.12764066666811,
+    "p50": 10.333905999999843,
+    "p95": 36.58650599999237,
+    "p99": 36.58650599999237
   },
   "historyIeshMs": {
     "count": 3,
-    "mean": 8.929086666668203,
-    "p50": 8.528861999991932,
-    "p95": 9.750846000009915,
-    "p99": 9.750846000009915
+    "mean": 15.736345333333398,
+    "p50": 8.887083000008715,
+    "p95": 30.935189999989234,
+    "p99": 30.935189999989234
   },
   "benchmarkWriteHashBaselineMs": {
     "count": 3,
-    "mean": 2052.426382999998,
-    "p50": 2050.585128000006,
-    "p95": 2057.0080289999896,
-    "p99": 2057.0080289999896
+    "mean": 2074.1246873333366,
+    "p50": 2074.2553810000027,
+    "p95": 2104.1616490000015,
+    "p99": 2104.1616490000015
   },
   "benchmarkWriteIeshMs": {
     "count": 3,
-    "mean": 2047.4889969999979,
-    "p50": 2047.9417689999973,
-    "p95": 2049.684592999998,
-    "p99": 2049.684592999998
+    "mean": 2130.797789999999,
+    "p50": 2053.5179389999976,
+    "p95": 2287.7578639999992,
+    "p99": 2287.7578639999992
   },
-  "benchmarkWriteOverheadPercent": -0.24056336640846387,
-  "historyValidationOverheadPercent": -11.449670880694141,
-  "throughputCommittedTps": 0.3735597520412572,
-  "measurementElapsedMs": 88339.281252,
+  "benchmarkWriteOverheadPercent": 2.7323864863460168,
+  "historyValidationOverheadPercent": -13.19143167776745,
+  "throughputCommittedTps": 0.37337797992909916,
+  "measurementElapsedMs": 88382.287585,
   "validLots": 3,
   "validTransactionSubmissions": 33,
   "committedTransactions": 33,
@@ -76,204 +76,204 @@
   },
   "resources": [
     {
-      "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "container": "tracechain-frontend",
+      "cpu": "9.71%",
+      "memory": "98.38MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-backend",
       "cpu": "0.00%",
-      "memory": "52.43MiB / 2GiB"
+      "memory": "138.6MiB / 7.603GiB"
     },
     {
       "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
       "cpu": "0.00%",
-      "memory": "52.66MiB / 2GiB"
+      "memory": "52.5MiB / 2GiB"
     },
     {
       "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
       "cpu": "0.00%",
-      "memory": "57.51MiB / 2GiB"
+      "memory": "74.04MiB / 2GiB"
     },
     {
-      "container": "tracechain-backend",
+      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.03%",
+      "memory": "46.68MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
       "cpu": "0.01%",
-      "memory": "53.5MiB / 7.603GiB"
-    },
-    {
-      "container": "tracechain-frontend",
-      "cpu": "0.00%",
-      "memory": "87.08MiB / 7.603GiB"
-    },
-    {
-      "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
-      "cpu": "0.00%",
-      "memory": "51.73MiB / 2GiB"
-    },
-    {
-      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
-      "cpu": "0.00%",
-      "memory": "102.6MiB / 2GiB"
-    },
-    {
-      "container": "tracechain-mysql",
-      "cpu": "4.18%",
-      "memory": "486MiB / 7.603GiB"
-    },
-    {
-      "container": "peer0.org3.example.com",
-      "cpu": "2.30%",
-      "memory": "122.5MiB / 7.603GiB"
-    },
-    {
-      "container": "peer0.org2.example.com",
-      "cpu": "2.21%",
-      "memory": "115MiB / 7.603GiB"
-    },
-    {
-      "container": "peer0.org1.example.com",
-      "cpu": "2.12%",
-      "memory": "151.1MiB / 7.603GiB"
-    },
-    {
-      "container": "orderer.example.com",
-      "cpu": "0.09%",
-      "memory": "46.36MiB / 7.603GiB"
-    },
-    {
-      "container": "ca_orderer",
-      "cpu": "0.00%",
-      "memory": "19.89MiB / 7.603GiB"
+      "memory": "47.21MiB / 2GiB"
     },
     {
       "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
       "cpu": "0.00%",
-      "memory": "52.62MiB / 2GiB"
-    },
-    {
-      "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
-      "cpu": "0.00%",
-      "memory": "52.73MiB / 2GiB"
-    },
-    {
-      "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
-      "cpu": "0.37%",
-      "memory": "57.62MiB / 2GiB"
-    },
-    {
-      "container": "tracechain-backend",
-      "cpu": "11.76%",
-      "memory": "54.07MiB / 7.603GiB"
-    },
-    {
-      "container": "tracechain-frontend",
-      "cpu": "0.00%",
-      "memory": "86.99MiB / 7.603GiB"
-    },
-    {
-      "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
-      "cpu": "0.00%",
-      "memory": "51.53MiB / 2GiB"
-    },
-    {
-      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
-      "cpu": "0.00%",
-      "memory": "102.5MiB / 2GiB"
-    },
-    {
-      "container": "tracechain-mysql",
-      "cpu": "1.07%",
-      "memory": "484.4MiB / 7.603GiB"
+      "memory": "60.35MiB / 2GiB"
     },
     {
       "container": "peer0.org3.example.com",
-      "cpu": "1.72%",
-      "memory": "107.7MiB / 7.603GiB"
-    },
-    {
-      "container": "peer0.org2.example.com",
       "cpu": "1.67%",
-      "memory": "115.3MiB / 7.603GiB"
-    },
-    {
-      "container": "peer0.org1.example.com",
-      "cpu": "1.94%",
-      "memory": "148.4MiB / 7.603GiB"
-    },
-    {
-      "container": "orderer.example.com",
-      "cpu": "0.07%",
-      "memory": "46.89MiB / 7.603GiB"
+      "memory": "72.57MiB / 7.603GiB"
     },
     {
       "container": "ca_orderer",
       "cpu": "0.00%",
-      "memory": "19.7MiB / 7.603GiB"
+      "memory": "8.996MiB / 7.603GiB"
     },
     {
-      "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
-      "cpu": "0.00%",
-      "memory": "52.69MiB / 2GiB"
+      "container": "peer0.org1.example.com",
+      "cpu": "1.91%",
+      "memory": "91.89MiB / 7.603GiB"
     },
     {
-      "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
-      "cpu": "0.00%",
-      "memory": "52.96MiB / 2GiB"
+      "container": "peer0.org2.example.com",
+      "cpu": "1.82%",
+      "memory": "84.82MiB / 7.603GiB"
     },
     {
-      "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
-      "cpu": "0.00%",
-      "memory": "57.54MiB / 2GiB"
+      "container": "orderer.example.com",
+      "cpu": "0.10%",
+      "memory": "53.57MiB / 7.603GiB"
     },
     {
-      "container": "tracechain-backend",
-      "cpu": "0.00%",
-      "memory": "52.83MiB / 7.603GiB"
+      "container": "tracechain-mysql",
+      "cpu": "0.60%",
+      "memory": "499.1MiB / 7.603GiB"
     },
     {
       "container": "tracechain-frontend",
       "cpu": "0.00%",
-      "memory": "87.28MiB / 7.603GiB"
+      "memory": "96.7MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-backend",
+      "cpu": "0.00%",
+      "memory": "138.6MiB / 7.603GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.49MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.01%",
+      "memory": "74.05MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.01%",
+      "memory": "46.69MiB / 2GiB"
     },
     {
       "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
       "cpu": "0.00%",
-      "memory": "51.54MiB / 2GiB"
+      "memory": "47.21MiB / 2GiB"
     },
     {
-      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
-      "cpu": "0.00%",
-      "memory": "102.5MiB / 2GiB"
-    },
-    {
-      "container": "tracechain-mysql",
-      "cpu": "0.64%",
-      "memory": "484.2MiB / 7.603GiB"
+      "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.02%",
+      "memory": "60.72MiB / 2GiB"
     },
     {
       "container": "peer0.org3.example.com",
-      "cpu": "2.12%",
-      "memory": "109MiB / 7.603GiB"
+      "cpu": "2.88%",
+      "memory": "73.95MiB / 7.603GiB"
     },
     {
-      "container": "peer0.org2.example.com",
-      "cpu": "3.21%",
-      "memory": "116.2MiB / 7.603GiB"
+      "container": "ca_orderer",
+      "cpu": "0.00%",
+      "memory": "8.996MiB / 7.603GiB"
     },
     {
       "container": "peer0.org1.example.com",
-      "cpu": "2.55%",
-      "memory": "150.3MiB / 7.603GiB"
+      "cpu": "3.10%",
+      "memory": "95.21MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org2.example.com",
+      "cpu": "3.12%",
+      "memory": "85.63MiB / 7.603GiB"
     },
     {
       "container": "orderer.example.com",
       "cpu": "0.06%",
-      "memory": "49.42MiB / 7.603GiB"
+      "memory": "56.47MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-mysql",
+      "cpu": "1.10%",
+      "memory": "499.3MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-frontend",
+      "cpu": "0.00%",
+      "memory": "96.7MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-backend",
+      "cpu": "0.00%",
+      "memory": "138.7MiB / 7.603GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.00%",
+      "memory": "52.45MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.01%",
+      "memory": "74.05MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org1.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.02%",
+      "memory": "46.69MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org2.example.com-traceability_1.0-6130fe753c0d2335b2fb97be32b9d6a1202ead21e4ee652670ed123e1dbb1428",
+      "cpu": "0.00%",
+      "memory": "47.22MiB / 2GiB"
+    },
+    {
+      "container": "dev-peer0.org3.example.com-traceability_v2_4.3-0cac33f64f366b455b2ce1352a5533fea24bb7af81b3b01207001fc94ead9692",
+      "cpu": "0.01%",
+      "memory": "60.51MiB / 2GiB"
+    },
+    {
+      "container": "peer0.org3.example.com",
+      "cpu": "2.59%",
+      "memory": "74.24MiB / 7.603GiB"
     },
     {
       "container": "ca_orderer",
-      "cpu": "0.00%",
-      "memory": "19.7MiB / 7.603GiB"
+      "cpu": "0.01%",
+      "memory": "8.996MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org1.example.com",
+      "cpu": "2.47%",
+      "memory": "95.68MiB / 7.603GiB"
+    },
+    {
+      "container": "peer0.org2.example.com",
+      "cpu": "2.62%",
+      "memory": "86.16MiB / 7.603GiB"
+    },
+    {
+      "container": "orderer.example.com",
+      "cpu": "0.10%",
+      "memory": "59.48MiB / 7.603GiB"
+    },
+    {
+      "container": "tracechain-mysql",
+      "cpu": "5.55%",
+      "memory": "500MiB / 7.603GiB"
     }
   ],
   "example": {
-    "lotId": "QA-USER-1794067494027-74BEA5",
-    "lastTransactionId": "b13e194a5f7dedc5a71ecd365c31aa84ad308856968f0223bd8571e4d117fab4",
+    "lotId": "QA-USER-1794678685675-6CB82B",
+    "lastTransactionId": "e471ae52da35253edc30832574acc41ff441b7c676043634fc38710587668588",
     "eventCount": 11
   },
   "limitations": [

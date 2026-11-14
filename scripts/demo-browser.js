@@ -1,10 +1,10 @@
-// Credentials stay in process memory; never enable traces or capture login forms.
+// Read-only business data; write rehearsal belongs to rehearsal-browser.js, never advance seeded lots here.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const {spawnSync} = require('node:child_process');
 const data = require('../backend/demo-data');
-const base = 'http://localhost:3001';
+const base = 'http://127.0.0.1:3000';
 let password = '';
 const safeMessage = message => password ? String(message).split(password).join('[REDACTED]') : String(message);
 const report = {checkedAt: new Date().toISOString(), pages: [], errors: [], checks: {}};
@@ -16,7 +16,7 @@ async function main() {
   assert.ok(password.length >= 12, 'Demo credentials not configured');
   const root = path.resolve(__dirname, '..');
   const modules = path.dirname(path.dirname(require.resolve('playwright/package.json')));
-  const result = spawnSync('docker', ['run', '--rm', '--network', 'host', '--ipc=host',
+  const result = spawnSync('docker', ['run', '--rm', '--network', 'container:tracechain-frontend', '--shm-size=256m',
     '-e', 'DEMO_PASSWORD', '-e', 'TRACECHAIN_BROWSER_WORKER=true', '-e', 'NODE_PATH=/tools/node_modules',
     '-v', `${modules}:/tools/node_modules:ro`,
     '-v', `${path.join(root, 'scripts/demo-browser.js')}:/work/scripts/demo-browser.js:ro`,
@@ -67,25 +67,6 @@ async function main() {
       await page.goto(`${base}/lots`); await page.waitForLoadState('networkidle');
       await page.getByRole('searchbox').fill('TC-DEMO-V1');
       assert.ok(await page.getByRole('link', {name: /TC-DEMO-V1/}).count(), `No seeded lots: ${user.username}`);
-      if (['tc_nv_sanxuat01', 'tc_nv_soche01'].includes(user.username)) {
-        await page.goto(`${base}/lots/TC-DEMO-V1-007`); await page.waitForLoadState('networkidle');
-        const before = await page.evaluate(async () => (await fetch('/api/lots/TC-DEMO-V1-007', {headers: {Authorization: `Bearer ${sessionStorage.getItem('tracechain-token')}`}})).json());
-        const sending = user.role === 'FARMER';
-        if (before.status === (sending ? 'HARVESTED' : 'WAITING_PROCESSOR')) {
-          await page.getByRole('button', {name: sending ? 'Giao sang sơ chế' : 'Sơ chế xác nhận nhận', exact: true}).click();
-          const dialog = page.getByRole('dialog');
-          await dialog.getByLabel('Địa điểm ghi nhận', {exact: true}).fill('Địa điểm demo kiểm thử trình duyệt · Tiền Giang');
-          await dialog.getByRole('checkbox').check();
-          const response = page.waitForResponse(response => response.url().includes('/lots/TC-DEMO-V1-007/handover/') && response.request().method() === 'POST');
-          await dialog.getByRole('button', {name: 'Xác nhận gửi sự kiện', exact: true}).click();
-          const saved = await response; assert.equal(saved.status(), 201);
-          const after = await saved.json();
-          assert.equal(after.status, sending ? 'WAITING_PROCESSOR' : 'RECEIVED_PROCESSOR');
-          assert.equal(after.events.length, before.events.length + 1);
-          assert.match(after.lastEventId, /^[a-f0-9]{64}$/);
-          report.checks[sending ? 'nativeHandoverRequest' : 'nativeHandoverConfirmation'] = {status: 'PASS', lotId: after.lotId, transactionId: after.lastEventId};
-        } else assert.equal(before.status, 'RECEIVED_PROCESSOR', 'Unexpected E2E lot state; do not advance another demo lot');
-      }
       await page.setViewportSize({width: 390, height: 844});
       await page.getByRole('button', {name: 'Mở hoặc đóng điều hướng'}).click();
       const backdrop = page.getByRole('button', {name: 'Đóng điều hướng', exact: true});

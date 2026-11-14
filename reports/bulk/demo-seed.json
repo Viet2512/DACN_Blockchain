@@ -1,0 +1,45 @@
+{
+  "dataset": "TC-DEMO-V1-BULK",
+  "checkedAt": "2026-11-14T18:05:36.727Z",
+  "created": {
+    "organizations": 0,
+    "accounts": 0,
+    "lots": 2,
+    "events": 90,
+    "documents": 9
+  },
+  "skipped": 13,
+  "reconciled": 7,
+  "errors": [
+    {
+      "lotId": "TC-DEMO-V1-BULK-009",
+      "message": "POST /fabric/lots/TC-DEMO-V1-BULK-009/reconcile: HTTP 409 (REQUEST_FAILED)"
+    },
+    {
+      "lotId": "TC-DEMO-V1-BULK-010",
+      "message": "POST /fabric/lots/TC-DEMO-V1-BULK-010/reconcile: HTTP 409 (REQUEST_FAILED)"
+    },
+    {
+      "lotId": "TC-DEMO-V1-BULK-007",
+      "message": "POST /fabric/lots/TC-DEMO-V1-BULK-007/reconcile: HTTP 409 (REQUEST_FAILED)"
+    },
+    {
+      "message": "Bulk batch failed; resume after inspecting commit results\n\n3 !== 0\n"
+    }
+  ],
+  "lots": [],
+  "checks": {},
+  "syntheticDocuments": true,
+  "batches": [
+    {
+      "concurrency": 4,
+      "elapsedMs": 23525,
+      "lots": 4
+    },
+    {
+      "concurrency": 8,
+      "elapsedMs": 23480,
+      "lots": 8
+    }
+  ]
+}

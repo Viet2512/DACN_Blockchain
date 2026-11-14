@@ -85,4 +85,10 @@ it.each(['FABRIC_IDENTITY_REQUIRED','FABRIC_IDENTITY_MISMATCH'])('explains %s in
 it('still reports a real permission denial as forbidden',async()=>{
  api.defaults.adapter=async config=>{throw new AxiosError('forbidden','403',config,null,{config,status:403,statusText:'Forbidden',headers:{},data:{step:'Identity',code:'RBAC_DENIED',message:'Role cannot write'}});};
  await expect(lotService.list()).rejects.toMatchObject({status:403,message:'Bạn không có quyền thực hiện thao tác này.'});
+ await expect(authService.changePassword({currentPassword:'previous-test-password',newPassword:'updated-test-password'})).rejects.toMatchObject({status:403,message:'Bạn không có quyền thực hiện thao tác này.'});
+});
+
+it('explains an incorrect current password without reporting a permission problem',async()=>{
+ api.defaults.adapter=async config=>{throw new AxiosError('forbidden','403',config,null,{config,status:403,statusText:'Forbidden',headers:{},data:{error:'Current password is incorrect'}});};
+ await expect(authService.changePassword({currentPassword:'wrong-password',newPassword:'updated-test-password'})).rejects.toMatchObject({status:403,uncertain:false,message:'Mật khẩu hiện tại không đúng. Nhập lại mật khẩu hiện tại để đổi mật khẩu.'});
 });

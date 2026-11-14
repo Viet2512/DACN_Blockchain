@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-10T03:59:03.533Z",
+  "checkedAt": "2026-11-14T16:54:33.364Z",
   "restartRequested": false,
   "docker": "29.8.2",
   "dependencies": {
@@ -16,9 +16,9 @@
     {
       "mspId": "Org1MSP",
       "info": {
-        "height": 613,
-        "currentBlockHash": "HdNnqSubQabtwxhe8ZMVrQ+eTadAxMZe5Zuq25pP9GA=",
-        "previousBlockHash": "0bkpp2Y0bhR4cEAcCRxCNUzHll19Y6XFt15SLVekEmY="
+        "height": 769,
+        "currentBlockHash": "Csex0jnaaJZbnNBL1R/bIS6lsdN1tA7ofaMDBO9+jO0=",
+        "previousBlockHash": "cAU+cRYhyhatGzyrgyJyrX+xHBB6lKQKJ66a0QiCBOw="
       },
       "definition": {
         "sequence": 6,
@@ -37,9 +37,9 @@
     {
       "mspId": "Org2MSP",
       "info": {
-        "height": 613,
-        "currentBlockHash": "HdNnqSubQabtwxhe8ZMVrQ+eTadAxMZe5Zuq25pP9GA=",
-        "previousBlockHash": "0bkpp2Y0bhR4cEAcCRxCNUzHll19Y6XFt15SLVekEmY="
+        "height": 769,
+        "currentBlockHash": "Csex0jnaaJZbnNBL1R/bIS6lsdN1tA7ofaMDBO9+jO0=",
+        "previousBlockHash": "cAU+cRYhyhatGzyrgyJyrX+xHBB6lKQKJ66a0QiCBOw="
       },
       "definition": {
         "sequence": 6,
@@ -58,9 +58,9 @@
     {
       "mspId": "Org3MSP",
       "info": {
-        "height": 613,
-        "currentBlockHash": "HdNnqSubQabtwxhe8ZMVrQ+eTadAxMZe5Zuq25pP9GA=",
-        "previousBlockHash": "0bkpp2Y0bhR4cEAcCRxCNUzHll19Y6XFt15SLVekEmY="
+        "height": 769,
+        "currentBlockHash": "Csex0jnaaJZbnNBL1R/bIS6lsdN1tA7ofaMDBO9+jO0=",
+        "previousBlockHash": "cAU+cRYhyhatGzyrgyJyrX+xHBB6lKQKJ66a0QiCBOw="
       },
       "definition": {
         "sequence": 6,
@@ -91,68 +91,68 @@
   },
   "mysqlBefore": {
     "account_invitations": {
-      "rows": 2,
-      "sha256": "e70b0b80b1b15618178397e52c9f9685b30bd732146400266ea42ba7ffa16a65"
+      "rows": 7,
+      "sha256": "6217acb325689ce59e57b8781b9d16d468371317653ff66ad803f94d42d6031d"
     },
     "actor_roles": {
-      "rows": 15,
-      "sha256": "a85cfe9d5d80a47263f03e6a2faf1cde240acebd54f063108560b1f2268224c1"
+      "rows": 18,
+      "sha256": "9d196f81504840c7aff27888e06254e7f153f110e0198ee285e6c539c8a57655"
     },
     "actors": {
-      "rows": 15,
-      "sha256": "b309601386ae0d036a9cc821be457746ffcc338fef33f52c1b6ce1d2a8d40be8"
+      "rows": 18,
+      "sha256": "94f2a175a57b18c57d7a01e5135d31ab5cd23fd4766682bee9f1dad3649a7fdb"
     },
     "application_user_profiles": {
-      "rows": 22,
-      "sha256": "6cfa529e7db34c708ccc655522cc9919b2023b8d1500e4e4de94d419fbd1931c"
+      "rows": 27,
+      "sha256": "98cd4faaaeaec08748999807ec88a7cb6d1303a5479c7087584a973cca191c90"
     },
     "audit_log": {
-      "rows": 266,
-      "sha256": "bbad9c4a46616884df99440f25ae5bbd2b2e31518b837f2c988b9c76822597f0"
+      "rows": 277,
+      "sha256": "729065572c0c8ef243d27087da89652ff5b3b5bb195d3bf0e5d13ad87128a223"
     },
     "business_organizations": {
-      "rows": 10,
-      "sha256": "38f3d04dd82254d845dcc0638c4f60d9b58b8f5a96e227337a2396c99170bf93"
+      "rows": 12,
+      "sha256": "1133a51b3232cf8b79d982e8746ea8f033ebb95ac46b459adf3766eaaba27be6"
     },
     "event_documents": {
       "rows": 6,
       "sha256": "11262a2f4e72900638c8d74b20b83eb0affc7bef924ea7d1d562a44b6c33496b"
     },
     "fabric_identities": {
-      "rows": 15,
-      "sha256": "eef265076a1900a50adadb795a2aa99be1dce129d1ae74c78ded45f85ab1bd34"
+      "rows": 17,
+      "sha256": "63ec4980a21bf2bc4c552105e70b230c5a3fcbd3a0e75c735eaf8939b1bb7e4d"
     },
     "fabric_identity_requests": {
-      "rows": 9,
-      "sha256": "0c9a618fa11936e851f1b62c4f0090e0cc92393e561d92d39f6900ab0a593980"
+      "rows": 11,
+      "sha256": "df172dc0d3ea1e75b842af8d69d2938697d150b7c0fb7c75ad8f526efa0faf5b"
     },
     "fabric_organizations": {
       "rows": 3,
       "sha256": "8ee61f58ce519f7829e0c029238516da436e0ba3a6bfa88c60fc9b580de2a68a"
     },
     "fabric_projections": {
-      "rows": 28,
-      "sha256": "b131bedd12d0c990c6534689df9fa3f5d9646cdb1a325e928439d16f223dd614"
+      "rows": 29,
+      "sha256": "cdfb74350dea83224fdf007176801459811261cabfbcf99c3c7723efc5395cc7"
     },
     "identity_audit_logs": {
-      "rows": 341,
-      "sha256": "141f202c8d882d876cf1f49f7b12eb48154d09319065b7b26a0097da8b62130f"
+      "rows": 370,
+      "sha256": "4d7b1ba75833a4e2fa989ba1d94f23be8c72ae49aaa9789c40d7987702881760"
     },
     "local_projections": {
       "rows": 0,
       "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "lot_business_scopes": {
-      "rows": 35,
-      "sha256": "ee01ec3dfd56e54a1735ac414a26fe78f4dc8b26a6cc86bc23e51715f54746e2"
+      "rows": 36,
+      "sha256": "d4c1427a20aca4dcb572b608981e94523f872827a9e4e5007bbed60b2bc52f9a"
     },
     "lot_records": {
       "rows": 57,
       "sha256": "7bdb7e1e598ca212d524005dae06d14cb1dacbd6d127e1e23a46acd93090dcb9"
     },
     "lots": {
-      "rows": 35,
-      "sha256": "70f7209aeb0596f3749cb0b286630b2ea2ec364c12ba13fc8fab5339e7597f1b"
+      "rows": 36,
+      "sha256": "4b817f6c15e28da298ad034fc7510a95dbfeb04e170b2b138ca35118b4b5ade0"
     },
     "organizations": {
       "rows": 3,
@@ -163,8 +163,8 @@
       "sha256": "852af249b9c358b5ba5ba145a07f8f48fba3baf860643278ce8ed31e50ae3604"
     },
     "request_failures": {
-      "rows": 19,
-      "sha256": "617358c65f1f0aabb0e7bfd7f44dbad5dcd38c3e1a5354734fa361e5bdebc5d7"
+      "rows": 33,
+      "sha256": "d22cc2eb6bade0911c2075c201493ef9c3b8c81e6d80b1a6693d6e02265f7643"
     },
     "role_permissions": {
       "rows": 62,
@@ -175,16 +175,16 @@
       "sha256": "7618b8ba10679871073c1ce41361675fc7823a17fba43c1f8b6c372bbf52b176"
     },
     "trace_events": {
-      "rows": 199,
-      "sha256": "370d2956f29c38ceb36751cea83da8735928d5c33f3583a332155d5c59a10534"
+      "rows": 210,
+      "sha256": "77c5f1a9a7455b3a744f1d5393efcdad04ab425417f0041d59bfbf06d1c2572b"
     },
     "user_accounts": {
-      "rows": 22,
-      "sha256": "a64d2a11c0713cd9aa530da57c95d7a987d786ed887acbc412b3839f6b80e430"
+      "rows": 27,
+      "sha256": "c010bb95860938cb66ab377a48072bf58d4d8d47507e4c91e2d05177f0a8e18f"
     },
     "user_actor_mappings": {
-      "rows": 15,
-      "sha256": "c18dde39c416ba614cd2174899df93e0b0606fd62b50ae150bce7ce99e3515fb"
+      "rows": 18,
+      "sha256": "cc4f22c093e2bff58e9dd62b02a484847b5fcca3ee76671294e954741684004f"
     }
   },
   "containers": [

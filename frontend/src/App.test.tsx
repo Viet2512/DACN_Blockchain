@@ -18,7 +18,7 @@ vi.mock("./services/api", async (importOriginal) => {
     authService: { login: vi.fn(), me: vi.fn(), logout: vi.fn(), changePassword: vi.fn(), acceptInvitation: vi.fn() },
     lotService: { ...original.lotService, list: vi.fn(), get: vi.fn(), publicTrace: vi.fn() },
     healthService: vi.fn(),
-    adminService: {...original.adminService, users: vi.fn(), organizations: vi.fn(), permissions: vi.fn(), saveUser: vi.fn(), invite: vi.fn(), reissue: vi.fn(), identity: vi.fn(), identities: vi.fn(), identityRequests: vi.fn()},
+    adminService: {...original.adminService, users: vi.fn(), organizations: vi.fn(), permissions: vi.fn(), saveUser: vi.fn(), invite: vi.fn(), reissue: vi.fn(), identity: vi.fn(), identities: vi.fn(), identityRequests: vi.fn(), fabricOrganizations: vi.fn(), businessActivity: vi.fn()},
   };
 });
 const farmer: User = {
@@ -57,6 +57,8 @@ beforeEach(() => {
   vi.mocked(adminService.permissions).mockResolvedValue({roles:[{code:'FARMER',name:'FARMER'}],permissions:[],grants:[]});
   vi.mocked(adminService.identities).mockResolvedValue([]);
   vi.mocked(adminService.identityRequests).mockResolvedValue([]);
+  vi.mocked(adminService.fabricOrganizations).mockResolvedValue([]);
+  vi.mocked(adminService.businessActivity).mockResolvedValue([]);
   vi.mocked(lotService.list).mockResolvedValue([]);
   vi.mocked(lotService.get).mockImplementation(async id => (await lotService.list()).find(lot => lot.lotId === id)!);
   vi.mocked(healthService).mockResolvedValue({
@@ -123,7 +125,7 @@ it('shows certificate mappings only for the selected user', async () => {
 });
 it('allows an authorized admin to issue a pending Fabric identity without exposing CA input', async () => {
   sessionStorage.setItem(TOKEN_KEY,'session');
-  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'SUPER_ADMIN',permissions:['BLOCKCHAIN_MONITOR','IDENTITY_ISSUE']});
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'SUPER_ADMIN',permissions:['USER_READ','BLOCKCHAIN_MONITOR','IDENTITY_ISSUE']});
   vi.mocked(adminService.identityRequests).mockResolvedValue([{userId:'user-a',username:'driver-a',organizationId:'org-a',organizationName:'Vận tải A',role:'TRANSPORTER',mspId:'Org2MSP',status:'PENDING'}]);
   vi.mocked(adminService.identity).mockResolvedValue(undefined);
   mount('/admin/fabric-identities');
@@ -135,6 +137,7 @@ it('does not claim a signer is active when issuance was only queued', async () =
   sessionStorage.setItem(TOKEN_KEY,'session');
   vi.mocked(authService.me).mockResolvedValue({...farmer,role:'SUPER_ADMIN',permissions:['USER_READ','USER_CREATE','IDENTITY_ISSUE']});
   vi.mocked(adminService.users).mockResolvedValue([{...farmer,username:'pending-farmer',fabricIdentityStatus:'PENDING'}]);
+  vi.mocked(adminService.identityRequests).mockResolvedValue([{userId:farmer.userId!,username:'pending-farmer',organizationId:farmer.organizationId!,organizationName:'Nông hộ',role:'FARMER',mspId:'Org1MSP',status:'PENDING'}]);
   vi.mocked(adminService.identity).mockResolvedValue(undefined);
   mount('/admin/users');
   fireEvent.click(await screen.findByRole('button',{name:'Cấp chứng thư'}));
@@ -269,8 +272,12 @@ it('groups admin navigation and hides infrastructure links from the main menu', 
 it('allows an organization administrator without unrelated USER_READ permission', async () => {
   sessionStorage.setItem(TOKEN_KEY,'session');
   vi.mocked(authService.me).mockResolvedValue({...farmer,role:'SUPER_ADMIN',permissions:['ORGANIZATION_READ']});
+  vi.mocked(adminService.organizations).mockResolvedValue([{organizationId:'farm-A',name:'Nông hộ A',type:'FARM',organizationType:'FARM',mspId:'Org1MSP',status:'ACTIVE',userCount:2}]);
   mount('/admin/organizations');
   expect(await screen.findByRole('heading',{name:'Doanh nghiệp'})).toBeInTheDocument();
+  expect(await screen.findByText('2 tài khoản')).toBeInTheDocument();
+  expect(screen.queryByRole('link',{name:'2 tài khoản'})).not.toBeInTheDocument();
+  expect(screen.queryByRole('link',{name:'Xem lô liên quan'})).not.toBeInTheDocument();
   expect(adminService.users).not.toHaveBeenCalled();
 });
 it('rejects a direct admin URL when the page permission is missing', async () => {
@@ -384,6 +391,132 @@ it('staff and business administrators cannot open system user management', async
   mount('/admin/users');
   expect(await screen.findByRole('heading',{name:'Không có quyền truy cập'})).toBeInTheDocument();
   expect(adminService.users).not.toHaveBeenCalled();
+});
+it.each([
+  ['/business/staff','USER_READ'], ['/business/activity','USER_READ'], ['/business/organization','ORGANIZATION_READ'],
+])('guards %s with %s before making requests', async (path) => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'BUSINESS_ADMIN',permissions:[]});
+  mount(path);
+  expect(await screen.findByRole('heading',{name:'Không có quyền truy cập'})).toBeInTheDocument();
+  expect(adminService.users).not.toHaveBeenCalled();
+  expect(adminService.businessActivity).not.toHaveBeenCalled();
+  expect(adminService.organizations).not.toHaveBeenCalled();
+  expect(adminService.identityRequests).not.toHaveBeenCalled();
+});
+it('offers only permitted business navigation and keeps organization information reachable', async () => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'BUSINESS_ADMIN',permissions:['ORGANIZATION_READ']});
+  mount('/business/organization');
+  const nav=within(await screen.findByRole('navigation',{name:'Điều hướng chính'}));
+  expect(nav.getAllByRole('link').map(link=>link.getAttribute('href'))).toEqual(['/business/organization','/profile']);
+  expect(screen.queryByRole('link',{name:'Hoạt động'})).not.toBeInTheDocument();
+  expect(adminService.businessActivity).not.toHaveBeenCalled();
+});
+it.each([
+  ['FARM','FARMER'], ['PROCESSING_FACILITY','PROCESSOR'], ['LOGISTICS_COMPANY','TRANSPORTER'], ['DISTRIBUTION_COMPANY','DISTRIBUTOR'],
+] as const)('keeps %s invitations within the business staff role and organization', async (organizationType,role) => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'BUSINESS_ADMIN',organizationType,organizationId:'own-org',permissions:['USER_READ','USER_CREATE','ORGANIZATION_READ']});
+  vi.mocked(adminService.permissions).mockResolvedValue({roles:[{code:role,name:role}],permissions:[],grants:[]});
+  const org={organizationId:'own-org',name:'Doanh nghiệp của tôi',type:organizationType,organizationType,mspId:'Org1MSP',status:'ACTIVE'};
+  vi.mocked(adminService.organizations).mockResolvedValue([org,{...org,organizationId:'other-org',name:'Doanh nghiệp khác'}]);
+  vi.mocked(adminService.invite).mockResolvedValue({message:'Đã gửi lời mời'});
+  mount('/business/staff');
+  fireEvent.click(await screen.findByRole('button',{name:'+ Mời tài khoản'}));
+  const dialog=within(screen.getByRole('dialog',{name:'Mời tài khoản'}));
+  await dialog.findByRole('option',{name:'Doanh nghiệp của tôi'});
+  expect(dialog.getByLabelText('Vai trò')).toHaveValue(role);
+  expect(dialog.getByLabelText('Doanh nghiệp')).toHaveValue('own-org');
+  expect(dialog.queryByRole('option',{name:'Doanh nghiệp khác'})).not.toBeInTheDocument();
+  fireEvent.change(dialog.getByLabelText('Tên đăng nhập'),{target:{value:'new-staff'}});
+  fireEvent.change(dialog.getByLabelText('Họ tên'),{target:{value:'Nhân viên mới'}});
+  fireEvent.change(dialog.getByLabelText('Email'),{target:{value:'staff@example.test'}});
+  fireEvent.change(dialog.getByLabelText('Mã vùng'),{target:{value:'TG-001'}});
+  fireEvent.click(dialog.getByRole('button',{name:'Lưu người dùng'}));
+  await waitFor(()=>expect(adminService.invite).toHaveBeenCalledWith(expect.objectContaining({role,organizationId:'own-org',regionCode:'TG-001',password:''})));
+  expect(adminService.saveUser).not.toHaveBeenCalled();
+});
+it.each([
+  ['SUPER_ADMIN','ACTIVE',undefined], ['BUSINESS_ADMIN','ACTIVE','PENDING'],
+  ['FARMER','INACTIVE','PENDING'], ['FARMER','PENDING_ACTIVATION','PENDING'],
+  ['FARMER','ACTIVE',undefined], ['FARMER','ACTIVE','APPROVED'],
+] as const)('does not offer invalid identity issuance for %s / %s / %s', async (role,status,requestStatus) => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,username:'boss',role:'BUSINESS_ADMIN',permissions:['USER_READ','IDENTITY_REQUEST','IDENTITY_ISSUE']});
+  vi.mocked(adminService.users).mockResolvedValue([{...farmer,username:'target',role,status,fabricIdentityStatus:'PENDING'}]);
+  vi.mocked(adminService.identityRequests).mockResolvedValue(requestStatus?[{userId:farmer.userId!,username:'target',organizationId:farmer.organizationId!,organizationName:'Nông hộ',role,mspId:'Org1MSP',status:requestStatus}]:[]);
+  mount('/business/staff');
+  await screen.findByText('target',{selector:'small'});
+  await waitFor(()=>expect(screen.queryByText('Đang tải dữ liệu…')).not.toBeInTheDocument());
+  expect(screen.queryByRole('button',{name:'Cấp chứng thư'})).not.toBeInTheDocument();
+  expect(screen.queryByRole('button',{name:'Thử cấp lại'})).not.toBeInTheDocument();
+  if (requestStatus==='APPROVED') {
+    expect(screen.getByText('CA operator đang cấp chứng thư')).toBeInTheDocument();
+    expect(screen.getByRole('button',{name:'Yêu cầu chứng thư'})).toBeDisabled();
+  }
+  expect(adminService.identity).not.toHaveBeenCalled();
+});
+it('retries a failed staff identity using the actual request state even after signing was disabled', async () => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,username:'boss',role:'BUSINESS_ADMIN',permissions:['USER_READ','IDENTITY_ISSUE']});
+  vi.mocked(adminService.users).mockResolvedValue([{...farmer,username:'target',fabricIdentityStatus:'DISABLED'}]);
+  const request={userId:farmer.userId!,username:'target',organizationId:farmer.organizationId!,organizationName:'Nông hộ',role:'FARMER',mspId:'Org1MSP',status:'FAILED'};
+  vi.mocked(adminService.identityRequests).mockResolvedValue([request]);
+  vi.mocked(adminService.identity).mockImplementation(async()=>{vi.mocked(adminService.identityRequests).mockResolvedValue([{...request,status:'APPROVED'}]);});
+  mount('/business/staff');
+  fireEvent.click(await screen.findByRole('button',{name:'Thử cấp lại'}));
+  await waitFor(()=>expect(adminService.identity).toHaveBeenCalledWith('target','issue'));
+  expect(await screen.findByText('CA operator đang cấp chứng thư')).toBeInTheDocument();
+  expect(screen.queryByRole('button',{name:'Thử cấp lại'})).not.toBeInTheDocument();
+});
+it('shows request loading failures and blocks identity changes until they can be checked', async () => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'BUSINESS_ADMIN',permissions:['USER_READ','IDENTITY_REQUEST','IDENTITY_ISSUE']});
+  vi.mocked(adminService.users).mockResolvedValue([{...farmer,fabricIdentityStatus:'PENDING'}]);
+  vi.mocked(adminService.identityRequests).mockRejectedValue(new Error('Không tải được yêu cầu chứng thư'));
+  mount('/business/staff');
+  expect(await screen.findByRole('alert')).toHaveTextContent('Không tải được yêu cầu chứng thư');
+  expect(screen.getByRole('button',{name:'Yêu cầu chứng thư'})).toBeDisabled();
+  expect(screen.queryByRole('button',{name:'Cấp chứng thư'})).not.toBeInTheDocument();
+});
+it('explains a read-only pending identity request instead of claiming issuance is in progress', async () => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'SUPER_ADMIN',permissions:['USER_READ','BLOCKCHAIN_MONITOR']});
+  vi.mocked(adminService.identityRequests).mockResolvedValue([{userId:farmer.userId!,username:'target',organizationId:farmer.organizationId!,organizationName:'Nông hộ',role:'FARMER',mspId:'Org1MSP',status:'PENDING'}]);
+  mount('/admin/fabric-identities');
+  expect(await screen.findByText('Chưa có quyền cấp chứng thư')).toBeInTheDocument();
+  expect(screen.queryByText('Đang xử lý')).not.toBeInTheDocument();
+  expect(screen.queryByRole('button',{name:'Cấp chứng thư'})).not.toBeInTheDocument();
+});
+it.each([false,true])('matches the Fabric organization tab to its read permission (allowed: %s)', async (allowed) => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'SUPER_ADMIN',permissions:allowed?['ORGANIZATION_READ']:['BLOCKCHAIN_MONITOR']});
+  mount(allowed?'/profile':'/admin/fabric-identities');
+  const nav=within(await screen.findByRole('navigation',{name:'Điều hướng chính'}));
+  if (allowed) {
+    fireEvent.click(nav.getByRole('link',{name:'Kiểm chứng blockchain'}));
+    expect(await screen.findByRole('heading',{name:'Tổ chức Fabric'})).toBeInTheDocument();
+    expect(adminService.fabricOrganizations).toHaveBeenCalled();
+  } else {
+    expect(await screen.findByRole('heading',{name:'Danh tính Fabric theo người dùng'})).toBeInTheDocument();
+    expect(screen.queryByRole('link',{name:'Tổ chức Fabric'})).not.toBeInTheDocument();
+    expect(adminService.fabricOrganizations).not.toHaveBeenCalled();
+    expect(adminService.identityRequests).not.toHaveBeenCalled();
+  }
+});
+it.each([false,true])('allows organization status edits only with the disable permission (allowed: %s)', async (allowed) => {
+  sessionStorage.setItem(TOKEN_KEY,'session');
+  vi.mocked(authService.me).mockResolvedValue({...farmer,role:'SUPER_ADMIN',permissions:['ORGANIZATION_READ','ORGANIZATION_UPDATE',...(allowed?['ORGANIZATION_DISABLE']:[])]});
+  vi.mocked(adminService.organizations).mockResolvedValue([{organizationId:'farm-A',name:'Nông hộ A',code:'FARM-A',type:'FARM',organizationType:'FARM',mspId:'Org1MSP',status:'ACTIVE'}]);
+  mount('/admin/organizations');
+  fireEvent.click(await screen.findByRole('button',{name:'Chỉnh sửa'}));
+  const status=within(screen.getByRole('dialog')).getByLabelText('Trạng thái');
+  if (allowed) {
+    expect(status).toBeEnabled();
+    fireEvent.change(status,{target:{value:'INACTIVE'}});
+    expect(screen.getByRole('checkbox',{name:/Tôi xác nhận thay đổi trạng thái/})).toBeRequired();
+  } else expect(status).toBeDisabled();
 });
 it('activation clears token from the address and requires matching passwords', async () => {
   vi.mocked(authService.acceptInvitation).mockResolvedValue(undefined);

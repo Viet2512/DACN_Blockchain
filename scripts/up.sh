@@ -6,6 +6,6 @@ if ! docker info >/dev/null 2>&1; then
   exit 1
 fi
 bash scripts/start-fabric.sh
-docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --build --wait --wait-timeout 120 mysql fabric-operator backend frontend
+docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --wait --wait-timeout 120 mysql fabric-operator backend frontend
 echo "TraceChain: http://localhost:3001"
 echo "API health: http://localhost:8080/api/health"

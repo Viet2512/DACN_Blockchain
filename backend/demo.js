@@ -6,10 +6,25 @@ const {isDeepStrictEqual} = require('node:util');
 const data = require('./demo-data');
 const workflow = require('../chaincode/src/workflow');
 const fabric = require('./fabric');
+const bulk = process.argv.includes('--bulk');
+const bulkData = bulk ? require('./bulk-data') : null;
+const samples = bulk ? bulkData.lots : data.lots;
+const directory = path.join(process.env.DEMO_REPORT_DIR || path.join(__dirname, '../reports'), bulk ? 'bulk' : '');
 const API = process.env.API_URL || 'http://localhost:8080/api';
 const tokens = {}, accounts = {}, companies = {};
-const report = {dataset: data.dataset, checkedAt: new Date().toISOString(), created: {organizations: 0, accounts: 0, lots: 0, events: 0}, skipped: 0, reconciled: 0, errors: [], lots: [], checks: {}};
+const report = {dataset: bulk ? `${data.dataset}-BULK` : data.dataset, checkedAt: new Date().toISOString(), created: {organizations: 0, accounts: 0, lots: 0, events: 0, documents: 0}, skipped: 0, reconciled: 0, errors: [], lots: [], checks: {}};
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
+let preservationDb;
+
+async function businessFingerprint() {
+  preservationDb ||= await require('mysql2/promise').createConnection({host: process.env.MYSQL_HOST, port: Number(process.env.MYSQL_PORT || 3306), database: process.env.MYSQL_DATABASE, user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, timezone: 'Z'});
+  const result = {};
+  for (const table of ['lots', 'trace_events', 'event_documents', 'lot_business_scopes', 'fabric_projections', 'lot_records']) {
+    const [rows] = await preservationDb.execute(`SELECT * FROM ${table} WHERE lot_id NOT LIKE ?`, [`${bulkData.prefix}%`]);
+    result[table] = {rows: rows.length, sha256: require('node:crypto').createHash('sha256').update(JSON.stringify(rows.map(row => JSON.stringify(row)).sort())).digest('hex')};
+  }
+  return result;
+}
 
 function assertDemoEnvironment(env = process.env) {
   assert.ok(['development', 'test'].includes(env.NODE_ENV), 'Demo writes require NODE_ENV=development/test');
@@ -22,7 +37,8 @@ function assertDemoEnvironment(env = process.env) {
   assert.ok(['localhost', '127.0.0.1', 'backend'].includes(endpoint.hostname), 'Demo runner only targets the local application');
 }
 async function call(endpoint, token, method = 'GET', body) {
-  const response = await fetch(API + endpoint, {method, signal: AbortSignal.timeout(90000), headers: {'Content-Type': 'application/json', ...(token ? {Authorization: `Bearer ${token}`} : {})}, ...(body === undefined ? {} : {body: JSON.stringify(body)})});
+  const multipart = body instanceof FormData;
+  const response = await fetch(API + endpoint, {method, signal: AbortSignal.timeout(90000), headers: {...(multipart ? {} : {'Content-Type': 'application/json'}), ...(token ? {Authorization: `Bearer ${token}`} : {})}, ...(body === undefined ? {} : {body: multipart ? body : JSON.stringify(body)})});
   const result = response.status === 204 ? null : await response.json();
   if (!response.ok) throw Object.assign(new Error(`${method} ${endpoint}: HTTP ${response.status} (${result?.code || 'REQUEST_FAILED'})`), {status: response.status, receipt: result});
   return result;
@@ -115,6 +131,17 @@ async function writeLot(sample, lot, type, admin) {
   if (type === 'CTE_TRANSPORT') Object.assign(payload.data, {temperature: 12, humidity: 75});
   if (type === 'CTE_RECALL') payload.data.note = 'Thu hồi demo: cách ly để kiểm nghiệm bổ sung, không phải sản phẩm thực';
   if (destination) Object.assign(payload, {toOrganizationId: companies[`${data.dataset}-${destination}`], toRegion: 'TG-001'});
+  if (bulk && type === 'CTE_HARVEST') {
+    const bytes = bulkData.documentFor(sample), fileHash = require('node:crypto').createHash('sha256').update(bytes).digest('hex');
+    const documents = await call(`/lots/${lot.lotId}/verify-documents`, tokens[username]);
+    if (!documents.documents.some(document => document.fileHash === fileHash)) {
+      const form = new FormData();
+      form.append('lotId', lot.lotId); form.append('document', new Blob([bytes], {type: 'application/pdf'}), `${lot.lotId}-sample.pdf`);
+      const uploaded = await call('/documents', tokens[username], 'POST', form);
+      assert.equal(uploaded.fileHash, fileHash); report.created.documents++;
+    }
+    payload.data.documentHash = fileHash;
+  }
   try {return await call(`/lots/${sample.lotId}/${endpoint}`, tokens[username], 'POST', payload);}
   catch (error) {
     if (error.status && error.status < 500) throw error;
@@ -174,7 +201,7 @@ async function verify(admin) {
     }
     report.accounts.push({username: sample.username, role: sample.role, visibleLots: visible.length, login: 'PASS'});
   }
-  for (const sample of data.lots) {
+  for (const sample of samples) {
     const lot = await call(`/lots/${sample.lotId}`, admin); checkLot(sample, lot);
     assert.equal(missingSteps(sample, lot).length, 0, `Incomplete dataset ${sample.lotId}`);
     const validation = await call(`/lots/${sample.lotId}/validate`, admin);
@@ -190,6 +217,15 @@ async function verify(admin) {
     }
     const publicLot = await call(`/public/trace/${sample.lotId}`);
     assert.equal(publicLot.integrity.valid, true);
+    if (bulk) {
+      const documents = await call(`/lots/${sample.lotId}/verify-documents`, admin);
+      const expectedHash = require('node:crypto').createHash('sha256').update(bulkData.documentFor(sample)).digest('hex');
+      assert.equal(documents.valid, true); assert.equal(documents.documents.length, 1);
+      assert.equal(documents.documents[0].fileHash, expectedHash);
+      assert.equal(documents.documents[0].valid, true);
+      report.documentCount = (report.documentCount || 0) + 1;
+      (report.documentHashes ||= []).push(expectedHash);
+    }
     report.lots.push({lotId: lot.lotId, productCode: sample.product.code, status: lot.status, events: history.length, transactionIds: history.map(event => event.eventId), commits, handoverRequests: history.filter(event => workflow.requests.includes(event.eventType)).length, handoverConfirmations: history.filter(event => workflow.confirmations.includes(event.eventType)).length, iesh: 'PASS', mysql: 'PASS', ledger: 'COMMITTED_VALID'});
   }
   report.checks.loginRbacReadOnlyReconciliation = 'PASS';
@@ -225,28 +261,59 @@ async function negativeTests(admin) {
 async function main() {
   const command = process.argv[2] || 'check';
   assert.ok(['check', 'seed', 'verify', 'test'].includes(command), 'Use check|seed|verify|test');
+  if (bulk) assert.ok(['seed', 'verify'].includes(command), '--bulk supports only seed|verify');
   if (command === 'seed') assertDemoEnvironment();
   const health = await call('/health/dependencies');
   assert.equal(health.mysql, true); assert.equal(health.fabric.ready, true); assert.equal(health.fabric.schemaVersion, 4);
   console.log(JSON.stringify({environment: process.env.NODE_ENV, database: process.env.MYSQL_DATABASE, ...health}));
   if (command === 'check') return;
+  let preserved;
+  if (bulk) {
+    await fabric.readiness();
+    fs.mkdirSync(directory, {recursive: true});
+    const file = path.join(directory, 'preservation.json'), current = await businessFingerprint();
+    if (fs.existsSync(file)) {preserved = JSON.parse(fs.readFileSync(file, 'utf8')); assert.deepEqual(current, preserved, 'Existing business data changed since bulk baseline');}
+    else {preserved = current; fs.writeFileSync(file, JSON.stringify(preserved, null, 2) + '\n', {flag: 'wx'});}
+    report.syntheticDocuments = true;
+  }
   const admin = await login(process.env.ADMIN_USERNAME, process.env.ADMIN_PASSWORD);
   if (command === 'seed') {
     await prepareAccounts(admin);
-    for (const sample of data.lots) {
+    const seed = async sample => {
       try {await seedLot(sample, admin);}
       catch (error) {report.errors.push({lotId: sample.lotId, message: error.message}); console.error(`${sample.lotId}: ${error.message}`);}
+    };
+    if (bulk) {
+      report.batches = [];
+      const batch = async items => {
+        const start = performance.now(); await Promise.all(items.map(seed));
+        const result = {concurrency: items.length, elapsedMs: Math.round(performance.now() - start), lots: items.length};
+        report.batches.push(result); assert.equal(report.errors.length, 0, 'Bulk batch failed; resume after inspecting commit results');
+        return result.lots / result.elapsedMs;
+      };
+      const four = await batch(samples.slice(0, 4)), eight = await batch(samples.slice(4, 12));
+      report.concurrency = eight > four * 1.05 ? 8 : 4;
+      console.log(`Bulk selected ${report.concurrency} concurrent lots from measured 4/8-lot batches.`);
+      for (let index = 12; index < samples.length; index += report.concurrency) await batch(samples.slice(index, index + report.concurrency));
+    } else {
+      for (const sample of samples) await seed(sample);
     }
     assert.equal(report.errors.length, 0, 'Some lots require reconciliation; see report and rerun without resetting');
   }
   await verify(admin);
+  if (bulk) {
+    assert.equal(report.lots.length, 100); assert.equal(report.eventCount, 1100); assert.equal(report.documentCount, 100); assert.equal(new Set(report.documentHashes).size, 100);
+    assert.deepEqual(await businessFingerprint(), preserved, 'Existing business data changed');
+    report.checks.originalBusinessDataPreserved = 'PASS';
+    report.preservation = preserved;
+  }
   if (command === 'test') await negativeTests(admin);
 }
 if (require.main === module) main().catch(error => {console.error(error.message); report.errors.push({message: error.message}); process.exitCode = 1;}).finally(async () => {
-  const directory = process.env.DEMO_REPORT_DIR || path.join(__dirname, '../reports');
   fs.mkdirSync(directory, {recursive: true});
   fs.writeFileSync(path.join(directory, `demo-${process.argv[2] || 'check'}.json`), JSON.stringify(report, null, 2) + '\n');
   for (const token of new Set(Object.values(tokens))) {try {await call('/auth/logout', token, 'POST', {});} catch { /* Sessions may have expired during a long run. */ }}
   await fabric.close();
+  if (preservationDb) await preservationDb.end();
 });
-module.exports = {assertDemoEnvironment, missingSteps, checkAccount};
+module.exports = {assertDemoEnvironment, missingSteps, checkAccount, call};

@@ -1,0 +1,139 @@
+{
+  "lotId": "TC-REHEARSAL-20261117-001",
+  "uiCommits": [
+    {
+      "eventType": "CTE_CREATE",
+      "txId": "f89c151c93e84fa741db67875aac00e75fd3bcfd84ebbb88485189cdb602a448",
+      "status": "CREATED",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HARVEST",
+      "txId": "cb8ce5ac42b8ecfabb8a3653cf4cbfec688ec5375be187648f744ff7a70c87fb",
+      "status": "HARVESTED",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HANDOVER_PROCESSOR",
+      "txId": "3929e48e579bdb639cc5b35f73804b08c0a82089c416666fc6329d9164f5010a",
+      "status": "WAITING_PROCESSOR",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_RECEIVE_PROCESSOR",
+      "txId": "5208d64117b2bd020671f67e1eaa521d4e2e1cf0465b705b8b44f62afd4a97b1",
+      "status": "RECEIVED_PROCESSOR",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_PROCESS",
+      "txId": "4ff2730e8c3d9dedbb3b68014cf3c488a26f06fc2290f4712a2f32e73618ae8c",
+      "status": "PROCESSED",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HANDOVER_SHIP",
+      "txId": "d1424b3dd7029fb0b278ec2ba1bbb9e21d40a0a83cb5c88041533dd9c929ea62",
+      "status": "WAITING_SHIP",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_RECEIVE_SHIP",
+      "txId": "4a959a87c9a8771087f056f7e63f4d599a483f4558fd8e95f75a95f8522054c0",
+      "status": "IN_TRANSIT",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_TRANSPORT",
+      "txId": "b1e41c967d58de72821635f4f6704d05c60b20b80857672e4fe6d2d541e3f341",
+      "status": "IN_TRANSIT",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HANDOVER_RETAIL",
+      "txId": "68c678a561e5095df8137637c0f952dd05029fbf150b989356a3f9302439a9d5",
+      "status": "WAITING_RETAIL",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_DISPATCH_RETAIL",
+      "txId": "45135e4f76643ac805a13ba2ff25ec6c2a72cbb3142bd4ec355a21a296ae67a4",
+      "status": "IN_RETAIL",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_DISPLAY_SALE",
+      "txId": "faee56463a43f384c153f60a266bf672d4363a8ac4c8c21592fcdb63b8480eb0",
+      "status": "READY_FOR_SALE",
+      "source": "NATIVE_UI"
+    }
+  ],
+  "rejections": [
+    {
+      "eventType": "CTE_HANDOVER_PROCESSOR",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_RECEIVE_PROCESSOR",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_HANDOVER_SHIP",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_RECEIVE_SHIP",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_HANDOVER_RETAIL",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_DISPATCH_RETAIL",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    }
+  ],
+  "runs": [
+    {
+      "checkedAt": "2026-11-14T16:48:32.607Z",
+      "beforeEvents": 0,
+      "afterEvents": 11,
+      "addedEvents": 11
+    },
+    {
+      "checkedAt": "2026-11-14T16:51:38.619Z",
+      "beforeEvents": 11,
+      "afterEvents": 11,
+      "addedEvents": 0
+    },
+    {
+      "checkedAt": "2026-11-14T16:57:22.961Z",
+      "beforeEvents": 11,
+      "afterEvents": 11,
+      "addedEvents": 0
+    }
+  ],
+  "qrUrl": "http://10.239.60.19:3001/trace/TC-REHEARSAL-20261117-001",
+  "publicMobile": "PASS",
+  "phone": "NOT VERIFIED",
+  "sameOriginApi": "PASS"
+}

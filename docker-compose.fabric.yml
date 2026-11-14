@@ -1,5 +1,5 @@
-# Apply with: docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --build backend frontend
-# Existing channels remain; traceability_v2 version 3 uses per-user SQL identity mappings.
+# Apply with: docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --wait
+# Resume the existing network first with scripts/start-fabric.sh; never redeploy it here.
 services:
   backend:
     environment:
@@ -33,10 +33,16 @@ services:
       FABRIC_CA_OPERATOR_ENABLED: "true"
       FABRIC_CA_OPERATOR_ROOT: /fabric-operator
       FABRIC_RUNTIME_ROOT: /fabric
-      FABRIC_CA_CLIENT: /usr/local/bin/fabric-ca-client
+      FABRIC_CA_CLIENT: /fabric-bin/fabric-ca-client
     volumes:
       - ./backups/fabric-runtime:/fabric
-      - ./fabric-samples/bin/fabric-ca-client:/usr/local/bin/fabric-ca-client:ro
+      # A directory mount avoids Docker Desktop's stale single-file mount type error after WSL migration.
+      - type: bind
+        source: ./fabric-samples/bin
+        target: /fabric-bin
+        read_only: true
+        bind:
+          create_host_path: false
       - ./fabric-samples/test-network/organizations/peerOrganizations/org1.example.com:/fabric-operator/organizations/peerOrganizations/org1.example.com
       - ./fabric-samples/test-network/organizations/peerOrganizations/org2.example.com:/fabric-operator/organizations/peerOrganizations/org2.example.com
       - ./fabric-samples/test-network/organizations/peerOrganizations/org3.example.com:/fabric-operator/organizations/peerOrganizations/org3.example.com

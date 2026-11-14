@@ -66,9 +66,13 @@ export default function App() {
                 <Route element={<ProtectedRoute permissions={["LOT_READ"]} />}><Route path="/recalls" element={<LotsPage mode="recalls" />} /></Route>
                 <Route element={<ProtectedRoute permissions={["LOT_READ", "TRACE_HISTORY_READ"]} />}><Route path="/history" element={<HistoryPage />} /></Route>
                 <Route element={<ProtectedRoute roles={["BUSINESS_ADMIN"]} />}>
+                  <Route element={<ProtectedRoute permissions={["USER_READ"]} />}>
                   <Route path="/business/staff" element={<AdminUsersPage />} />
                   <Route path="/business/activity" element={<BusinessPage />} />
+                  </Route>
+                  <Route element={<ProtectedRoute permissions={["ORGANIZATION_READ"]} />}>
                   <Route path="/business/organization" element={<BusinessPage organization />} />
+                  </Route>
                 </Route>
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route element={<ProtectedRoute roles={["SUPER_ADMIN","ADMIN"]} />}>

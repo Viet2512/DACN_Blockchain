@@ -1,346 +1,134 @@
-> **Demo đầy đủ 10/11/2026:** Xem [DEMO_GUIDE](DEMO_GUIDE.md) để dùng dataset 24 lô Fabric, 13 tài khoản mới và các lệnh demo:check/seed/verify/test. [Audit thực thi](docs/SYSTEM_AUDIT.md) ghi kết quả và giới hạn kiểm chứng. Dữ liệu cũ được giữ nguyên.
+# TraceChain — bản demo bảo vệ đồ án
 
-> **Bản bàn giao 09/11/2026:** Dùng [hướng dẫn nghiệm thu và demo hiện hành](docs/FINAL_DELIVERY.md). Các ghi chú phiên bản cũ bên dưới được giữ để tham khảo.
+Hệ thống truy xuất nguồn gốc nông sản dùng React/TypeScript, Express, MySQL và Hyperledger Fabric. IESH kiểm tra **Danh tính – Sự kiện – Trạng thái – Bàn giao**; SHA-256 kiểm tra tính toàn vẹn dữ liệu. Hai lớp kiểm tra không chứng minh sự thật vật lý của hàng hóa.
 
-> **07/11/2026 — Workflow v4, chaincode 4.2:** Xem [hướng dẫn hiện hành](docs/WORKFLOW_V4.md). Các mô tả phiên bản cũ bên dưới là tài liệu lịch sử; dùng hướng dẫn v4 cho bàn giao và deployment.
+**Luồng hiện hành ngày 14/11/2026:** resume mạng Fabric v4 đang có, dùng nhóm tài khoản `tc_*`, không seed/reset khi khởi động.
 
-> **06/11/2026:** Backend đã kết nối Fabric v2 thật (Org1/Org2/Org3, signer riêng); lô cũ vẫn LOCAL. Chạy lại bằng `bash scripts/start-fabric.sh` rồi `docker compose up -d` trên môi trường đã cấu hình. Xem [hướng dẫn hiện tại](docs/FABRIC_STARTUP.md) và [kết quả sửa lỗi/test](docs/REMEDIATION_RESULTS.md).
+## Chạy ngay trên máy đã có dữ liệu
 
-# TraceChain - IESH supply-chain demo
-
-Ứng dụng truy xuất nguồn gốc nông sản theo lô, xây dựng cho đồ án Đại học Sài
-Gòn. Hệ thống gồm giao diện React, REST API Express, MySQL và smart contract
-Hyperledger Fabric. Lớp IESH (Identity - Event - State - Handover) kiểm tra
-tính nhất quán của nghiệp vụ; hash chứng từ chỉ kiểm tra tính toàn vẹn, không
-chứng minh dữ liệu đầu vào là đúng.
-
-## 1. Yêu cầu môi trường
-
-### Cách khuyến nghị: Docker Compose
-
-- Git
-- Docker Desktop hoặc Docker Engine
-- Docker Compose v2 (`docker compose version`)
-- Ít nhất 4 GB RAM trống
-
-Khi chỉ chạy ứng dụng bằng Docker Compose, không cần MySQL/Node.js trên host.
-Cấp chứng thư, migration và kiểm thử từ WSL vẫn cần Node/npm cùng Fabric binaries hiện có.
-
-### Chạy thủ công (không dùng Docker cho ứng dụng)
-
-- Node.js 22.12 trở lên và npm
-- MySQL 8 trở lên (hoặc chỉ chạy MySQL bằng Docker)
-- Git
-
-Kiểm tra phiên bản:
+Mở Docker Desktop, đợi Engine chạy, bật WSL integration cho distro hiện tại. Trong terminal Remote WSL:
 
 ```bash
-node --version
-npm --version
-docker --version
-docker compose version
+cd /home/viet/DoAnBlockchain
+bash scripts/up.sh
+bash scripts/demo.sh check
+curl -fsS http://localhost:8080/api/health/dependencies
 ```
 
-## 2. Cài từ GitHub
+Mở **http://localhost:3001**. Kết quả dependency health phải có `mysql:true`, `fabric.ready:true`, `schemaVersion:4`, channel `tracechannel-v2`, chaincode `traceability_v2`. Không dùng riêng `/api/health` để kết luận Fabric sẵn sàng.
 
-```bash
-git clone <URL_REPOSITORY_GITHUB>
-cd DoAnBlockchain
-```
-
-Thay `<URL_REPOSITORY_GITHUB>` bằng URL repository thực tế. Không cần commit
-`node_modules`, file `.env`, dữ liệu MySQL hoặc thư mục build lên GitHub.
-
-## 3. Chạy nhanh bằng Docker Compose (khuyến nghị)
-
-Từ thư mục gốc dự án:
-
-```bash
-[ -f .env ] || cp .env.example .env
-# Điền thông tin kết nối/mật khẩu; với database cũ phải giữ credential hiện có.
-./scripts/up.sh
-# Chỉ seed khi chủ động cần dữ liệu demo và đã đặt DEMO_PASSWORD.
-./scripts/seed.sh
-```
-
-Nếu Linux báo không có quyền thực thi script:
-
-```bash
-chmod +x scripts/*.sh
-./scripts/up.sh
-```
-
-Mở ứng dụng tại [http://localhost:3001](http://localhost:3001). API health ở
-[http://localhost:8080/api/health](http://localhost:8080/api/health).
-
-Các container sử dụng những cổng sau:
-
-| Thành phần | URL/cổng |
-|---|---|
-| Frontend | `http://localhost:3001` |
-| Backend API | `http://localhost:8080` |
-| MySQL từ máy host | `localhost:3307` |
-
-Cổng frontend là `3001` (không phải `3000`) để tránh xung đột với ứng dụng
-khác. Backend trong Docker kết nối MySQL qua cổng nội bộ `3306`; chỉ khi kết
-nối từ máy host mới dùng cổng `3307`.
-
-### Tài khoản demo
-
-| Vai trò | Username | Password |
+| Thành phần | Địa chỉ Docker | Ghi chú |
 |---|---|---|
-| Admin | Theo `ADMIN_USERNAME` | Theo `ADMIN_PASSWORD` |
-| Farmer | `demo-farmer` | Theo `DEMO_PASSWORD` khi seed |
-| Processor | `demo-processor` | Theo `DEMO_PASSWORD` khi seed |
-| Transporter | `demo-transporter` | Theo `DEMO_PASSWORD` khi seed |
-| Distributor | `demo-distributor` | Theo `DEMO_PASSWORD` khi seed |
+| Frontend | http://localhost:3001 | Cổng 3000 bên trong container; browser dùng `/api` cùng origin |
+| Backend | http://localhost:8080 | Chỉ publish loopback |
+| MySQL 8.4 | 127.0.0.1:3307 | Backend container dùng `mysql:3306` |
+| Fabric | Org1MSP, Org2MSP, Org3MSP | Chaincode 4.3, sequence 6; schema nghiệp vụ 4 |
 
-Bộ mẫu mới còn có `demo-farmer-2` và `demo-transporter-2` để kiểm tra nhiều người dùng/doanh nghiệp. Xem [kịch bản test Frontend](docs/DEMO_TEST_GUIDE.md).
+Script resume CA/orderer/peer hiện hữu, đặt `unless-stopped` và đợi ứng dụng healthy. Peer/orderer/CA thuộc project Compose cũ `compose`; Compose ứng dụng thuộc `doanblockchain`. Không tạo lại channel hoặc deploy lại chaincode để startup. Sau backend restart phải đăng nhập lại vì session lưu trong RAM.
 
-`./scripts/seed.sh` chỉ dùng khi chủ động muốn tạo dữ liệu mẫu. Script có thể cập
-nhật tài khoản/tác nhân demo đã tồn tại; không chạy trên dữ liệu thật cần bảo toàn. Dữ liệu mặc định chạy ở local mode (`FABRIC_ENABLED=false`), nên không
-cần khởi động Fabric để xem giao diện và thực hiện kịch bản demo.
+## Tài khoản demo đang dùng
 
-## 4. Chạy thủ công frontend/backend
+Lấy mật khẩu từ `DEMO_PASSWORD` trong cấu hình môi trường gốc riêng hoặc password manager; không đưa giá trị vào chat, ảnh hay báo cáo. Nhóm 13 tài khoản dưới đây đã được kiểm tra đăng nhập. Tài khoản lịch sử vẫn được giữ nguyên; đổi biến môi trường không đổi password của account đã có.
 
-### Khởi động MySQL
+| Vai trò | Tài khoản |
+|---|---|
+| Quản trị hệ thống | `tc_system` |
+| Quản trị sản xuất | `tc_admin_sanxuat` |
+| Quản trị sơ chế | `tc_admin_soche` |
+| Quản trị vận chuyển | `tc_admin_vanchuyen` |
+| Quản trị phân phối | `tc_admin_phanphoi` |
+| Nhân viên sản xuất | `tc_nv_sanxuat01`, `tc_nv_sanxuat02` |
+| Nhân viên sơ chế | `tc_nv_soche01`, `tc_nv_soche02` |
+| Nhân viên vận chuyển | `tc_nv_vanchuyen01`, `tc_nv_vanchuyen02` |
+| Nhân viên phân phối | `tc_nv_phanphoi01`, `tc_nv_phanphoi02` |
 
-Có thể chỉ chạy MySQL bằng Docker:
+**Chốt bảo vệ 17/11:** [Kịch bản 3–5 phút, lô diễn tập và bảng kiểm thử](docs/REHEARSAL_20261117.md). Hướng dẫn thao tác chi tiết và lô dự phòng vẫn ở [DEMO_GUIDE](DEMO_GUIDE.md).
 
-```bash
-docker compose up -d mysql
-```
+Dataset `TC-DEMO-V1` có 24 lô và snapshot lịch sử 142 transaction hợp lệ. Lô `TC-DEMO-V1-001` hoàn chỉnh có 11 CTE; `TC-DEMO-V1-022` đã thu hồi. Lô mới `TC-REHEARSAL-20261117-001` dành riêng cho lượt diễn tập; không làm các lô cũ quay về trạng thái seed.
 
-Hoặc dùng MySQL cài sẵn trên máy, tạo database `traceability` và user có
-quyền truy cập database đó.
+Luồng đầy đủ: tạo → thu hoạch → yêu cầu giao sơ chế → sơ chế nhận → sơ chế/đóng gói → yêu cầu vận chuyển → vận chuyển nhận → ghi nhận vận chuyển → yêu cầu giao phân phối → phân phối nhận → đưa lên kệ. Yêu cầu chưa chuyển đơn vị giữ lô; xác nhận đúng bên nhận mới chuyển. Consumer đọc QR/public trace ẩn danh.
 
-### Cấu hình backend
+## Resume, rebuild và khởi tạo là ba việc khác nhau
 
-```bash
-cd backend
-[ -f .env ] || cp .env.example .env
-npm install
-npm start
-```
-
-Backend chạy ở [http://localhost:8080](http://localhost:8080). Khi dùng MySQL
-container, các giá trị quan trọng trong `.env` là:
-
-```env
-PORT=8080
-MYSQL_ENABLED=true
-MYSQL_HOST=127.0.0.1
-MYSQL_PORT=3307
-MYSQL_DATABASE=traceability
-MYSQL_USER=<tai-khoan-MySQL-hien-co>
-MYSQL_PASSWORD=<mat-khau-MySQL-hien-co>
-FABRIC_ENABLED=false
-ADMIN_USERNAME=<tai-khoan-admin-khoi-tao>
-ADMIN_PASSWORD=<mat-khau-admin-khoi-tao>
-```
-
-Nếu MySQL chạy trực tiếp trên máy, đổi `MYSQL_PORT` thành `3306`. Không đưa
-`.env` lên GitHub; hãy dùng [backend/.env.example](backend/.env.example) làm
-mẫu.
-
-### Nạp dữ liệu demo
-
-Mở terminal khác:
+### Resume mạng cũ (mặc định cho bảo vệ)
 
 ```bash
-cd backend
-npm run seed:demo
+bash scripts/up.sh
 ```
 
-### Khởi động frontend
+Không seed, migrate hoặc deploy định kỳ. Chứng thư backend nằm trong runtime được bảo vệ; backend mount read-only. Khi thiếu container/volume/crypto, script dừng để điều tra trước.
 
-Mở terminal khác:
+### Rebuild ứng dụng khi vừa sửa source
 
 ```bash
-cd frontend
-npm install
-npm start
+# Chỉ backend thay đổi:
+docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --build --wait backend
+# Chỉ frontend thay đổi:
+docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --build --wait frontend
 ```
 
-Frontend mặc định chạy tại [http://localhost:3000](http://localhost:3000) khi
-chạy thủ công. Nếu cần đổi địa chỉ API, tạo `frontend/.env`:
+Kiểm dependency health và image đang phục vụ sau build; rebuild app không phải upgrade chaincode.
 
-```env
-VITE_API_URL=http://localhost:8080/api
-```
+### Máy trống hoàn toàn
 
-## 5. Kịch bản demo 10 phút
+Luồng này **chưa nghiệm thu trên máy sạch**. Xem phần “Máy mới hoàn toàn” trong [WORKFLOW_V4](docs/WORKFLOW_V4.md). Cần Docker, Node/npm, Fabric binaries/images, credentials mới, mạng mới và cấp identity đúng vai trò. Không áp dụng init lên mạng đang có. Các PDF gốc và bằng chứng lịch sử được giữ nguyên để đối chiếu.
 
-1. Chạy `./scripts/up.sh && ./scripts/seed.sh`.
-2. Đăng nhập bằng `demo-farmer`, mở lô `LOT-DEMO-001` và xem timeline 7 CTE.
-3. Bấm **Kiểm tra nhất quán IESH**; kết quả phải hợp lệ.
-4. Mở `/trace/LOT-DEMO-001` để xem truy xuất công khai không cần đăng nhập.
-5. Đăng nhập `admin` để xem quản lý user và audit log.
-6. Đăng nhập processor/transporter để trình diễn bàn giao hai bước.
-7. Mở `LOT-DEMO-002` để xem trạng thái `RECALLED` và các thao tác bị khóa.
+Seed là thao tác cấp dữ liệu có chủ đích trên môi trường xác định rõ, không phải một bước startup. Không chạy seed/reset trên máy demo hiện tại.
 
-## 6. API chính
-
-```text
-GET  /api/health
-GET  /api/public/trace/:lotId
-GET  /api/lots/:id/history
-GET  /api/lots/:id/validate
-GET  /api/lots/:id/verify-documents
-POST /api/lots/:id/handover/request
-POST /api/lots/:id/handover/confirm
-POST /api/lots/:id/recall
-GET  /api/admin/audit-log
-```
-
-API chuẩn hóa lỗi theo dạng `{step, code, message}`. Dữ liệu off-chain được
-lưu trong MySQL ở các bảng `lots`, `trace_events`, `event_documents`,
-`organizations`, `actors` và `actor_roles`.
-
-## 7. Hyperledger Fabric (tùy chọn)
-
-Chỉ cần phần này khi muốn chạy giao dịch thật trên Fabric. Docker Compose mặc
-định chạy local mode để cài đặt đơn giản.
-
-### Cài và khởi động network
-
-Repository đã bao gồm `fabric-samples`. Đảm bảo Docker đang chạy, sau đó:
+## Chế độ MySQL-only và phát triển trực tiếp
 
 ```bash
-./scripts/start-fabric.sh
+docker compose -f docker-compose.yml up -d --wait
 ```
 
-Script tạo channel `tracechannel` và deploy chaincode `traceability`. Nếu chạy
-thủ công:
+Compose gốc đặt `FABRIC_ENABLED=false`; `docker compose up -d` tương đương khi `COMPOSE_FILE` chỉ chọn file gốc. Health `fabric.reason:disabled` là đúng ở chế độ này. Backend từ chối tạo lô nghiệp vụ mới nếu Fabric tắt; các lô đã có source FABRIC cần Gateway để đọc. Chế độ này không tự dừng node Fabric/operator đang chạy từ trước.
+
+Bật đầy đủ bằng cách resume rồi áp dụng overlay:
 
 ```bash
-cd fabric-samples/test-network
-./network.sh deployCC \
-  -c tracechannel \
-  -ccn traceability \
-  -ccp ../../chaincode \
-  -ccl typescript
+bash scripts/start-fabric.sh
+docker compose -f docker-compose.yml -f docker-compose.fabric.yml up -d --wait
 ```
 
-### Build/test chaincode
+Chạy Node/Vite trực tiếp dành cho phát triển: Node >=22.12; `npm ci` trong mỗi package nếu thiếu dependencies; backend đọc cấu hình riêng và mặc định cổng 8080; Vite chạy cổng 3000 khi `npm --prefix frontend start`, hoặc chỉ định `-- --port 3001` nếu cổng trống. Không chạy dev frontend trên cổng 3001 khi Docker frontend đang publish cổng này. Vite mặc định proxy `/api` tới 127.0.0.1:8080; MySQL Docker từ host dùng 3307. Để ký Fabric, Node phải dùng channel/chaincode v2, TLS và mapping identity hợp lệ; không đổi credential cũ theo ví dụ.
+
+## Kiểm thử và bằng chứng
 
 ```bash
-cd chaincode
-npm install
-npm run build
-npm test
-```
-
-### Bật Fabric cho backend
-
-Trong `backend/.env`, đặt:
-
-```env
-FABRIC_ENABLED=true
-FABRIC_NETWORK_ROOT=/duong-dan-tuyet-doi/DoAnBlockchain/fabric-samples/test-network
-FABRIC_ORG=org1.example.com
-FABRIC_MSP_ID=Org1MSP
-FABRIC_USER=User1@org1.example.com
-FABRIC_PEER_ENDPOINT=localhost:7051
-FABRIC_PEER_HOST_ALIAS=peer0.org1.example.com
-FABRIC_CHANNEL=tracechannel
-FABRIC_CHAINCODE=traceability
-```
-
-`FABRIC_NETWORK_ROOT` nên là đường dẫn tuyệt đối trên máy đang chạy backend.
-Khi bật Fabric, các giao dịch tạo lô và ghi sự kiện chỉ được lưu vào MySQL sau
-khi Fabric commit thành công.
-
-## 8. Kiểm thử, benchmark và quản trị
-
-Chạy toàn bộ kiểm thử/build:
-
-```bash
-./scripts/test.sh
-```
-
-Hoặc chạy riêng:
-
-```bash
-cd backend && npm test
-cd chaincode && npm test
-cd frontend && npm test
-```
-
-Benchmark endpoint truy xuất công khai:
-
-```bash
-./scripts/benchmark.sh 100
-```
-
-Kết quả nằm trong `reports/benchmark.csv` và `reports/benchmark.svg`.
-
-Xem log hoặc dừng hệ thống Docker:
-
-```bash
-docker compose logs -f backend
-docker compose ps
-bash scripts/stop.sh
-```
-
-Script chỉ dừng ứng dụng, MySQL và các container Fabric hiện hữu; giữ nguyên
-volume, ledger và chứng thư. Khởi động lại bằng `bash scripts/up.sh`.
-Không reset hoặc seed lại database đang có để cập nhật ứng dụng. Test dữ liệu
-riêng bằng `node scripts/test-mysql.js --delivery --fabric`.
-
-## 9. Xử lý lỗi thường gặp
-
-- **Không mở được `localhost:3001`:** kiểm tra `docker compose ps` và log
-  frontend bằng `docker compose logs frontend`.
-- **Port đã được sử dụng:** dừng tiến trình đang dùng cổng `3001`, `8080` hoặc
-  `3307`, hoặc chỉnh mapping trong `docker-compose.yml`.
-- **Backend không kết nối MySQL:** chờ healthcheck MySQL hoàn tất; khi chạy
-  backend ngoài Docker phải dùng `MYSQL_HOST=127.0.0.1` và `MYSQL_PORT=3307`.
-- **Không chạy được script trên Linux:** chạy `chmod +x scripts/*.sh`.
-- **Fabric lỗi khi bật `FABRIC_ENABLED=true`:** kiểm tra network đã up, chaincode
-  đã deploy và `FABRIC_NETWORK_ROOT` trỏ đúng đến `fabric-samples/test-network`.
-
-## 10. Cấu trúc thư mục
-
-```text
-.
-├── backend/          # Express API, auth, MySQL projection, upload chứng từ
-├── frontend/         # React dashboard và public trace page
-├── chaincode/        # Hyperledger Fabric chaincode TypeScript
-├── fabric-samples/   # Fabric test network
-├── scripts/          # Script khởi động, seed, test, benchmark
-├── reports/          # Kết quả benchmark
-└── docker-compose.yml
-```
-
-## License
-
-Dự án phục vụ mục đích học tập và trình diễn.
-
-## Frontend TypeScript/Vite
-
-Frontend đã được nâng cấp tại cùng thư mục, có dashboard theo vai trò, quản lý
-lô/FSM, bàn giao, QR công khai và quản trị. Xem [hướng dẫn Frontend](frontend/README.md),
-[kế hoạch](docs/FRONTEND_IMPLEMENTATION_PLAN.md), [API](docs/API_INTEGRATION.md),
-[mức hoàn thiện](docs/FEATURE_COMPLETION.md) và [kiểm thử](docs/FRONTEND_TESTING.md).
-`REACT_APP_API_URL` vẫn được hỗ trợ cho Compose hiện có. `/uploads/*` không còn
-công khai; dùng endpoint tải chứng từ có xác thực. Không thay đổi database/volume.
-
-## Kiểm tra MySQL và bảo toàn dữ liệu
-
-Backend dùng MySQL 8.x với mysql2/promise, InnoDB và utf8mb4. Không cần migration
-PostgreSQL. Khởi động Backend không tự ALTER/backfill hay tính lại hash lịch sử.
-Cấu hình mật khẩu đặt trong .env bị Git bỏ qua, không nhúng vào Docker image.
-
-```bash
-./scripts/backup-mysql.sh
-# Kiểm thử ghi chỉ trong database tạm riêng, tự dọn sau khi xong:
+bash scripts/test.sh
 node scripts/test-mysql.js
+node scripts/test-mysql.js --delivery --fabric
+bash scripts/demo.sh verify
+node scripts/verify-runtime.js
 ```
 
-Xem [báo cáo MySQL, backup và rollback](docs/MYSQL_VERIFICATION.md). Với database
-đang có, không chạy lại schema/seed/reset để cập nhật ứng dụng.
+Các suite tích hợp dùng database QA riêng và tự dọn database/user do runner tạo. Giao dịch QA và identity CA đã tạo vẫn tồn tại trên ledger. Không tính SKIP là PASS và không ghi lô demo chỉ để làm test qua.
 
-### Tài khoản phân cấp
+- [Bàn giao diễn tập 17/11](docs/REHEARSAL_20261117.md): lệnh đã chạy, PASS/FAIL/SKIP, txId và giới hạn kiểm thử.
+- [API và kiến trúc MySQL/Fabric](docs/API_INTEGRATION.md): luồng commit, projection và reconcile.
+- [Quy trình v4](docs/WORKFLOW_V4.md) và [phân quyền tài khoản](docs/ACCOUNT_HIERARCHY.md).
 
-Xem [triển khai, kiểm thử và hướng dẫn System Admin → Business Admin → Staff](docs/ACCOUNT_HIERARCHY.md). Môi trường hiện có cần chạy migration 007 trước khi triển khai backend mới. Lời mời thủ công chỉ bật với NODE_ENV=development/test; production không trả token.
+Bộ Word/PDF và nguồn báo cáo cuối kỳ được người dùng tự biên soạn; không được tạo lại khi chạy test/build.
+
+Benchmark hiện có là 33 commit nghiệp vụ tuần tự trên 3 lô, không phải năng lực tải cực đại. Mục tiêu đề cương 100 lô / hơn 600 CTE / 100 chứng từ chưa được nghiệm thu. QR trên điện thoại qua hotspot đã được người dùng xác nhận ngày 15/11; máy sạch và restore đầy đủ vẫn chưa nghiệm thu.
+
+## Dừng và xử lý sự cố
+
+```bash
+bash scripts/stop.sh
+docker compose ps
+docker compose -f docker-compose.yml -f docker-compose.fabric.yml logs --tail 80 backend fabric-operator
+docker logs --tail 80 orderer.example.com
+```
+
+Stop giữ volume/ledger/MSP; resume bằng script khởi động. Không dùng `down -v`, volume prune, network down/restart hoặc restore đè để chữa startup.
+
+Backend/SQL lỗi: kiểm MySQL healthy và endpoint dependencies. Fabric lỗi: kiểm peer/orderer/CA, channel, TLS và runtime mount; không chỉ đổi FABRIC_ENABLED. Kết quả ghi chưa rõ: tải lịch sử rồi reconcile projection nếu cần, không submit lại mù quáng. Chi tiết ở [FABRIC_STARTUP](docs/FABRIC_STARTUP.md).
+
+QR điện thoại phải dùng `PUBLIC_BASE_URL` bằng IP Windows hiện tại, không dùng localhost của điện thoại. Chỉ mở frontend TCP 3001/LocalSubnet trên mạng Private tin cậy theo script LAN hiện có; giữ cổng nội bộ và firewall. Nếu LAN không sẵn sàng, dùng public trace localhost trên máy chiếu.
+
+## Cấu trúc chính
+
+`frontend/`: React/Vite; `backend/`: Express, auth/RBAC và projection MySQL; `chaincode/`: workflow/IESH; `scripts/`: resume và QA; `docs/`: hướng dẫn kỹ thuật; `reports/`: bằng chứng kiểm thử. Khóa, môi trường riêng, uploads và backup bị Git ignore.
+
+Dự án phục vụ học tập và trình diễn. Giới hạn nghiệp vụ và hướng phát triển được ghi trong báo cáo cuối kỳ; không có Products CRUD riêng, hủy/từ chối/timeout bàn giao, email production, CRL tự động, session nhiều replica hay IoT vật lý trong phạm vi nghiệm thu này.

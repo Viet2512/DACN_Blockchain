@@ -1,3 +1,5 @@
+> **Hiện hành 14/11/2026:** dùng [kịch bản bảo vệ](../DEMO_GUIDE.md) và [nghiệm thu có bằng chứng](../docs/ACCEPTANCE_20261114.md). Nội dung dưới đây giữ snapshot của đợt cũ; không dùng account/version/số liệu hoặc lệnh nâng cấp lịch sử như cấu hình hiện tại.
+
 > **Bản bàn giao hiện hành:** [Hướng dẫn demo và kết quả test](../docs/FINAL_DELIVERY.md). Frontend hiện có TypeScript/Vite và mô hình System → Business Admin → Staff.
 
 > **07/11/2026 — Workflow v4, chaincode 4.2:** Xem [hướng dẫn hiện hành](../docs/WORKFLOW_V4.md). Các mô tả phiên bản cũ bên dưới là tài liệu lịch sử; dùng hướng dẫn v4 cho bàn giao và deployment.

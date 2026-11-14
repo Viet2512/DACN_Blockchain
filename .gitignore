@@ -13,6 +13,11 @@ AGENTS.md
 build/
 dist/
 coverage/
+__pycache__/
+
+# Generated document review images and Word lock files
+deliverables/review/
+~$*.docx
 
 # Runtime data
 backend/uploads/*

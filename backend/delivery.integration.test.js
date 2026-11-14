@@ -18,9 +18,23 @@ const fixtures=[['farm','FARM','Org1MSP','FARMER'],['processor','PROCESSING_FACI
 async function call(endpoint,token,method='GET',body){const response=await fetch(base+endpoint,{method,headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{})},...(body?{body:JSON.stringify(body)}:{})});return {status:response.status,body:response.status===204?null:await response.json()};}
 async function login(username,secret=password){const result=await call('/auth/login',null,'POST',{username,password:secret});assert.equal(result.status,200,JSON.stringify(result.body));return result.body;}
 async function invite(actor,username,role,organizationId){const invited=await call('/users/invitations',actor,'POST',{username,role,organizationId,email:`${username}@qa.invalid`,fullName:`Kiểm thử ${username}`,regionCode:'TG-001'});assert.equal(invited.status,201,JSON.stringify(invited.body));assert.equal((await call('/auth/accept-invitation',null,'POST',{token:invited.body.activationToken,password})).status,204);return login(username);}
-async function deny(name,endpoint,token,body,status){const result=await call(endpoint,token,'POST',body);assert.equal(result.status,status,JSON.stringify(result.body));evidence.rejections.push({name,source:'API',status:result.status,code:result.body.code});}
-async function deniedByLedger(name,who,eventType,code){await assert.rejects(fabric.submitEvent(lot.lotId,{eventType,actorRole:users[who].role,location:'QA',previousEventId:lot.lastEventId,data:{}},users[who]),error=>error.details?.some(detail=>detail.message.includes(code)));evidence.rejections.push({name,source:'CHAINCODE',code});}
-async function record(who,eventType,data={},destination){const endpoint=workflow.requests.includes(eventType)?'handover/request':workflow.confirmations.includes(eventType)?'handover/confirm':'events';const start=performance.now();const result=await call(`/lots/${lot.lotId}/${endpoint}`,tokens[who],'POST',{eventType,location:'Địa điểm QA',previousEventId:lot.lastEventId,data,...(destination?{toOrganizationId:companies[destination],toRegion:'TG-001'}:{})});assert.equal(result.status,201,JSON.stringify(result.body));lot=result.body;assert.match(lot.lastEventId,/^[a-f0-9]{64}$/);evidence.commits.push({eventType,transactionId:lot.lastEventId,status:lot.status,apiCommitLatencyMs:Math.round(performance.now()-start)});return lot;}
+async function snapshot(){
+ if(!lot)return null;
+ const [state,history,[projection],[scope],[events]]=await Promise.all([fabric.readLot(lot.lotId),fabric.history(lot.lotId),db.execute('SELECT projection_json FROM fabric_projections WHERE lot_id=?',[lot.lotId]),db.execute('SELECT * FROM lot_business_scopes WHERE lot_id=?',[lot.lotId]),db.execute('SELECT * FROM trace_events WHERE lot_id=? ORDER BY event_id',[lot.lotId])]);
+ return {state,history,projection,scope,events};
+}
+async function deny(name,endpoint,token,body,status){const before=await snapshot();const result=await call(endpoint,token,'POST',body);assert.equal(result.status,status,JSON.stringify(result.body));assert.deepEqual(await snapshot(),before,`${name} changed ledger or projection`);evidence.rejections.push({name,source:'API',status:result.status,code:result.body.code,reason:result.body.message || result.body.error,historyAndProjectionUnchanged:Boolean(before)});}
+async function deniedByLedger(name,who,eventType,code,overrides={}){const before=await snapshot();await assert.rejects(fabric.submitEvent(lot.lotId,{eventType,actorRole:users[who].role,location:'QA',previousEventId:lot.lastEventId,data:{},...overrides},users[who]),error=>error.details?.some(detail=>detail.message.includes(code)));assert.deepEqual(await snapshot(),before,`${name} changed ledger or projection`);evidence.rejections.push({name,source:'CHAINCODE',code,historyAndProjectionUnchanged:true});}
+async function record(who,eventType,data={},destination){
+ const endpoint=workflow.requests.includes(eventType)?'handover/request':workflow.confirmations.includes(eventType)?'handover/confirm':'events';const start=performance.now();
+ const payload={eventType,location:'Địa điểm QA',previousEventId:lot.lastEventId,data,...(destination?{toOrganizationId:companies[destination],toRegion:'TG-001'}:{})};
+ const result=await call(`/lots/${lot.lotId}/${endpoint}`,tokens[who],'POST',payload);assert.equal(result.status,201,JSON.stringify(result.body));lot=result.body;assert.match(lot.lastEventId,/^[a-f0-9]{64}$/);evidence.commits.push({eventType,transactionId:lot.lastEventId,status:lot.status,apiCommitLatencyMs:Math.round(performance.now()-start)});
+ if(workflow.requests.includes(eventType)||workflow.confirmations.includes(eventType)){
+  await deny(`duplicate ${eventType}`,`/lots/${lot.lotId}/${endpoint}`,tokens[who],payload,409);
+  await deniedByLedger(`duplicate ${eventType} on ledger`,who,eventType,'FSM_INVALID',{data:lot.events.at(-1).data});
+ }
+ return lot;
+}
 before(async()=>{
  if(!enabled)return;
  assert.equal(process.env.FABRIC_ENABLED,'true');await storage.connect();assert.equal((await fabric.readiness()).ready,true);
@@ -54,11 +68,14 @@ test('delivery: hierarchy to full 11-event supply chain, committed ledger histor
  await deny('duplicate lot','/lots',tokens.farm,input,409);
  await deniedByLedger('wrong role on ledger','farm','CTE_PROCESS','RBAC_DENIED');
  await deniedByLedger('receive without handover on ledger','processor','CTE_RECEIVE_PROCESSOR','FSM_INVALID');
+ await deniedByLedger('missing location on ledger','farm','CTE_HARVEST','KDE_REQUIRED',{location:'',data:{quantity:100,unit:'kg'}});
+ await deniedByLedger('missing quantity on ledger','farm','CTE_HARVEST','QUANTITY');
  await deny('receive without handover',`/lots/${lot.lotId}/handover/confirm`,tokens.processor,{eventType:'CTE_RECEIVE_PROCESSOR',location:'QA',previousEventId:lot.lastEventId},409);
  await record('farm','CTE_HARVEST',{quantity:100,unit:'kg'});
  const sender=lot.currentHolderOrganizationId;await record('farm','CTE_HANDOVER_PROCESSOR',{},'processor');assert.equal(lot.currentHolderOrganizationId,sender);
  await record('processor','CTE_RECEIVE_PROCESSOR');assert.equal(lot.currentHolderOrganizationId,companies.processor);
  await deny('quality cannot be bypassed',`/lots/${lot.lotId}/events`,tokens.processor,{eventType:'CTE_PROCESS',location:'QA',previousEventId:lot.lastEventId,data:{quantity:95,unit:'kg',qualityResult:'FAIL'}},400);
+ await deniedByLedger('quality failure on ledger','processor','CTE_PROCESS','QUALITY',{data:{quantity:95,unit:'kg',qualityResult:'FAIL'}});
  await record('processor','CTE_PROCESS',{quantity:95,unit:'kg',qualityResult:'PASS'});
  await record('processor','CTE_HANDOVER_SHIP',{},'driver');
  await deniedByLedger('other business in same MSP cannot receive','otherDriver','CTE_RECEIVE_SHIP','WRONG_RECEIVER');
@@ -67,6 +84,7 @@ test('delivery: hierarchy to full 11-event supply chain, committed ledger histor
  await record('driver','CTE_RECEIVE_SHIP');assert.equal(lot.currentHolderOrganizationId,companies.driver);
  const previous=lot.lastEventId;await record('driver','CTE_TRANSPORT',{temperature:8.2,humidity:72});
  await deny('replayed transport event',`/lots/${lot.lotId}/events`,tokens.driver,{eventType:'CTE_TRANSPORT',location:'QA',previousEventId:previous,data:{temperature:8.2,humidity:72}},409);
+ await deniedByLedger('stale head on ledger','driver','CTE_TRANSPORT','PREVIOUS_EVENT',{previousEventId:previous,data:{temperature:8.2,humidity:72}});
  await record('driver','CTE_HANDOVER_RETAIL',{},'distributor');await record('distributor','CTE_DISPATCH_RETAIL',{quantity:95,unit:'kg'});await record('distributor','CTE_DISPLAY_SALE',{qualityResult:'PASS'});
  assert.equal(lot.status,'READY_FOR_SALE');assert.equal(lot.events.length,11);assert.equal(lot.ownerOrganizationId,companies.farm);assert.equal(lot.currentHolderOrganizationId,companies.distributor);
  const history=await fabric.history(lot.lotId);assert.deepEqual(history,lot.events);assert.equal(new Set(history.map(event=>event.eventId)).size,11);
