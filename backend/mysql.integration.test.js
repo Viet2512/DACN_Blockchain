@@ -141,6 +141,17 @@ test('real MySQL: concurrent writers reject stale lastEventId and SQL failure ro
   assert.equal((await call(`/lots/${lot.lotId}/events`, users.farmer, 'POST', {eventType: 'CTE_HANDOVER_PROCESSOR', location:'QA',previousEventId:lot.lastEventId,toOrganizationId:businesses.PROCESSOR,toRegion:'TEST'})).status, 201);
 });
 
+test('real MySQL: independent concurrent lots persist once, including their audit records', {skip: !enabled}, async () => {
+  const lots = Array.from({length: 8}, (_, index) => domain.createLot({lotId: `MYSQL-PARALLEL-${index}`, productName: 'QA', origin: 'QA', harvestDate: '2026-11-06', location: 'QA', regionCode: 'TEST', actorId: 'farmer', actorRole: 'FARMER', organizationId: businesses.FARMER, processorOrganizationId: businesses.PROCESSOR, distributorOrganizationId: businesses.DISTRIBUTOR}, false));
+  const results = await Promise.allSettled(lots.map(lot => storage.saveLot(lot, null, {actorUsername: 'farmer', action: 'CTE_CREATE'})));
+  assert.ok(results.every(result => result.status === 'fulfilled'), JSON.stringify(results.map(result => result.reason?.code)));
+  for (const lot of lots) {
+    assert.equal((await storage.getLot(lot.lotId)).lastEventId, lot.lastEventId);
+    const [[counts]] = await db.execute('SELECT (SELECT COUNT(*) FROM trace_events WHERE lot_id=?) AS events, (SELECT COUNT(*) FROM audit_log WHERE target_ref=?) AS audits', [lot.lotId, lot.lotId]);
+    assert.deepEqual(counts, {events: 1, audits: 1});
+  }
+});
+
 test('real MySQL: business logs, role revocation, malformed files and change password', {skip: !enabled}, async () => {
   const id = 'MYSQL-CONCURRENT';
   const log = {occurredAt: '2026-11-06T00:00:00Z', activity: 'Tưới nước', note: 'Off-chain QA'};

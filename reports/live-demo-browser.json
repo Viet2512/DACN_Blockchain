@@ -1,0 +1,166 @@
+{
+  "lotId": "TC-LIVE-V1-025",
+  "uiCommits": [
+    {
+      "eventType": "CTE_CREATE",
+      "txId": "88ffc65091b6a7692ffe10e605654c2243e433e2866e095a78881ddc0c424346",
+      "status": "CREATED",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HARVEST",
+      "txId": "0a739a7743174ee16b3ddcbe489ca52a63d021af4c158f810cf4a0f38d882f95",
+      "status": "HARVESTED",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HANDOVER_PROCESSOR",
+      "txId": "6211d3256fc141d570fe8b1993d714652940033aa737cd794372aae02f4e0656",
+      "status": "WAITING_PROCESSOR",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_RECEIVE_PROCESSOR",
+      "txId": "15b452a749405b654fb02b59c705b9bb5e1582dd2dce0cfba1a0572d0c4b8dad",
+      "status": "RECEIVED_PROCESSOR",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_PROCESS",
+      "txId": "2410b3d9ce8d13b1ec2a8aa78822da21733ebcd3e59f5b4fcb0bc5c672ea916f",
+      "status": "PROCESSED",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HANDOVER_SHIP",
+      "txId": "538a5f681c8b15d4f782e1dda1ca8f89285b7d62d5e9b51924e999cd2d50ab1e",
+      "status": "WAITING_SHIP",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_RECEIVE_SHIP",
+      "txId": "4b2466ddb2f097bbe8329f8bdcd5d765cc8180da96b33b4179b99c9f967d38c0",
+      "status": "IN_TRANSIT",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_TRANSPORT",
+      "txId": "c8f015846687c96c11e205e11d24106982bedb6e13bb856776da9658f43c05b8",
+      "status": "IN_TRANSIT",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_HANDOVER_RETAIL",
+      "txId": "c2e9e35e59a3d1e8a7d1e951145640e431c95857976117b9bad869812e69fb14",
+      "status": "WAITING_RETAIL",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_DISPATCH_RETAIL",
+      "txId": "46a8d7318cde08210dd3ef67eee7d09b396d1a301a9ea6121d0d5321f0696ab5",
+      "status": "IN_RETAIL",
+      "source": "NATIVE_UI"
+    },
+    {
+      "eventType": "CTE_DISPLAY_SALE",
+      "txId": "0c6afba90f88984bd645a4f6f787c325df1dcb8e7f9a9a00661c671c99fd1e8e",
+      "status": "READY_FOR_SALE",
+      "source": "NATIVE_UI"
+    }
+  ],
+  "rejections": [
+    {
+      "eventType": "CTE_HANDOVER_PROCESSOR",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_RECEIVE_PROCESSOR",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_HANDOVER_SHIP",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_RECEIVE_SHIP",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_HANDOVER_RETAIL",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    },
+    {
+      "eventType": "CTE_DISPATCH_RETAIL",
+      "status": 409,
+      "reason": "Event does not match current lot state",
+      "historyUnchanged": true,
+      "source": "LIVE_API"
+    }
+  ],
+  "runs": [
+    {
+      "checkedAt": "2026-11-15T12:34:13.830Z",
+      "beforeEvents": 2,
+      "afterEvents": 11,
+      "addedEvents": 9
+    },
+    {
+      "checkedAt": "2026-11-15T12:35:14.889Z",
+      "beforeEvents": 11,
+      "afterEvents": 11,
+      "addedEvents": 0
+    }
+  ],
+  "offChainRecords": [
+    {
+      "lotId": "TC-LIVE-V1-025",
+      "type": "quality-checks",
+      "source": "NATIVE_UI"
+    },
+    {
+      "lotId": "TC-LIVE-V1-025",
+      "type": "transport-logs",
+      "source": "NATIVE_UI"
+    },
+    {
+      "lotId": "TC-LIVE-V1-025",
+      "type": "cultivation-logs",
+      "source": "NATIVE_UI"
+    },
+    {
+      "lotId": "TC-LIVE-V1-001",
+      "type": "incidents",
+      "source": "NATIVE_UI"
+    }
+  ],
+  "documentUploadDownload": "PASS",
+  "documentAnchoredToHarvest": "PASS",
+  "recallCommits": [
+    {
+      "lotId": "TC-LIVE-V1-001",
+      "txId": "ca8fb17f1d32db0eb2ae85dca90c50737b7ca16247f09cb056c08e0bae69694c",
+      "source": "NATIVE_UI"
+    }
+  ],
+  "recallBlocksFurtherEvents": "PASS",
+  "qrUrl": "http://10.239.60.19:3001/trace/TC-LIVE-V1-025",
+  "publicMobile": "PASS",
+  "phone": "NOT VERIFIED",
+  "sameOriginApi": "PASS",
+  "publicRecallWarning": "PASS"
+}

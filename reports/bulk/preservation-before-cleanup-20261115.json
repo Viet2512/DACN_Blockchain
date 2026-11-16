@@ -1,0 +1,26 @@
+{
+  "lots": {
+    "rows": 36,
+    "sha256": "1e562b1d6c4be860615d4bf51d1c8111e6a462aca08acccb324664a41bc0c12b"
+  },
+  "trace_events": {
+    "rows": 210,
+    "sha256": "77c5f1a9a7455b3a744f1d5393efcdad04ab425417f0041d59bfbf06d1c2572b"
+  },
+  "event_documents": {
+    "rows": 6,
+    "sha256": "11262a2f4e72900638c8d74b20b83eb0affc7bef924ea7d1d562a44b6c33496b"
+  },
+  "lot_business_scopes": {
+    "rows": 36,
+    "sha256": "d4c1427a20aca4dcb572b608981e94523f872827a9e4e5007bbed60b2bc52f9a"
+  },
+  "fabric_projections": {
+    "rows": 29,
+    "sha256": "cdfb74350dea83224fdf007176801459811261cabfbcf99c3c7723efc5395cc7"
+  },
+  "lot_records": {
+    "rows": 57,
+    "sha256": "7bdb7e1e598ca212d524005dae06d14cb1dacbd6d127e1e23a46acd93090dcb9"
+  }
+}

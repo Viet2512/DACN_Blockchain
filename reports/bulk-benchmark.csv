@@ -1,0 +1,9 @@
+metric,value
+verified_lots,100
+verified_business_commits,1100
+verified_documents,100
+fresh_batch_lots,80
+fresh_batch_concurrency,8
+fresh_batch_business_commits,880
+fresh_batch_elapsed_ms,239829
+fresh_batch_committed_tps,3.669281029400114

@@ -1,0 +1,22 @@
+{
+  "lotId": "TC-LIVE-V1-025",
+  "input": {
+    "lotId": "TC-LIVE-V1-025",
+    "productName": "Xoài kiểm chứng demo mới",
+    "origin": "Vùng trồng Cái Bè, Tiền Giang · mô phỏng",
+    "harvestDate": "2026-11-15",
+    "location": "Nông hộ demo mới",
+    "regionCode": "TG-001",
+    "processorOrganizationId": "ed9d3a2a-ea54-4af6-94a4-e1839b9774a8",
+    "distributorOrganizationId": "92870bc7-1f61-49f8-88ec-2222af5db187"
+  },
+  "actors": {
+    "farmer": "tc_nv_sanxuat03",
+    "processor": "tc_nv_soche03",
+    "transporter": "tc_nv_vanchuyen03",
+    "distributor": "tc_nv_phanphoi03"
+  },
+  "qrUrl": "http://10.239.60.19:3001/trace/TC-LIVE-V1-025",
+  "documentHash": "bf862b4ccfc80baaacb126a3fef6a74dde8c3a9c0a9ab3a3c01b4652c0cad3c5",
+  "recallLotId": "TC-LIVE-V1-001"
+}

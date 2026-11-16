@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-14T16:54:33.364Z",
+  "checkedAt": "2026-11-15T12:38:45.688Z",
   "restartRequested": false,
   "docker": "29.8.2",
   "dependencies": {
@@ -16,9 +16,9 @@
     {
       "mspId": "Org1MSP",
       "info": {
-        "height": 769,
-        "currentBlockHash": "Csex0jnaaJZbnNBL1R/bIS6lsdN1tA7ofaMDBO9+jO0=",
-        "previousBlockHash": "cAU+cRYhyhatGzyrgyJyrX+xHBB6lKQKJ66a0QiCBOw="
+        "height": 1051,
+        "currentBlockHash": "K1n64NcW3gcGeVpmjQf405AL7OPrf69zOn+GA0vUYJE=",
+        "previousBlockHash": "Kp4OT6ylu/BPtQoNVgSB97f/OQ3KwhssC3Ovwpih2Q8="
       },
       "definition": {
         "sequence": 6,
@@ -37,9 +37,9 @@
     {
       "mspId": "Org2MSP",
       "info": {
-        "height": 769,
-        "currentBlockHash": "Csex0jnaaJZbnNBL1R/bIS6lsdN1tA7ofaMDBO9+jO0=",
-        "previousBlockHash": "cAU+cRYhyhatGzyrgyJyrX+xHBB6lKQKJ66a0QiCBOw="
+        "height": 1051,
+        "currentBlockHash": "K1n64NcW3gcGeVpmjQf405AL7OPrf69zOn+GA0vUYJE=",
+        "previousBlockHash": "Kp4OT6ylu/BPtQoNVgSB97f/OQ3KwhssC3Ovwpih2Q8="
       },
       "definition": {
         "sequence": 6,
@@ -58,9 +58,9 @@
     {
       "mspId": "Org3MSP",
       "info": {
-        "height": 769,
-        "currentBlockHash": "Csex0jnaaJZbnNBL1R/bIS6lsdN1tA7ofaMDBO9+jO0=",
-        "previousBlockHash": "cAU+cRYhyhatGzyrgyJyrX+xHBB6lKQKJ66a0QiCBOw="
+        "height": 1051,
+        "currentBlockHash": "K1n64NcW3gcGeVpmjQf405AL7OPrf69zOn+GA0vUYJE=",
+        "previousBlockHash": "Kp4OT6ylu/BPtQoNVgSB97f/OQ3KwhssC3Ovwpih2Q8="
       },
       "definition": {
         "sequence": 6,
@@ -95,64 +95,64 @@
       "sha256": "6217acb325689ce59e57b8781b9d16d468371317653ff66ad803f94d42d6031d"
     },
     "actor_roles": {
-      "rows": 18,
-      "sha256": "9d196f81504840c7aff27888e06254e7f153f110e0198ee285e6c539c8a57655"
+      "rows": 22,
+      "sha256": "8373d85819a3168516023bd30011b43956bac11b2a17bf5c6e185c222b610565"
     },
     "actors": {
-      "rows": 18,
-      "sha256": "94f2a175a57b18c57d7a01e5135d31ab5cd23fd4766682bee9f1dad3649a7fdb"
+      "rows": 22,
+      "sha256": "275b6b5d02025b8072fea9835ecb0b47407a3272910f1d6b17d8f0306c4068db"
     },
     "application_user_profiles": {
-      "rows": 27,
-      "sha256": "98cd4faaaeaec08748999807ec88a7cb6d1303a5479c7087584a973cca191c90"
+      "rows": 31,
+      "sha256": "e4b45061a91558b6866b3537c787923ffb75e61e1cb96e17b592cfa49ba7f679"
     },
     "audit_log": {
-      "rows": 277,
-      "sha256": "729065572c0c8ef243d27087da89652ff5b3b5bb195d3bf0e5d13ad87128a223"
+      "rows": 1755,
+      "sha256": "e8ab4cb0b1db5bacb6de8570b9b8ea630f314cdda34ce0bc57aa267b5e1f0333"
     },
     "business_organizations": {
       "rows": 12,
       "sha256": "1133a51b3232cf8b79d982e8746ea8f033ebb95ac46b459adf3766eaaba27be6"
     },
     "event_documents": {
-      "rows": 6,
-      "sha256": "11262a2f4e72900638c8d74b20b83eb0affc7bef924ea7d1d562a44b6c33496b"
+      "rows": 101,
+      "sha256": "28756498b03b494a298123235619159ba897614087a3b3a645a99ccb912c5a10"
     },
     "fabric_identities": {
-      "rows": 17,
-      "sha256": "63ec4980a21bf2bc4c552105e70b230c5a3fcbd3a0e75c735eaf8939b1bb7e4d"
+      "rows": 21,
+      "sha256": "1bfa519549864d4869848ff8877c51651cb7f14098a139f309dda60034121a23"
     },
     "fabric_identity_requests": {
-      "rows": 11,
-      "sha256": "df172dc0d3ea1e75b842af8d69d2938697d150b7c0fb7c75ad8f526efa0faf5b"
+      "rows": 15,
+      "sha256": "3cf9a308186d2cd8329557c00e2a03815f01450387e44615ec49660f84d141ea"
     },
     "fabric_organizations": {
       "rows": 3,
       "sha256": "8ee61f58ce519f7829e0c029238516da436e0ba3a6bfa88c60fc9b580de2a68a"
     },
     "fabric_projections": {
-      "rows": 29,
-      "sha256": "cdfb74350dea83224fdf007176801459811261cabfbcf99c3c7723efc5395cc7"
+      "rows": 150,
+      "sha256": "1ad7ca012b1f01014a923ad9306a6d5c7433a122c999287a07106f7843816224"
     },
     "identity_audit_logs": {
-      "rows": 370,
-      "sha256": "4d7b1ba75833a4e2fa989ba1d94f23be8c72ae49aaa9789c40d7987702881760"
+      "rows": 1884,
+      "sha256": "23608129201a6a30024adbaa8f052723b6f8abb256d8b53c083b08d9a71d16fc"
     },
     "local_projections": {
       "rows": 0,
       "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
     },
     "lot_business_scopes": {
-      "rows": 36,
-      "sha256": "d4c1427a20aca4dcb572b608981e94523f872827a9e4e5007bbed60b2bc52f9a"
+      "rows": 150,
+      "sha256": "1f0c837456429fa70ca9216ac927b0b5ca01891fa58031d031433faa8769c03b"
     },
     "lot_records": {
-      "rows": 57,
-      "sha256": "7bdb7e1e598ca212d524005dae06d14cb1dacbd6d127e1e23a46acd93090dcb9"
+      "rows": 244,
+      "sha256": "b3653a99d366f00fb529fc1ef58932cc0ec61e22a24d06f0f2c17525d016dd30"
     },
     "lots": {
-      "rows": 36,
-      "sha256": "4b817f6c15e28da298ad034fc7510a95dbfeb04e170b2b138ca35118b4b5ade0"
+      "rows": 150,
+      "sha256": "33397198745d3e3cf663c144606643ef27cd434786c55fc74da153f9fa2541b9"
     },
     "organizations": {
       "rows": 3,
@@ -163,8 +163,8 @@
       "sha256": "852af249b9c358b5ba5ba145a07f8f48fba3baf860643278ce8ed31e50ae3604"
     },
     "request_failures": {
-      "rows": 33,
-      "sha256": "d22cc2eb6bade0911c2075c201493ef9c3b8c81e6d80b1a6693d6e02265f7643"
+      "rows": 58,
+      "sha256": "43a4764e7102056ddaf7e327d4e2f94103e8b2923e36777316d008b3e0fdfdca"
     },
     "role_permissions": {
       "rows": 62,
@@ -175,16 +175,16 @@
       "sha256": "7618b8ba10679871073c1ce41361675fc7823a17fba43c1f8b6c372bbf52b176"
     },
     "trace_events": {
-      "rows": 210,
-      "sha256": "77c5f1a9a7455b3a744f1d5393efcdad04ab425417f0041d59bfbf06d1c2572b"
+      "rows": 1405,
+      "sha256": "f84b205f71955732a8bfcf7b0f44c90b838b87bf3fc8b9ba483f6abe5ecdb443"
     },
     "user_accounts": {
-      "rows": 27,
-      "sha256": "c010bb95860938cb66ab377a48072bf58d4d8d47507e4c91e2d05177f0a8e18f"
+      "rows": 31,
+      "sha256": "99ed7e05dce08b44135c89f0ea21c89a9ddad37a36ad1c15b0a0c486954de7af"
     },
     "user_actor_mappings": {
-      "rows": 18,
-      "sha256": "cc4f22c093e2bff58e9dd62b02a484847b5fcca3ee76671294e954741684004f"
+      "rows": 22,
+      "sha256": "bfd0f0e372f282f4ca8c5147932b2a3db725a165a0d894290781745d024d76ba"
     }
   },
   "containers": [

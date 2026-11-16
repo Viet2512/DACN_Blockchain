@@ -1,5 +1,7 @@
 # TraceChain — hướng dẫn bảo vệ đồ án
 
+> **Hiện hành 15/11/2026:** dùng [bộ dữ liệu mới và bảng lô có thể thao tác tiếp](docs/LIVE_DEMO_20261117.md). App có 150 lô/1.405 CTE/101 chứng từ; 17 tài khoản demo chính đã kiểm đăng nhập. Đã dọn 11 lô cũ theo yêu cầu và khóa tám account cũ. Phần hướng dẫn/snapshot bên dưới được giữ theo thời điểm của nó.
+
 > **Bản dùng cho bảo vệ, cập nhật 14/11/2026:** xem [bảng nghiệm thu và việc còn chặn](docs/ACCEPTANCE_20261114.md), [snapshot lô hiện tại](reports/completion-20261114/demo-verify.json) và [bằng chứng 11 CTE qua UI QA](reports/completion-20261114/browser-ui.json). Các snapshot 07–10/11 được giữ nguyên, không thay thế kết quả lượt này.
 
 Dataset **TC-DEMO-V1** tách khỏi dữ liệu cũ. Dữ liệu mẫu mô phỏng nghiệp vụ; giao dịch Fabric là thật. Không reset database, ledger hoặc volume.

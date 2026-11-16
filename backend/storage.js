@@ -234,60 +234,65 @@ async function saveActor(actor) {
 
 async function saveLot(lot, expectedPrevious, audit) {
   if (!pool) return;
-  const connection = await pool.getConnection();
-  try {
-    await connection.beginTransaction();
-    const [heads] = await connection.execute('SELECT last_event_id AS lastEventId FROM lots WHERE lot_id = ? FOR UPDATE', [lot.lotId]);
-    if (expectedPrevious !== undefined && ((heads[0]?.lastEventId || null) !== (expectedPrevious || null) || (expectedPrevious === null && heads.length))) {
-      throw Object.assign(new Error('Lot changed; reload the latest history'), {statusCode: 409});
-    }
-
-    await connection.execute(
-      `INSERT INTO lots (lot_id, product_name, origin, harvest_date, status, current_holder, created_at, last_event_id, region_code)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-       ON DUPLICATE KEY UPDATE product_name=VALUES(product_name), origin=VALUES(origin),
-       harvest_date=VALUES(harvest_date), status=VALUES(status), current_holder=VALUES(current_holder),
-       last_event_id=VALUES(last_event_id), region_code=VALUES(region_code)`,
-      [lot.lotId, lot.productName, lot.origin, lot.harvestDate, lot.status, lot.currentHolder, mysqlDate(lot.createdAt), lot.lastEventId, lot.regionCode || 'GLOBAL'],
-    );
-    const [storedEvents] = await connection.execute(
-      'SELECT event_id AS eventId, data_hash AS dataHash, integrity_hash AS integrityHash FROM trace_events WHERE lot_id = ?', [lot.lotId],
-    );
-    const existing = new Map(storedEvents.map(event => [event.eventId, event]));
-    for (const event of lot.events) {
-      const saved = existing.get(event.eventId);
-      if (saved) {
-        if (saved.dataHash !== event.dataHash || saved.integrityHash !== (event.integrityHash || null)) {
-          throw Object.assign(new Error('Stored event hashes cannot be overwritten'), {statusCode: 409});
-        }
-        continue;
+  for (let attempt = 0; ; attempt++) {
+    const connection = await pool.getConnection();
+    try {
+      await connection.beginTransaction();
+      const [heads] = await connection.execute('SELECT last_event_id AS lastEventId FROM lots WHERE lot_id = ? FOR UPDATE', [lot.lotId]);
+      if (expectedPrevious !== undefined && ((heads[0]?.lastEventId || null) !== (expectedPrevious || null) || (expectedPrevious === null && heads.length))) {
+        throw Object.assign(new Error('Lot changed; reload the latest history'), {statusCode: 409});
       }
-      await connection.execute(
-        `INSERT INTO trace_events
-        (event_id, lot_id, event_type, event_timestamp, location, actor_id, actor_role, actor_region, previous_event_id, data_json, data_hash, integrity_hash, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [event.eventId, lot.lotId, event.eventType, mysqlDate(event.timestamp), event.location, event.actorId, event.actorRole,
-          event.actorRegion || lot.regionCode || 'GLOBAL', event.previousEventId, JSON.stringify(event.data), event.dataHash, event.integrityHash || null, mysqlDate(new Date())],
-      );
-    }
-    if (lot.ownerOrganizationId) await connection.execute('INSERT INTO lot_business_scopes(lot_id,owner_organization_id,processor_organization_id,distributor_organization_id,current_holder_organization_id,pending_to_organization_id) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE current_holder_organization_id=VALUES(current_holder_organization_id),pending_to_organization_id=VALUES(pending_to_organization_id)', [lot.lotId,lot.ownerOrganizationId,lot.processorOrganizationId,lot.distributorOrganizationId,lot.currentHolderOrganizationId,lot.pendingToOrganizationId || null]);
-    if (lot.schemaVersion === 4 && lot.source !== 'FABRIC') await connection.execute('INSERT INTO local_projections(lot_id,projection_json) VALUES (?,?) ON DUPLICATE KEY UPDATE projection_json=VALUES(projection_json)',[lot.lotId,JSON.stringify(lot)]);
-    if (lot.source === 'FABRIC') await connection.execute('INSERT INTO fabric_projections (lot_id,channel_name,chaincode_name,projection_json) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE projection_json=VALUES(projection_json)', [lot.lotId, process.env.FABRIC_CHANNEL || 'tracechannel-v2', process.env.FABRIC_CHAINCODE || 'traceability_v2', JSON.stringify(lot)]);
-    const latest = lot.events.at(-1);
-    for (const anchored of expectedPrevious === undefined ? [] : lot.events.filter(event=>event.data?.documentHash)) {
 
-      const [documents] = await connection.execute('SELECT document_id FROM event_documents WHERE lot_id = ? AND file_hash = ? AND (event_id IS NULL OR event_id = ?) FOR UPDATE', [lot.lotId, anchored.data.documentHash, anchored.eventId]);
-      if (!documents.length) throw Object.assign(new Error('Document hash is not an available document of this lot'), {statusCode: 400});
-      await connection.execute('UPDATE event_documents SET event_id = ? WHERE lot_id = ? AND file_hash = ? AND event_id IS NULL', [anchored.eventId, lot.lotId, anchored.data.documentHash]);
+      await connection.execute(
+        `INSERT INTO lots (lot_id, product_name, origin, harvest_date, status, current_holder, created_at, last_event_id, region_code)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE product_name=VALUES(product_name), origin=VALUES(origin),
+         harvest_date=VALUES(harvest_date), status=VALUES(status), current_holder=VALUES(current_holder),
+         last_event_id=VALUES(last_event_id), region_code=VALUES(region_code)`,
+        [lot.lotId, lot.productName, lot.origin, lot.harvestDate, lot.status, lot.currentHolder, mysqlDate(lot.createdAt), lot.lastEventId, lot.regionCode || 'GLOBAL'],
+      );
+      const [storedEvents] = await connection.execute(
+        'SELECT event_id AS eventId, data_hash AS dataHash, integrity_hash AS integrityHash FROM trace_events WHERE lot_id = ?', [lot.lotId],
+      );
+      const existing = new Map(storedEvents.map(event => [event.eventId, event]));
+      for (const event of lot.events) {
+        const saved = existing.get(event.eventId);
+        if (saved) {
+          if (saved.dataHash !== event.dataHash || saved.integrityHash !== (event.integrityHash || null)) {
+            throw Object.assign(new Error('Stored event hashes cannot be overwritten'), {statusCode: 409});
+          }
+          continue;
+        }
+        await connection.execute(
+          `INSERT INTO trace_events
+          (event_id, lot_id, event_type, event_timestamp, location, actor_id, actor_role, actor_region, previous_event_id, data_json, data_hash, integrity_hash, created_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          [event.eventId, lot.lotId, event.eventType, mysqlDate(event.timestamp), event.location, event.actorId, event.actorRole,
+            event.actorRegion || lot.regionCode || 'GLOBAL', event.previousEventId, JSON.stringify(event.data), event.dataHash, event.integrityHash || null, mysqlDate(new Date())],
+        );
+      }
+      if (lot.ownerOrganizationId) await connection.execute('INSERT INTO lot_business_scopes(lot_id,owner_organization_id,processor_organization_id,distributor_organization_id,current_holder_organization_id,pending_to_organization_id) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE current_holder_organization_id=VALUES(current_holder_organization_id),pending_to_organization_id=VALUES(pending_to_organization_id)', [lot.lotId,lot.ownerOrganizationId,lot.processorOrganizationId,lot.distributorOrganizationId,lot.currentHolderOrganizationId,lot.pendingToOrganizationId || null]);
+      if (lot.schemaVersion === 4 && lot.source !== 'FABRIC') await connection.execute('INSERT INTO local_projections(lot_id,projection_json) VALUES (?,?) ON DUPLICATE KEY UPDATE projection_json=VALUES(projection_json)',[lot.lotId,JSON.stringify(lot)]);
+      if (lot.source === 'FABRIC') await connection.execute('INSERT INTO fabric_projections (lot_id,channel_name,chaincode_name,projection_json) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE projection_json=VALUES(projection_json)', [lot.lotId, process.env.FABRIC_CHANNEL || 'tracechannel-v2', process.env.FABRIC_CHAINCODE || 'traceability_v2', JSON.stringify(lot)]);
+      const latest = lot.events.at(-1);
+      for (const anchored of expectedPrevious === undefined ? [] : lot.events.filter(event=>event.data?.documentHash)) {
+
+        const [documents] = await connection.execute('SELECT document_id FROM event_documents WHERE lot_id = ? AND file_hash = ? AND (event_id IS NULL OR event_id = ?) FOR UPDATE', [lot.lotId, anchored.data.documentHash, anchored.eventId]);
+        if (!documents.length) throw Object.assign(new Error('Document hash is not an available document of this lot'), {statusCode: 400});
+        await connection.execute('UPDATE event_documents SET event_id = ? WHERE lot_id = ? AND file_hash = ? AND event_id IS NULL', [anchored.eventId, lot.lotId, anchored.data.documentHash]);
+      }
+      if (audit) await insertIdentityAudit(connection,audit,audit.action,'lot',lot.lotId,{eventId: latest?.eventId});
+      if (audit) await connection.execute('INSERT INTO audit_log (actor_username, action_code, target_ref, details_json) VALUES (?, ?, ?, ?)', [audit.actorUsername, audit.action, lot.lotId, JSON.stringify({eventId: latest?.eventId})]);
+      await connection.commit();
+      return;
+    } catch (error) {
+      await connection.rollback();
+      // Retry only the rolled-back SQL transaction; never resubmit a Fabric transaction.
+      if (error.code !== 'ER_LOCK_DEADLOCK' || attempt === 4) throw error;
+    } finally {
+      connection.release();
     }
-    if (audit) await insertIdentityAudit(connection,audit,audit.action,'lot',lot.lotId,{eventId: latest?.eventId});
-    if (audit) await connection.execute('INSERT INTO audit_log (actor_username, action_code, target_ref, details_json) VALUES (?, ?, ?, ?)', [audit.actorUsername, audit.action, lot.lotId, JSON.stringify({eventId: latest?.eventId})]);
-    await connection.commit();
-  } catch (error) {
-    await connection.rollback();
-    throw error;
-  } finally {
-    connection.release();
+    await new Promise(resolve => setTimeout(resolve, 20 * (attempt + 1)));
   }
 }
 

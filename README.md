@@ -28,7 +28,7 @@ Script resume CA/orderer/peer hiện hữu, đặt `unless-stopped` và đợi �
 
 ## Tài khoản demo đang dùng
 
-Lấy mật khẩu từ `DEMO_PASSWORD` trong cấu hình môi trường gốc riêng hoặc password manager; không đưa giá trị vào chat, ảnh hay báo cáo. Nhóm 13 tài khoản dưới đây đã được kiểm tra đăng nhập. Tài khoản lịch sử vẫn được giữ nguyên; đổi biến môi trường không đổi password của account đã có.
+Lấy mật khẩu từ `DEMO_PASSWORD` trong cấu hình môi trường gốc riêng hoặc password manager; không đưa giá trị vào chat, ảnh hay báo cáo. Nhóm 17 tài khoản dưới đây đã được kiểm tra đăng nhập. Tám tài khoản cũ đã bị khóa theo yêu cầu; đổi biến môi trường không đổi password của account đã có.
 
 | Vai trò | Tài khoản |
 |---|---|
@@ -37,12 +37,12 @@ Lấy mật khẩu từ `DEMO_PASSWORD` trong cấu hình môi trường gốc r
 | Quản trị sơ chế | `tc_admin_soche` |
 | Quản trị vận chuyển | `tc_admin_vanchuyen` |
 | Quản trị phân phối | `tc_admin_phanphoi` |
-| Nhân viên sản xuất | `tc_nv_sanxuat01`, `tc_nv_sanxuat02` |
-| Nhân viên sơ chế | `tc_nv_soche01`, `tc_nv_soche02` |
-| Nhân viên vận chuyển | `tc_nv_vanchuyen01`, `tc_nv_vanchuyen02` |
-| Nhân viên phân phối | `tc_nv_phanphoi01`, `tc_nv_phanphoi02` |
+| Nhân viên sản xuất | `tc_nv_sanxuat01`, `tc_nv_sanxuat02`, `tc_nv_sanxuat03` |
+| Nhân viên sơ chế | `tc_nv_soche01`, `tc_nv_soche02`, `tc_nv_soche03` |
+| Nhân viên vận chuyển | `tc_nv_vanchuyen01`, `tc_nv_vanchuyen02`, `tc_nv_vanchuyen03` |
+| Nhân viên phân phối | `tc_nv_phanphoi01`, `tc_nv_phanphoi02`, `tc_nv_phanphoi03` |
 
-**Chốt bảo vệ 17/11:** [Kịch bản 3–5 phút, lô diễn tập và bảng kiểm thử](docs/REHEARSAL_20261117.md). Hướng dẫn thao tác chi tiết và lô dự phòng vẫn ở [DEMO_GUIDE](DEMO_GUIDE.md).
+**Chốt bảo vệ 17/11:** [Bộ dữ liệu mới và lô có thể thao tác tiếp](docs/LIVE_DEMO_20261117.md): 150 lô/1.405 CTE, thêm bốn nhân viên có signer thật và 25 lô mới. [Kịch bản 3–5 phút và bằng chứng diễn tập trước](docs/REHEARSAL_20261117.md) được giữ để đối chiếu.
 
 Dataset `TC-DEMO-V1` có 24 lô và snapshot lịch sử 142 transaction hợp lệ. Lô `TC-DEMO-V1-001` hoàn chỉnh có 11 CTE; `TC-DEMO-V1-022` đã thu hồi. Lô mới `TC-REHEARSAL-20261117-001` dành riêng cho lượt diễn tập; không làm các lô cũ quay về trạng thái seed.
 
@@ -110,7 +110,7 @@ Các suite tích hợp dùng database QA riêng và tự dọn database/user do 
 
 Bộ Word/PDF và nguồn báo cáo cuối kỳ được người dùng tự biên soạn; không được tạo lại khi chạy test/build.
 
-Benchmark hiện có là 33 commit nghiệp vụ tuần tự trên 3 lô, không phải năng lực tải cực đại. Mục tiêu đề cương 100 lô / hơn 600 CTE / 100 chứng từ chưa được nghiệm thu. QR trên điện thoại qua hotspot đã được người dùng xác nhận ngày 15/11; máy sạch và restore đầy đủ vẫn chưa nghiệm thu.
+[Thực nghiệm ngày 15/11](docs/EXPERIMENT_RESULTS.md) đã đạt **100 lô / 1.100 CTE commit VALID / 100 chứng từ mô phỏng**, đối soát Fabric/MySQL/IESH và bảo toàn dữ liệu cũ. Benchmark nhỏ có 33 commit tuần tự; bulk có số đo batch 8 lô đồng thời. Các số đo này không phải năng lực tải cực đại. QR trên điện thoại qua hotspot đã được người dùng xác nhận ngày 15/11; máy sạch và restore đầy đủ vẫn chưa nghiệm thu.
 
 ## Dừng và xử lý sự cố
 

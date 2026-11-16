@@ -1,5 +1,7 @@
 # Chốt diễn tập TraceChain — bảo vệ thứ Ba 17/11/2026
 
+> **Cập nhật sau dọn/thêm dữ liệu ngày 15/11:** ưu tiên [hướng dẫn live mới](./LIVE_DEMO_20261117.md), bốn account nhân viên 03 và bộ lô `TC-LIVE-V1`. Kết quả/đếm dữ liệu của lượt diễn tập trước bên dưới là snapshot lịch sử; tổng app hiện tại là 150 lô/1.405 CTE.
+
 Lượt kiểm tra: đêm 14 sang rạng sáng 15/11/2026 (UTC+7), trên môi trường dev đã khôi phục. Không reset/restore đè MySQL, không deploy lại chaincode, không sửa lô cũ. Chỉ bổ sung fixture diễn tập riêng và các giao dịch QA được yêu cầu.
 
 ## Bản thực sự được kiểm thử
@@ -181,9 +183,7 @@ Lệnh `bash scripts/benchmark-fabric.sh` đã hoàn thành 6/6 test, 0 FAIL, 0 
 
 Nguồn: [JSON benchmark](../reports/fabric-benchmark.json), [CSV](../reports/fabric-benchmark.csv). Có snapshot CPU/RAM. Thời gian workload còn bao gồm ca âm, query, research-key writes và lấy resource sample; **0,373 tx/s không phải TPS cực đại của Fabric**. Mẫu so sánh HASH/IESH chỉ có 3 lượt mỗi mode, không dùng để khẳng định ý nghĩa thống kê hoặc năng lực production. Không dùng tốc độ GET public trace làm TPS commit.
 
-Chỉ tiêu **100 lô / hơn 600 CTE / 100 chứng từ vẫn chưa đạt từ lượt benchmark nhỏ này**. Cách làm tiếp gọn nhất: runner sinh dữ liệu mô phỏng có mã riêng, dùng lại account/identity hiện có; 100 lô hoàn tất đủ 11 CTE sẽ có 1.100 CTE, mỗi lô upload/gắn 1 chứng từ mẫu. Chỉ tính sau khi kiểm commit và liên kết chứng từ thật, không chèn thẳng SQL hoặc chỉ tăng counter.
-
-Có thể chạy song song giữa các lô độc lập, nhưng sự kiện trong mỗi lô phải tuần tự và xử lý kết quả commit chưa rõ trước khi retry. Với số đo tuần tự hiện tại, riêng 1.100 commit khoảng 38 phút chưa kể upload/kiểm tra; mức rút ngắn khi chạy song song phải đo thử, chưa có cam kết thời gian. Chưa chạy bulk seed trong lượt này; cần chốt lưu dataset trong app dev hay chỉ kiểm thử QA tạm.
+**Cập nhật lượt tiếp ngày 15/11:** chỉ tiêu thực nghiệm đã đạt **100 lô / 1.100 CTE / 100 chứng từ mô phỏng** với prefix riêng `TC-DEMO-V1-BULK-` trong app dev. Mỗi TxID được peer xác nhận commit VALID, chứng từ gắn đúng sự kiện thu hoạch và kiểm hash file thật; 36 lô/210 sự kiện cũ được giữ nguyên. Đây là kết quả bulk riêng, không suy ra từ benchmark nhỏ ở bảng trên. Xem [kết quả thực nghiệm và lệnh tái hiện](./EXPERIMENT_RESULTS.md), [tóm tắt lượt resume](../reports/bulk-resume-summary.json) và [bằng chứng từng lô/TxID](../reports/bulk/demo-seed.json).
 
 ## Kiến trúc cần đưa vào báo cáo
 

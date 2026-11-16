@@ -223,8 +223,10 @@ async function verify(admin) {
       assert.equal(documents.valid, true); assert.equal(documents.documents.length, 1);
       assert.equal(documents.documents[0].fileHash, expectedHash);
       assert.equal(documents.documents[0].valid, true);
+      assert.equal(documents.documents[0].eventId, history.find(event => event.eventType === 'CTE_HARVEST').eventId);
       report.documentCount = (report.documentCount || 0) + 1;
       (report.documentHashes ||= []).push(expectedHash);
+      (report.documents ||= []).push({lotId: lot.lotId, eventId: documents.documents[0].eventId, fileHash: expectedHash, valid: true});
     }
     report.lots.push({lotId: lot.lotId, productCode: sample.product.code, status: lot.status, events: history.length, transactionIds: history.map(event => event.eventId), commits, handoverRequests: history.filter(event => workflow.requests.includes(event.eventType)).length, handoverConfirmations: history.filter(event => workflow.confirmations.includes(event.eventType)).length, iesh: 'PASS', mysql: 'PASS', ledger: 'COMMITTED_VALID'});
   }
@@ -285,16 +287,13 @@ async function main() {
     };
     if (bulk) {
       report.batches = [];
+      report.concurrency = 8;
       const batch = async items => {
         const start = performance.now(); await Promise.all(items.map(seed));
         const result = {concurrency: items.length, elapsedMs: Math.round(performance.now() - start), lots: items.length};
         report.batches.push(result); assert.equal(report.errors.length, 0, 'Bulk batch failed; resume after inspecting commit results');
-        return result.lots / result.elapsedMs;
       };
-      const four = await batch(samples.slice(0, 4)), eight = await batch(samples.slice(4, 12));
-      report.concurrency = eight > four * 1.05 ? 8 : 4;
-      console.log(`Bulk selected ${report.concurrency} concurrent lots from measured 4/8-lot batches.`);
-      for (let index = 12; index < samples.length; index += report.concurrency) await batch(samples.slice(index, index + report.concurrency));
+      for (let index = 0; index < samples.length; index += report.concurrency) await batch(samples.slice(index, index + report.concurrency));
     } else {
       for (const sample of samples) await seed(sample);
     }

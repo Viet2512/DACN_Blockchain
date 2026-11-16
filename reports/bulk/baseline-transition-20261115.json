@@ -1,0 +1,57 @@
+{
+  "reason": "User-authorized removal of 11 old SQL lots and addition of 25 live demo lots; immutable ledger history retained.",
+  "previous": "preservation-before-cleanup-20261115.json",
+  "current": "preservation.json",
+  "oldBaseline": {
+    "lots": {
+      "rows": 36,
+      "sha256": "1e562b1d6c4be860615d4bf51d1c8111e6a462aca08acccb324664a41bc0c12b"
+    },
+    "trace_events": {
+      "rows": 210,
+      "sha256": "77c5f1a9a7455b3a744f1d5393efcdad04ab425417f0041d59bfbf06d1c2572b"
+    },
+    "event_documents": {
+      "rows": 6,
+      "sha256": "11262a2f4e72900638c8d74b20b83eb0affc7bef924ea7d1d562a44b6c33496b"
+    },
+    "lot_business_scopes": {
+      "rows": 36,
+      "sha256": "d4c1427a20aca4dcb572b608981e94523f872827a9e4e5007bbed60b2bc52f9a"
+    },
+    "fabric_projections": {
+      "rows": 29,
+      "sha256": "cdfb74350dea83224fdf007176801459811261cabfbcf99c3c7723efc5395cc7"
+    },
+    "lot_records": {
+      "rows": 57,
+      "sha256": "7bdb7e1e598ca212d524005dae06d14cb1dacbd6d127e1e23a46acd93090dcb9"
+    }
+  },
+  "newBaseline": {
+    "lots": {
+      "rows": 50,
+      "sha256": "9478dbac89fa57ed5f933a5762fae687e6a09d9113d514b68257be9c92a58828"
+    },
+    "trace_events": {
+      "rows": 305,
+      "sha256": "9c99765623b0d587416c11ab1582b53b8143ddd9e68a12a27ac9d624d4be8c37"
+    },
+    "event_documents": {
+      "rows": 1,
+      "sha256": "5db576b9065e5a8c8d9d2491c6cf7fa5d039ea87954d1e38ba9ae5b748d3e019"
+    },
+    "lot_business_scopes": {
+      "rows": 50,
+      "sha256": "83df081cf76d84224b7000c9e64b4a06efa095e1bc26d6227f734e3360abb41f"
+    },
+    "fabric_projections": {
+      "rows": 50,
+      "sha256": "a5591121ff4514140ba8f1629752f85aa812cabce0640253a4daf690e6c63c80"
+    },
+    "lot_records": {
+      "rows": 44,
+      "sha256": "483b2574d92af92daffa2e84484dba45285a70eef8cd76ed54a3ba48533392c9"
+    }
+  }
+}
